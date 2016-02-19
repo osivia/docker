@@ -1,0 +1,41 @@
+portal:
+    image: osivia/portal:demo
+    container_name: portal
+    links:
+        - mysql
+        - opendj
+        - cas
+    ports:
+        - "8080"
+mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=osivia
+        - MYSQL_DATABASE=portal
+opendj:
+    image: osivia/opendj
+    container_name: opendj
+    ports:
+        - "389:389"
+cas:
+    image: tomcat:7
+    container_name: cas
+    links:
+        - opendj
+    volumes:
+        - ./cas/cas-config.properties:/root/cas-config.properties
+        - ./cas/cas.war:/usr/local/tomcat/webapps/cas.war
+httpd:
+    image: httpd:2.4
+    container_name: httpd
+    links:
+        - portal
+        - cas
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+        - ./httpd/osivia-portal.conf:/usr/local/apache2/conf/extra/osivia-portal.conf
+

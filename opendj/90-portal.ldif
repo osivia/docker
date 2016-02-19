@@ -1,0 +1,14 @@
+dn: cn=schema
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+cn: schema
+attributeTypes: ( portalPersonProfile-oid NAME 'portalPersonProfile' DESC 'Link person - profile' SUP distinguishedName EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+attributeTypes: ( portalProfileType-oid NAME 'portalProfileType' DESC 'Profile type' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+attributeTypes: ( portalDisplayName-oid NAME 'portalDisplayName' DESC 'Group display name' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+attributeTypes: ( portalExplicitMember-oid NAME 'portalExplicitMember' DESC 'Group explicit member' SUP distinguishedName EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+attributeTypes: ( portalProfilePopulating-oid NAME 'portalProfilePopulating' DESC 'Profile populating type' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+attributeTypes: ( portalExplicitManager-oid NAME 'portalExplicitManager' DESC 'Group explicit manager' SUP distinguishedName EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+objectClasses: ( portalProfile-oid NAME 'portalProfile' DESC 'Profile' SUP groupOfUniqueNames STRUCTURAL MUST ( objectClass $ cn ) MAY ( portalProfileType $ portalDisplayName $ description $ uniqueMember $ portalExplicitMember $ owner $ businessCategory $ portalProfilePopulating $ portalExplicitManager $ seeAlso $ ou $ o ) )
+objectClasses: ( portalPerson-oid NAME 'portalPerson' DESC 'Person' SUP top AUXILIARY MUST objectClass MAY portalPersonProfile )
+
