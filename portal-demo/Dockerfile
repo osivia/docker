@@ -2,32 +2,40 @@ FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
-# Portal user
 ENV PORTAL_USER portal
+ENV PORTAL_HOME /opt/portal
+ENV PORTAL_DISTRIBUTION demo-distribution-dev-4.2.2-SNAPSHOT
+ENV PORTAL_CONF production
+ENV PORTAL_HOST 0.0.0.0
+
+
+# Netcat & locales
+RUN apt-get update \
+    && apt-get install -y netcat \
+    && apt-get install -y locales \
+    && locale-gen C.UTF-8 \
+    && /usr/sbin/update-locale LANG=C.UTF-8 \
+    && apt-get remove -y locales \
+    && apt-get purge -y
+ENV LANG C.UTF-8
+
+# User
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 
-# Portal properties
-ENV PORTAL_PROPERTIES_FILE /home/$PORTAL_USER/portal.properties
-COPY portal.properties /home/portal/portal.properties
-RUN chown portal: /home/portal/portal.properties
+# Properties
+COPY portal.properties /home/$PORTAL_USER/
+COPY run.conf /home/$PORTAL_USER/
+RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 
-# Portal distribution
-ENV PORTAL_DISTRIBUTION demo-distribution-dev-4.2.2-SNAPSHOT
-ENV PORTAL_HOME /opt/portal/jboss-as
-ENV PORTAL_CONF production
-ENV PORTAL_HOST 0.0.0.0
-WORKDIR /opt
-COPY $PORTAL_DISTRIBUTION.zip .
-RUN unzip $PORTAL_DISTRIBUTION.zip && rm -f $PORTAL_DISTRIBUTION.zip
-RUN chmod -R 755 $PORTAL_DISTRIBUTION && chown -R portal: $PORTAL_DISTRIBUTION
-RUN ln -s $PORTAL_DISTRIBUTION portal
-
-
-# Logs
-ENV PORTAL_LOG_DIR /var/log/portal
-RUN mkdir -p $PORTAL_LOG_DIR && chown -R portal: $PORTAL_LOG_DIR
+# Distribution
+COPY $PORTAL_DISTRIBUTION.zip /tmp
+RUN unzip -q -d /opt /tmp/$PORTAL_DISTRIBUTION.zip \
+    && chmod -R 755 /opt/$PORTAL_DISTRIBUTION \
+    && chown -R $PORTAL_USER: /opt/$PORTAL_DISTRIBUTION \
+    && ln -s /opt/$PORTAL_DISTRIBUTION $PORTAL_HOME \
+    && rm -f /tmp/$PORTAL_DISTRIBUTION.zip
 
 
 # Entrypoint
@@ -39,6 +47,5 @@ CMD ["start"]
 
 EXPOSE 8080
 
-USER portal
 WORKDIR /opt/portal
 

@@ -1,23 +1,80 @@
+ambassador1:
+    image: cpuguy83/docker-grand-ambassador
+    container_name: ambassador1
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    command: "-name osivia-portal -name nuxeo"
+
+ambassador2:
+    image: cpuguy83/docker-grand-ambassador
+    container_name: ambassador2
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    command: "-name osivia-portal -name portal"
+
+httpd:
+    image: httpd:2.4
+    container_name: osivia-portal
+    links:
+        - cas
+        - ambassador1:nuxeo
+        - ambassador2:portal
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+        - ./httpd/osivia-portal.conf:/usr/local/apache2/conf/extra/osivia-portal.conf
+        - ./ssl/server.crt:/usr/local/apache2/conf/server.crt
+        - ./ssl/server.key:/usr/local/apache2/conf/server.key
+
+nuxeo:
+    image: osivia/nuxeo
+    container_name: nuxeo
+    environment:
+        - PUBLIC_HOST=osivia-portal
+    links:
+        - postgres
+        - opendj
+        - ambassador1:osivia-portal
+    ports:
+        - "8122:22"
+        - "8081:8080"
+    volumes:
+        - ./ssl:/etc/ssl/nuxeo
+
+postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+        - POSTGRES_USER=nuxeo
+        - POSTGRES_PASSWORD=osivia
+        - POSTGRES_DB=nuxeo
+
 portal:
     image: osivia/portal:demo
     container_name: portal
+    environment:
+        - PUBLIC_HOST=osivia-portal
     links:
         - mysql
         - opendj
-        - cas
+        - nuxeo
+        - ambassador2:osivia-portal
     ports:
-        - "8080"
+        - "8022:22"
+        - "8080:8080"
+        - "8787:8787"
+    volumes:
+        - ./ssl:/etc/ssl/portal
+
 mysql:
     image: mysql
     container_name: mysql
     environment:
         - MYSQL_ROOT_PASSWORD=osivia
         - MYSQL_DATABASE=portal
-opendj:
-    image: osivia/opendj
-    container_name: opendj
-    ports:
-        - "389:389"
+
 cas:
     image: tomcat:7
     container_name: cas
@@ -26,16 +83,10 @@ cas:
     volumes:
         - ./cas/cas-config.properties:/root/cas-config.properties
         - ./cas/cas.war:/usr/local/tomcat/webapps/cas.war
-httpd:
-    image: httpd:2.4
-    container_name: httpd
-    links:
-        - portal
-        - cas
+
+opendj:
+    image: osivia/opendj
+    container_name: opendj
     ports:
-        - "80:80"
-        - "443:443"
-    volumes:
-        - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
-        - ./httpd/osivia-portal.conf:/usr/local/apache2/conf/extra/osivia-portal.conf
+        - "389:389"
 
