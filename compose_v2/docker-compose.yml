@@ -2,27 +2,27 @@ version: "3"
 services:
  opendj:
   image: basic_opendj
-  container_name: demo_opendj 
+  container_name: demo-opendj 
   ports:
-   - "389:389"
+   - "1389:1389"
 
  cas:
   image: basic_cas
-  container_name: demo_cas
+  container_name: demo-cas
   environment:
-   LDAP_HOST: demo_opendj
+   LDAP_HOST: demo-opendj
   depends_on:
    - opendj
 
  postgres:
   image: basic_pg95
-  container_name: demo_postgres
+  container_name: demo-postgres
   ports:
    - "5432:5432"
 
  mysql:
   image: mysql
-  container_name: demo_mysql
+  container_name: demo-mysql
   environment:
    MYSQL_DATABASE: portaldb
    MYSQL_USER: portal
@@ -32,26 +32,26 @@ services:
  es-node-1:
   image: elasticsearch:1.7.6
   command: "elasticsearch -Des.cluster.name=demo"
-  container_name: demo_es_1
+  container_name: demo-es-1
   environment:
    ES_HEAP_SIZE: 256m
 
  es-node-2:
   image: elasticsearch:1.7.6
   command: "elasticsearch -Des.cluster.name=demo"
-  container_name: demo_es_2
+  container_name: demo-es-2
   environment:
    ES_HEAP_SIZE: 256m
 
  nuxeo:
   image: basic_osivia_nx46
-  container_name: demo_nuxeo
+  container_name: demo-nuxeo
   environment:
-   NUXEO_DB_HOST: demo_postgres
-   NUXEO_LDAP_HOST: demo_opendj
+   NUXEO_DB_HOST: demo-postgres
+   LDAP_HOST: demo-opendj
    NUXEO_ES_CLUSTER: demo
-   NUXEO_ES_NODES: demo_es_1:9300, demo_es_2:9300
-   CAS_HOST: demo_cas
+   NUXEO_ES_NODES: demo-es-1:9300, demo-es-2:9300
+   CAS_HOST: demo-cas
   depends_on:
    - postgres
    - opendj
@@ -61,12 +61,13 @@ services:
 
  portal-1:
   image: basic_osivia_portal46
-  container_name: demo_portal_1
+  container_name: demo-portal-1
   environment:
-   NUXEO_HOST: demo_nuxeo
-   PORTAL_DB_HOST: demo_mysql
-   PORTAL_MEMBERS: demo_portal_2, demo_portal_3
-   CAS_HOST: demo_cas
+   NUXEO_HOST: demo-nuxeo
+   PORTAL_DB_HOST: demo-mysql
+   PORTAL_MEMBERS: demo-portal-2, demo-portal-3
+   CAS_HOST: demo-cas
+   LDAP_HOST: demo-opendj
   depends_on:
    - mysql
    - opendj
@@ -75,12 +76,13 @@ services:
 
  portal-2:
   image: basic_osivia_portal46
-  container_name: demo_portal_2
+  container_name: demo-portal-2
   environment:
-   NUXEO_HOST: demo_nuxeo
-   PORTAL_DB_HOST: demo_mysql
-   PORTAL_MEMBERS: demo_portal_1, demo_portal_3
-   CAS_HOST: demo_cas
+   NUXEO_HOST: demo-nuxeo
+   PORTAL_DB_HOST: demo-mysql
+   PORTAL_MEMBERS: demo-portal-1, demo-portal-3
+   CAS_HOST: demo-cas
+   LDAP_HOST: demo-opendj
   depends_on:
    - mysql
    - opendj
@@ -89,12 +91,13 @@ services:
 
  portal-3:
   image: basic_osivia_portal46
-  container_name: demo_portal_3
+  container_name: demo-portal-3
   environment:
-   NUXEO_HOST: demo_nuxeo
-   PORTAL_DB_HOST: demo_mysql
-   PORTAL_MEMBERS: demo_portal_1, demo_portal_2
-   CAS_HOST: demo_cas
+   NUXEO_HOST: demo-nuxeo
+   PORTAL_DB_HOST: demo-mysql
+   PORTAL_MEMBERS: demo-portal-1, demo-portal-2
+   CAS_HOST: demo-cas
+   LDAP_HOST: demo-opendj
   depends_on:
    - mysql
    - opendj
@@ -103,12 +106,12 @@ services:
 
  httpd:
   image: basic_http
-  container_name: demo_http
+  container_name: demo-http
   hostname: lbi-demo
   environment:
-   NUXEO_HOST: demo_nuxeo
-   CAS_HOST: demo_cas
-   PORTAL_HOSTS: demo_portal_1, demo_portal_2, demo_portal_3
+   NUXEO_HOST: demo-nuxeo
+   CAS_HOST: demo-cas
+   PORTAL_HOSTS: demo-portal-1, demo-portal-2, demo-portal-3
   ports:
    - "80:80"
    - "443:443"

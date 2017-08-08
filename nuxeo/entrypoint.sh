@@ -19,8 +19,8 @@ NUXEO_DB_USER=${NUXEO_DB_USER:-nuxeo}
 NUXEO_DB_PASSWORD=${NUXEO_DB_PASSWORD:-osivia}
 
 # LDAP
-NUXEO_LDAP_HOST=${NUXEO_LDAP_HOST:-opendj}
-NUXEO_LDAP_PORT=${NUXEO_LDAP_PORT:-389}
+LDAP_HOST=${LDAP_HOST:-opendj}
+#NUXEO_LDAP_PORT=${NUXEO_LDAP_PORT:-1389}
 #NUXEO_LDAP_USER=${NUXEO_LDAP_USER:-cn=Directory manager}
 #NUXEO_LDAP_PASSWORD=${NUXEO_LDAP_PASSWORD:-osivia}
 
@@ -45,17 +45,13 @@ if [ "$1" = "nuxeoctl" ]; then
     
         # Properties
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
+        sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.name=.*$\\nuxeo.db.name=$NUXEO_DB_NAME\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.user=.*$\\nuxeo.db.user=$NUXEO_DB_USER\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.password=.*$\\nuxeo.db.password=$NUXEO_DB_PASSWORD\\g $NUXEO_CONF
-
-        sed -i s\\^[#]*ldap.host=.*$\\ldap.host=$NUXEO_LDAP_HOST\\g $NUXEO_CONF
-        sed -i s\\^[#]*ldap.port=.*$\\ldap.port=$NUXEO_LDAP_PORT\\g $NUXEO_CONF
-        #sed -i s\\^[#]*ldap.manager.dn=.*$\\ldap.manager.dn=$NUXEO_LDAP_USER\\g $NUXEO_CONF
-        #sed -i s\\^[#]*ldap.manager.pswd=.*$\\ldap.manager.pswd=$NUXEO_LDAP_PASSWORD\\g $NUXEO_CONF
 
         sed -i s\\^[#]*elasticsearch.clusterName=.*$\\elasticsearch.clusterName=$NUXEO_ES_CLUSTER\\g $NUXEO_CONF
 

@@ -3,7 +3,7 @@ set -e
 
 # LDAP
 LDAP_HOST=${LDAP_HOST:-opendj}
-LDAP_PORT=${LDAP_PORT:-389}
+LDAP_PORT=${LDAP_PORT:-1389}
 
 CAS_PROPERTIES=$CAS_HOME/cas-config.properties
 
@@ -17,3 +17,4 @@ if [ ! -f $CAS_HOME/configured ]; then
 fi    
 
 catalina.sh run
+
