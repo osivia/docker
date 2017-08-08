@@ -1,9 +1,12 @@
 FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+ENV LANG fr_FR.utf8
 
 ENV LDAP_PORT 389
-ENV ADMIN_CONNECTOR_PORT 4444
+ENV ADMIN_CONNECTOR_PORT 5555
 
 
 # Distribution
@@ -25,6 +28,8 @@ RUN /opt/opendj/setup \
           --no-prompt \
           --noPropertiesFile \
           --acceptLicense
+
+COPY config.ldif /opt/opendj/config/
 COPY 90-portal.ldif /opt/opendj/config/schema/
 
 

@@ -29,7 +29,7 @@ httpd:
         - ./ssl/server.key:/usr/local/apache2/conf/server.key
 
 nuxeo:
-    image: osivia/nuxeo
+    image: galactica:5000/basic_nuxeo:4.6
     container_name: nuxeo
     environment:
         - PUBLIC_HOST=osivia-portal
@@ -44,12 +44,8 @@ nuxeo:
         - ./ssl:/etc/ssl/nuxeo
 
 postgres:
-    image: postgres
+    image: galactica:5000/basic_pg95:4.6
     container_name: postgres
-    environment:
-        - POSTGRES_USER=nuxeo
-        - POSTGRES_PASSWORD=osivia
-        - POSTGRES_DB=nuxeo
 
 portal:
     image: osivia/portal:demo
@@ -89,4 +85,8 @@ opendj:
     container_name: opendj
     ports:
         - "389:389"
+    volumes:
+        - ./opendj/logs:/opt/opendj/logs
+        - ./opendj/db:/opt/opendj/db
+
 

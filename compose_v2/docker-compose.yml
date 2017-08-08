@@ -1,0 +1,123 @@
+version: "3"
+services:
+ opendj:
+  image: basic_opendj
+  container_name: demo_opendj 
+  ports:
+   - "389:389"
+
+ cas:
+  image: basic_cas
+  container_name: demo_cas
+  environment:
+   LDAP_HOST: demo_opendj
+  depends_on:
+   - opendj
+
+ postgres:
+  image: basic_pg95
+  container_name: demo_postgres
+  ports:
+   - "5432:5432"
+
+ mysql:
+  image: mysql
+  container_name: demo_mysql
+  environment:
+   MYSQL_DATABASE: portaldb
+   MYSQL_USER: portal
+   MYSQL_PASSWORD: osivia
+   MYSQL_ROOT_PASSWORD: osivia
+
+ es-node-1:
+  image: elasticsearch:1.7.6
+  command: "elasticsearch -Des.cluster.name=demo"
+  container_name: demo_es_1
+  environment:
+   ES_HEAP_SIZE: 256m
+
+ es-node-2:
+  image: elasticsearch:1.7.6
+  command: "elasticsearch -Des.cluster.name=demo"
+  container_name: demo_es_2
+  environment:
+   ES_HEAP_SIZE: 256m
+
+ nuxeo:
+  image: basic_osivia_nx46
+  container_name: demo_nuxeo
+  environment:
+   NUXEO_DB_HOST: demo_postgres
+   NUXEO_LDAP_HOST: demo_opendj
+   NUXEO_ES_CLUSTER: demo
+   NUXEO_ES_NODES: demo_es_1:9300, demo_es_2:9300
+   CAS_HOST: demo_cas
+  depends_on:
+   - postgres
+   - opendj
+   - cas
+   - es-node-1
+   - es-node-2
+
+ portal-1:
+  image: basic_osivia_portal46
+  container_name: demo_portal_1
+  environment:
+   NUXEO_HOST: demo_nuxeo
+   PORTAL_DB_HOST: demo_mysql
+   PORTAL_MEMBERS: demo_portal_2, demo_portal_3
+   CAS_HOST: demo_cas
+  depends_on:
+   - mysql
+   - opendj
+   - cas
+   - nuxeo
+
+ portal-2:
+  image: basic_osivia_portal46
+  container_name: demo_portal_2
+  environment:
+   NUXEO_HOST: demo_nuxeo
+   PORTAL_DB_HOST: demo_mysql
+   PORTAL_MEMBERS: demo_portal_1, demo_portal_3
+   CAS_HOST: demo_cas
+  depends_on:
+   - mysql
+   - opendj
+   - cas
+   - nuxeo
+
+ portal-3:
+  image: basic_osivia_portal46
+  container_name: demo_portal_3
+  environment:
+   NUXEO_HOST: demo_nuxeo
+   PORTAL_DB_HOST: demo_mysql
+   PORTAL_MEMBERS: demo_portal_1, demo_portal_2
+   CAS_HOST: demo_cas
+  depends_on:
+   - mysql
+   - opendj
+   - cas
+   - nuxeo
+
+ httpd:
+  image: basic_http
+  container_name: demo_http
+  hostname: lbi-demo
+  environment:
+   NUXEO_HOST: demo_nuxeo
+   CAS_HOST: demo_cas
+   PORTAL_HOSTS: demo_portal_1, demo_portal_2, demo_portal_3
+  ports:
+   - "80:80"
+   - "443:443"
+  depends_on:
+   - nuxeo
+   - cas
+   - portal-1
+   - portal-2
+   - portal-3
+
+
+
