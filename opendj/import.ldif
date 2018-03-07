@@ -25,6 +25,7 @@ uid: admin
 cn: Administrateur
 sn: Administrateur
 displayName: Administrateur du portail
+portalPersonProfile: cn=Administrators,ou=profiles,ou=groups,dc=osivia,dc=org
 userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
  Q==
 
