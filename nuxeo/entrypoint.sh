@@ -44,6 +44,7 @@ if [ "$1" = "nuxeoctl" ]; then
         echo "Configuration..."
     
         # Properties
+        sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
 

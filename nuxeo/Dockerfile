@@ -2,9 +2,7 @@ FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
-ENV NUXEO_USER nuxeo
-ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-4.6-SNAPSHOT
+
 
 
 # Openoffice
@@ -20,6 +18,11 @@ RUN apt-get  install -y libreoffice
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
 ENV LANG fr_FR.utf8
+
+# Vars
+ENV NUXEO_USER nuxeo
+ENV NUXEO_HOME /opt/nuxeo
+ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-4.4-SNAPSHOT
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
