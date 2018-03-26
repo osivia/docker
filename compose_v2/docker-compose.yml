@@ -7,7 +7,7 @@ services:
    - "1389:1389"
 
  cas:
-  image: basic_cas
+  image: demo-cas
   container_name: demo-cas
   environment:
    LDAP_HOST: demo-opendj
@@ -25,15 +25,15 @@ services:
   image: elasticsearch:1.7.6
   command: "elasticsearch -Des.cluster.name=demo"
   container_name: demo-es-1
-  environment:
-   ES_HEAP_SIZE: 256m
+  ports:
+   - "9200:9200"
 
  es-node-2:
   image: elasticsearch:1.7.6
   command: "elasticsearch -Des.cluster.name=demo"
   container_name: demo-es-2
-  environment:
-   ES_HEAP_SIZE: 256m
+  ports:
+   - "9201:9200"
 
  nuxeo:
   image: basic_osivia_nx46
@@ -52,19 +52,69 @@ services:
    - es-node-1
    - es-node-2
 
+ mysql:
+  image: mysql
+  container_name: demo-mysql
+  command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  environment:
+   MYSQL_DATABASE: portaldb
+   MYSQL_USER: portal
+   MYSQL_PASSWORD: osivia
+   MYSQL_ROOT_PASSWORD: osivia
+
+ portal-1:
+  image: basic_osivia_portal46
+  container_name: demo-portal-1
+  environment:
+   NUXEO_HOST: demo-nuxeo
+   PORTAL_DB_HOST: demo-mysql
+   CAS_HOST: demo-cas
+   LDAP_HOST: demo-opendj
+   PORTAL_MEMBERS: demo-portal-2
+  volumes:
+   - ../share/deploy:/opt/portal/custom/deploy
+  ports:
+   - "8787:8787"
+  depends_on:
+   - mysql
+   - opendj
+   - cas
+   - nuxeo
+
+ portal-2:
+  image: basic_osivia_portal46
+  container_name: demo-portal-2
+  environment:
+   NUXEO_HOST: demo-nuxeo
+   PORTAL_DB_HOST: demo-mysql
+   CAS_HOST: demo-cas
+   LDAP_HOST: demo-opendj
+   PORTAL_MEMBERS: demo-portal-1
+  volumes:
+   - ../share/deploy:/opt/portal/custom/deploy
+  ports:
+   - "8788:8787"
+  depends_on:
+   - mysql
+   - opendj
+   - cas
+   - nuxeo
+
  httpd:
-  image: basic_http
-  container_name: demo-http
+  image: demo-httpd
+  container_name: demo-httpd
   hostname: ${PUBLIC_HOST}
   environment:
    NUXEO_HOST: demo-nuxeo
    CAS_HOST: demo-cas
+   PORTAL_HOSTS: demo-portal-1
   ports:
    - "80:80"
    - "443:443"
   depends_on:
    - nuxeo
    - cas
+   - portal-1
+   - portal-2
 
-
-
+ 
