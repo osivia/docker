@@ -26,7 +26,7 @@ LDAP_PORT=${LDAP_PORT:-1389}
 CAS_HOST=${CAS_HOST:-cas}
 
 # Cluster
-PORTAL_MEMBERS=${PORTAL_MEMBERS:-"portal2, portal3"}
+PORTAL_MEMBERS=${PORTAL_MEMBERS:-""}
 IFS=', ' read -r -a PORTAL_MEMBERS_ARRAY <<< $PORTAL_MEMBERS
 
 
@@ -111,6 +111,7 @@ if [ "$1" = "start" ]; then
 
         # Logs
         mkdir -p $PORTAL_LOGS
+		touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
 
 
@@ -141,7 +142,11 @@ if [ "$1" = "start" ]; then
     # Start
     PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
     echo "PORTAL_CMD = $PORTAL_CMD"
-    exec su - $PORTAL_USER -c "$PORTAL_CMD 2>&1"
+
+	# Redirect server.log to console
+	tailf ${PORTAL_LOGS}/server.log &
+
+    exec su - $PORTAL_USER -c "$PORTAL_CMD"
 fi
 
 

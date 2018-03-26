@@ -2,12 +2,6 @@ FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
-ENV PORTAL_USER portal
-ENV PORTAL_HOME /opt/portal
-ENV PORTAL_DISTRIBUTION demo-distribution-prod-4.6-SNAPSHOT
-ENV PORTAL_CONF production
-ENV PORTAL_HOST 0.0.0.0
-
 RUN apt-get update \
     && apt-get install -y netcat \
     && apt-get purge -y
@@ -15,7 +9,18 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+
 ENV LANG fr_FR.utf8
+RUN locale >> /etc/default/locale
+
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENV PORTAL_USER portal
+ENV PORTAL_HOME /opt/portal
+ENV PORTAL_DISTRIBUTION demo-distribution-prod-4.7-SNAPSHOT
+ENV PORTAL_CONF production
+ENV PORTAL_HOST 0.0.0.0
 
 # User
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
@@ -40,7 +45,7 @@ RUN unzip -q -d /opt /tmp/$PORTAL_DISTRIBUTION.zip \
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["start", "tailf /var/log/portal/server.log"]
+CMD ["start"]
 
 
 EXPOSE 8080
