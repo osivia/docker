@@ -28,10 +28,15 @@ RUN set -x \
 	&& gosu nobody true \
 	&& apt-get purge -y --auto-remove ca-certificates wget
 
-# make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
+
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
 ENV LANG fr_FR.utf8
+RUN locale >> /etc/default/locale
+
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 
 RUN mkdir /docker-entrypoint-initdb.d
 
@@ -47,7 +52,7 @@ RUN set -ex; \
 	apt-key list
 
 ENV PG_MAJOR 9.5
-ENV PG_VERSION 9.5.7-1.pgdg80+1
+ENV PG_VERSION 9.5.12-1.pgdg80+1
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 

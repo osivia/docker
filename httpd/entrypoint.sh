@@ -17,7 +17,7 @@ if [ ! -f $HTTPD_HOME/configured ]; then
 	openssl req -nodes -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=$HOSTNAME"
 	openssl x509 -req -in /etc/ssl/server.csr -signkey /etc/ssl/server.key -out /etc/ssl/server.crt -days 999
 
-    sed -i s\\PUBLIC_HOST\\$HOSTNAME\\g $HTTPD_CONFIG_FILE
+#    sed -i s\\PUBLIC_HOST\\$HOSTNAME\\g $HTTPD_CONFIG_FILE
     sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
 	

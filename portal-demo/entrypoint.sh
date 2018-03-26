@@ -25,6 +25,10 @@ LDAP_PORT=${LDAP_PORT:-1389}
 # CAS
 CAS_HOST=${CAS_HOST:-cas}
 
+# Public urls
+EXTRANET_HOST=${EXTRANET_HOST:-demo}
+INTRANET_HOST=${INTRANET_HOST:-intra.demo}
+
 # Cluster
 PORTAL_MEMBERS=${PORTAL_MEMBERS:-""}
 IFS=', ' read -r -a PORTAL_MEMBERS_ARRAY <<< $PORTAL_MEMBERS
@@ -109,10 +113,16 @@ if [ "$1" = "start" ]; then
 		done
 		sed -i s\\^[#]*portal.ejb3.sfsb.cache.initial_hosts=.*$\\portal.ejb3.sfsb.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
+
+		# Public urls
+		echo "demo.extranet.url=${EXTRANET_HOST}" >> $PORTAL_PROPERTIES
+		echo "demo.intranet.url=${INTRANET_HOST}" >> $PORTAL_PROPERTIES
+
         # Logs
         mkdir -p $PORTAL_LOGS
 		touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
+
 
 
         # SSL

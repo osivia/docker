@@ -1,7 +1,7 @@
 version: "3"
 services:
  opendj:
-  image: basic_opendj
+  image: demo-opendj
   container_name: demo-opendj 
   ports:
    - "1389:1389"
@@ -15,7 +15,7 @@ services:
    - opendj
 
  postgres:
-  image: basic_pg95
+  image: demo-postgres
   container_name: demo-postgres
   ports:
    - "5432:5432"
@@ -36,10 +36,10 @@ services:
    - "9201:9200"
 
  nuxeo:
-  image: basic_osivia_nx46
+  image: demo-nuxeo
   container_name: demo-nuxeo
   environment:
-   PUBLIC_HOST: ${PUBLIC_HOST}
+   PUBLIC_HOST: ${EXTRANET_HOST}
    NUXEO_DB_HOST: demo-postgres
    LDAP_HOST: demo-opendj
    NUXEO_ES_CLUSTER: demo
@@ -63,7 +63,7 @@ services:
    MYSQL_ROOT_PASSWORD: osivia
 
  portal-1:
-  image: basic_osivia_portal46
+  image: demo-portal
   container_name: demo-portal-1
   environment:
    NUXEO_HOST: demo-nuxeo
@@ -71,6 +71,8 @@ services:
    CAS_HOST: demo-cas
    LDAP_HOST: demo-opendj
    PORTAL_MEMBERS: demo-portal-2
+   EXTRANET_HOST: ${EXTRANET_HOST}
+   INTRANET_HOST: ${INTRANET_HOST}
   volumes:
    - ../share/deploy:/opt/portal/custom/deploy
   ports:
@@ -82,7 +84,7 @@ services:
    - nuxeo
 
  portal-2:
-  image: basic_osivia_portal46
+  image: demo-portal
   container_name: demo-portal-2
   environment:
    NUXEO_HOST: demo-nuxeo
@@ -90,6 +92,8 @@ services:
    CAS_HOST: demo-cas
    LDAP_HOST: demo-opendj
    PORTAL_MEMBERS: demo-portal-1
+   EXTRANET_HOST: ${EXTRANET_HOST}
+   INTRANET_HOST: ${INTRANET_HOST}
   volumes:
    - ../share/deploy:/opt/portal/custom/deploy
   ports:
@@ -103,7 +107,6 @@ services:
  httpd:
   image: demo-httpd
   container_name: demo-httpd
-  hostname: ${PUBLIC_HOST}
   environment:
    NUXEO_HOST: demo-nuxeo
    CAS_HOST: demo-cas
