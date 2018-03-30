@@ -19,7 +19,7 @@ RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # Distribution
-COPY cas.war $TOMCAT_ROOT
+RUN wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/cas/cas-server-webapp/4.7-RC1/cas-server-webapp-4.7-RC1.war -O cas.war
 COPY cas-config.properties $CAS_HOME
 
 # Entrypoint
