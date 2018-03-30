@@ -16,14 +16,13 @@ ENV ADMIN_CONNECTOR_PORT 5555
 # Distribution
 WORKDIR /opt
 COPY OpenDJ-3.0.0.zip .
-RUN unzip OpenDJ-3.0.0.zip && rm -f OpenDJ-3.0.0.zip
+RUN wget https://github.com/ForgeRock/opendj-community-edition/releases/download/ce%2F2.6.4/OpenDJ-2.6.4.zip && unzip OpenDJ-2.6.4.zip && rm -f OpenDJ-2.6.4.zip
 RUN chmod -R 755 opendj
 
 
 # Configuration
 RUN /opt/opendj/setup \
           --cli \
-          --backendType je \
           --baseDN dc=osivia,dc=org \
           --ldapPort ${LDAP_PORT} \
           --adminConnectorPort ${ADMIN_CONNECTOR_PORT} \
@@ -33,9 +32,10 @@ RUN /opt/opendj/setup \
           --noPropertiesFile \
           --acceptLicense
 
-COPY config.ldif /opt/opendj/config/
 COPY 90-portal.ldif /opt/opendj/config/schema/
 
+# Config spécifique passwords
+RUN sed -i s\\^[#]*ds-cfg-allow-pre-encoded-passwords:.*$\\ds-cfg-allow-pre-encoded-passwords:true\\g /opt/opendj/config/config.ldif
 
 # Import
 COPY import.ldif /opt/
