@@ -15,7 +15,6 @@ ENV ADMIN_CONNECTOR_PORT 5555
 
 # Distribution
 WORKDIR /opt
-COPY OpenDJ-3.0.0.zip .
 RUN wget https://github.com/ForgeRock/opendj-community-edition/releases/download/ce%2F2.6.4/OpenDJ-2.6.4.zip && unzip OpenDJ-2.6.4.zip && rm -f OpenDJ-2.6.4.zip
 RUN chmod -R 755 opendj
 
