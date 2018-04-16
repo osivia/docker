@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_DISTRIBUTION demo-distribution-prod-4.7-SNAPSHOT
+ENV PORTAL_DISTRIBUTION demo-distribution-prod-4.7
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
 
@@ -31,15 +31,13 @@ COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
-
 # Distribution
-COPY $PORTAL_DISTRIBUTION.zip /tmp
-RUN unzip -q -d /opt /tmp/$PORTAL_DISTRIBUTION.zip \
-    && chmod -R 755 /opt/$PORTAL_DISTRIBUTION \
-    && chown -R $PORTAL_USER: /opt/$PORTAL_DISTRIBUTION \
-    && ln -s /opt/$PORTAL_DISTRIBUTION $PORTAL_HOME \
-    && rm -f /tmp/$PORTAL_DISTRIBUTION.zip
-
+RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/4.7/demo-distribution-4.7.zip -O ${PORTAL_DISTRIBUTION}.zip \
+	&& unzip ${PORTAL_DISTRIBUTION}.zip \
+    && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
+    && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
+    && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
+    && rm -f ${PORTAL_DISTRIBUTION}.zip
 
 # Entrypoint
 COPY entrypoint.sh /

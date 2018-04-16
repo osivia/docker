@@ -22,7 +22,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-4.4-SNAPSHOT
+ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
@@ -34,12 +34,12 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 
 # Distribution
-COPY $NUXEO_DISTRIBUTION.zip /tmp
-RUN unzip -q -d /opt /tmp/$NUXEO_DISTRIBUTION.zip \
-    && chmod -R 755 /opt/$NUXEO_DISTRIBUTION \
-    && chown -R $NUXEO_USER: /opt/$NUXEO_DISTRIBUTION \
-    && ln -s $NUXEO_DISTRIBUTION $NUXEO_HOME \
-    && rm -f /tmp/$NUXEO_DISTRIBUTION.zip
+RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7/${NUXEO_DISTRIBUTION}.zip \
+	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
+    && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
+    && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
+    && ln -s ${NUXEO_DISTRIBUTION} $NUXEO_HOME \
+    && rm -f ${NUXEO_DISTRIBUTION}.zip
 
 
 # Entrypoint

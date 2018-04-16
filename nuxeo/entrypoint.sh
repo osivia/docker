@@ -6,7 +6,7 @@ set -e
 PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 
 CAS_HOST=${CAS_HOST:-cas}
-
+CAS_PUBLIC_HOST=${CAS_PUBLIC_HOST:-cas}
 
 # Nuxeo conf
 NUXEO_CONF=/home/$NUXEO_USER/nuxeo.conf
@@ -44,8 +44,10 @@ if [ "$1" = "nuxeoctl" ]; then
         echo "Configuration..."
     
         # Properties
-        sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
+        sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $NUXEO_CONF
+        sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
+        
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
@@ -74,13 +76,6 @@ if [ "$1" = "nuxeoctl" ]; then
         
         # Wizard
         sed -i s\\^[#]*nuxeo.wizard.done=.*$\\nuxeo.wizard.done=true\\g $NUXEO_CONF
-        
-        
-        # SSL
-#        mkdir -p $SSL_DIRECTORY
-#        keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore $JAVA_HOME/lib/security/cacerts -srckeystore $SSL_DIRECTORY/server.p12 -srcstoretype PKCS12 -srcstorepass osivia -alias $PUBLIC_HOST
-        
-        
         touch $NUXEO_HOME/configured
     fi
     

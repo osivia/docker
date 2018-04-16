@@ -24,6 +24,7 @@ LDAP_PORT=${LDAP_PORT:-1389}
 
 # CAS
 CAS_HOST=${CAS_HOST:-cas}
+CAS_PUBLIC_HOST=${CAS_PUBLIC_HOST:-cas}
 
 # Public urls
 EXTRANET_HOST=${EXTRANET_HOST:-demo}
@@ -47,6 +48,8 @@ if [ "$1" = "start" ]; then
     
         # Properties
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $PORTAL_PROPERTIES
+        
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
 
         sed -i s\\^[#]*db.host=.*$\\db.host=$PORTAL_DB_HOST:$PORTAL_DB_PORT\\g $PORTAL_PROPERTIES
