@@ -14,6 +14,10 @@ HTTPD_CONFIG_FILE=/usr/local/apache2/conf/extra/reverse-proxy.conf
 if [ ! -f $HTTPD_HOME/configured ]; then
     echo "Configuration..."
 
+	# Ajout configration reverse proxy	
+	echo "# OSIVIA Platform" >> /usr/local/apache2/conf/httpd.conf
+	echo "Include conf/extra/reverse-proxy.conf" >> /usr/local/apache2/conf/httpd.conf    
+
 	openssl req -nodes -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=$HOSTNAME"
 	openssl x509 -req -in /etc/ssl/server.csr -signkey /etc/ssl/server.key -out /etc/ssl/server.crt -days 999
 
