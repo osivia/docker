@@ -1,13 +1,13 @@
 version: "3"
 services:
  opendj:
-  image: demo-opendj
+  image: osivia/opendj
   container_name: demo-opendj 
   ports:
    - "1389:1389"
 
  cas:
-  image: demo-cas
+  image: osivia/cas
   container_name: demo-cas
   environment:
    LDAP_HOST: demo-opendj
@@ -15,7 +15,7 @@ services:
    - opendj
 
  postgres:
-  image: demo-postgres
+  image: osivia/postgres
   container_name: demo-postgres
   ports:
    - "5432:5432"
@@ -36,7 +36,7 @@ services:
    - "9201:9200"
 
  nuxeo:
-  image: demo-nuxeo
+  image: osivia/nuxeo
   container_name: demo-nuxeo
   environment:
    PUBLIC_HOST: ${EXTRANET_HOST}
@@ -46,6 +46,8 @@ services:
    NUXEO_ES_NODES: demo-es-1:9300,demo-es-2:9300
    CAS_HOST: demo-cas:8080
    CAS_PUBLIC_HOST: ${INTRANET_HOST}
+#  volumes:
+#   - ~/docker-share/nx-plugins:/opt/nuxeo/nxserver/plugins
   depends_on:
    - postgres
    - opendj
@@ -64,7 +66,7 @@ services:
    MYSQL_ROOT_PASSWORD: osivia
 
  portal-1:
-  image: demo-portal
+  image: osivia/portal
   container_name: demo-portal-1
   environment:
    NUXEO_HOST: demo-nuxeo
@@ -76,7 +78,8 @@ services:
    EXTRANET_HOST: ${EXTRANET_HOST}
    INTRANET_HOST: ${INTRANET_HOST}
 #  volumes:
-#   - ../share/deploy:/opt/portal/custom/deploy
+#   - ~/docker-share/portal-demo/deploy:/opt/portal/custom/deploy
+#   - ~/docker-share/portal-demo/production/lib:/opt/portal/jboss-as/server/production/lib
   ports:
    - "8787:8787"
   depends_on:
@@ -86,7 +89,7 @@ services:
    - nuxeo
 
  portal-2:
-  image: demo-portal
+  image: osivia/portal
   container_name: demo-portal-2
   environment:
    NUXEO_HOST: demo-nuxeo
@@ -98,7 +101,8 @@ services:
    EXTRANET_HOST: ${EXTRANET_HOST}
    INTRANET_HOST: ${INTRANET_HOST}
 #  volumes:
-#   - ../share/deploy:/opt/portal/custom/deploy
+#   - ~/docker-share/portal-demo/deploy:/opt/portal/custom/deploy
+#   - ~/docker-share/portal-demo/production/lib:/opt/portal/jboss-as/server/production/lib
   ports:
    - "8788:8787"
   depends_on:
@@ -108,7 +112,7 @@ services:
    - nuxeo
 
  httpd:
-  image: demo-httpd
+  image: osivia/httpd
   container_name: demo-httpd
   environment:
    NUXEO_HOST: demo-nuxeo
