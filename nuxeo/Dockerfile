@@ -1,4 +1,4 @@
-FROM java:7-jre
+FROM openjdk:8-jdk
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 # Openoffice
@@ -8,8 +8,7 @@ RUN apt-get update \
 
 RUN apt-get install -y imagemagick 
 
-RUN apt-get  install -y libreoffice 
-
+RUN apt-get install -y libreoffice 
 
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
 	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
@@ -22,7 +21,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.1
+ENV NUXEO_DISTRIBUTION demo-nx-distrib-5.0-SNAPSHOT
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
@@ -34,8 +33,9 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.1/${NUXEO_DISTRIBUTION}.zip \
-	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
+# RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.1/${NUXEO_DISTRIBUTION}.zip \
+COPY ${NUXEO_DISTRIBUTION}.zip /opt
+RUN cd /opt && unzip ${NUXEO_DISTRIBUTION}.zip  \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
     && ln -s ${NUXEO_DISTRIBUTION} $NUXEO_HOME \

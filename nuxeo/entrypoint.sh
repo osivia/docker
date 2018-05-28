@@ -57,9 +57,10 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\^[#]*nuxeo.db.password=.*$\\nuxeo.db.password=$NUXEO_DB_PASSWORD\\g $NUXEO_CONF
 
         sed -i s\\^[#]*elasticsearch.clusterName=.*$\\elasticsearch.clusterName=$NUXEO_ES_CLUSTER\\g $NUXEO_CONF
-
-        sed -i s\\^[#]*elasticsearch.addressList=.*$\\#elasticsearch.addressList=\\g $NUXEO_CONF
-		echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
+        
+        sed -i s\\^[#]*elasticsearch.addressList=.*$\\elasticsearch.addressList=$NUXEO_ES_NODES\\g $NUXEO_CONF
+#        sed -i s\\^[#]*elasticsearch.addressList=.*$\\#elasticsearch.addressList=\\g $NUXEO_CONF
+#		echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
 
         # Data
         mkdir -p $NUXEO_DATA
@@ -79,7 +80,6 @@ if [ "$1" = "nuxeoctl" ]; then
         touch $NUXEO_HOME/configured
     fi
     
-    
     # Wait database
     echo "Waiting for TCP connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT..."
     while ! nc -w 1 $NUXEO_DB_HOST $NUXEO_DB_PORT 2>/dev/null; do
@@ -87,11 +87,17 @@ if [ "$1" = "nuxeoctl" ]; then
     done
     echo "Connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT with $NUXEO_DB_USER@$NUXEO_DB_NAME"
     
-    
     # Command
     NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/$@"
     echo "NUXEO_CMD = $NUXEO_CMD"
-    exec su - $NUXEO_USER -c "$NUXEO_CMD 2>&1"
+    
+    # Redirect server.log to console
+    touch ${NUXEO_LOGS}/console.log 
+	tailf ${NUXEO_LOGS}/console.log &
+    
+    exec su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
+    
+    tailf ${NUXEO_LOGS}/console.log
 fi
 
 
