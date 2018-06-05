@@ -1,92 +1,111 @@
-ambassador1:
-    image: cpuguy83/docker-grand-ambassador
-    container_name: ambassador1
-    volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock"
-    command: "-name osivia-portal -name nuxeo"
-
-ambassador2:
-    image: cpuguy83/docker-grand-ambassador
-    container_name: ambassador2
-    volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock"
-    command: "-name osivia-portal -name portal"
-
-httpd:
-    image: httpd:2.4
-    container_name: osivia-portal
-    links:
-        - cas
-        - ambassador1:nuxeo
-        - ambassador2:portal
-    ports:
-        - "80:80"
-        - "443:443"
-    volumes:
-        - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
-        - ./httpd/osivia-portal.conf:/usr/local/apache2/conf/extra/osivia-portal.conf
-        - ./ssl/server.crt:/usr/local/apache2/conf/server.crt
-        - ./ssl/server.key:/usr/local/apache2/conf/server.key
-
-nuxeo:
-    image: galactica:5000/basic_nuxeo:4.6
-    container_name: nuxeo
-    environment:
-        - PUBLIC_HOST=osivia-portal
-    links:
-        - postgres
-        - opendj
-        - ambassador1:osivia-portal
-    ports:
-        - "8122:22"
-        - "8081:8080"
-    volumes:
-        - ./ssl:/etc/ssl/nuxeo
-
-postgres:
-    image: galactica:5000/basic_pg95:4.6
-    container_name: postgres
-
-portal:
-    image: osivia/portal:demo
-    container_name: portal
-    environment:
-        - PUBLIC_HOST=osivia-portal
-    links:
-        - mysql
-        - opendj
-        - nuxeo
-        - ambassador2:osivia-portal
-    ports:
-        - "8022:22"
-        - "8080:8080"
-        - "8787:8787"
-    volumes:
-        - ./ssl:/etc/ssl/portal
-
-mysql:
-    image: mysql
-    container_name: mysql
-    environment:
-        - MYSQL_ROOT_PASSWORD=osivia
-        - MYSQL_DATABASE=portal
-
-cas:
-    image: tomcat:7
-    container_name: cas
-    links:
-        - opendj
-    volumes:
-        - ./cas/cas-config.properties:/root/cas-config.properties
-        - ./cas/cas.war:/usr/local/tomcat/webapps/cas.war
-
-opendj:
+version: '3'
+services:
+  opendj:
     image: osivia/opendj
-    container_name: opendj
+    container_name: demo-opendj
     ports:
-        - "389:389"
-    volumes:
-        - ./opendj/logs:/opt/opendj/logs
-        - ./opendj/db:/opt/opendj/db
-
-
+    - 1389:1389
+  cas:
+    image: osivia/cas
+    container_name: demo-cas
+    environment:
+      LDAP_HOST: demo-opendj
+    depends_on:
+    - opendj
+  postgres-1:
+    image: osivia/postgres
+    container_name: demo-postgres-1
+    ports:
+    - 5432
+  postgres-2:
+    image: osivia/postgres
+    container_name: demo-postgres-2
+    ports:
+    - 5432
+  es-1:
+    image: elasticsearch:1.7.6
+    command: elasticsearch -Des.cluster.name=demo-cluster-1
+    container_name: demo-es-1
+    ports:
+    - 9200
+  es-2:
+    image: elasticsearch:1.7.6
+    command: elasticsearch -Des.cluster.name=demo-cluster-2
+    container_name: demo-es-2
+    ports:
+    - 9200
+  nuxeo-1:
+    image: osivia/nuxeo:4.6
+    container_name: demo-nuxeo-1
+    environment:
+      NUXEO_DB_HOST: demo-postgres-1
+      LDAP_HOST: demo-opendj
+      NUXEO_ES_CLUSTER: demo-cluster-1
+      NUXEO_ES_NODES: demo-es-1:9300
+      CAS_HOST: demo-cas:8080
+      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+    depends_on:
+    - postgres-1
+    - opendj
+    - cas
+    - es-1
+  nuxeo-2:
+    image: osivia/nuxeo:4.6
+    container_name: demo-nuxeo-2
+    environment:
+      NUXEO_DB_HOST: demo-postgres-2
+      LDAP_HOST: demo-opendj
+      NUXEO_ES_CLUSTER: demo-cluster-2
+      NUXEO_ES_NODES: demo-es-2:9300
+      CAS_HOST: demo-cas:8080
+      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+    depends_on:
+    - postgres-2
+    - opendj
+    - cas
+    - es-2
+  mysql:
+    image: mysql:5.7
+    container_name: demo-mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: portaldb
+      MYSQL_USER: portal
+      MYSQL_PASSWORD: osivia
+      MYSQL_ROOT_PASSWORD: osivia
+  portal-1:
+    image: osivia/portal:4.6
+    container_name: demo-portal-1
+    environment:
+      NUXEO_HOST: demo-nuxeo-1
+      PORTAL_DB_HOST: demo-mysql
+      CAS_HOST: demo-cas
+      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+      LDAP_HOST: demo-opendj
+      EXTRANET_HOST: ${PUBLIC_HOST}
+      INTRANET_HOST: ${PUBLIC_HOST}
+    ports:
+    - 8787
+    depends_on:
+    - mysql
+    - opendj
+    - cas
+    - nuxeo-1
+  httpd:
+    image: osivia/httpd:4.6
+    container_name: demo-httpd
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST}
+      AUXILIARY_HOST: ${AUXILIARY_HOST}
+      NUXEO_1_HOST: demo-nuxeo-1
+      NUXEO_2_HOST: demo-nuxeo-2
+      CAS_HOST: demo-cas
+      PORTAL_HOSTS: demo-portal-1
+    ports:
+    - 80:80
+    - 443:443
+    depends_on:
+    - cas
+    - nuxeo-1
+    - nuxeo-2
+    - portal-1
