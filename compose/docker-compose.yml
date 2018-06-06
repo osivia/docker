@@ -2,48 +2,48 @@ version: '3'
 services:
   opendj:
     image: osivia/opendj
-    container_name: demo-opendj
+    container_name: split-nuxeo-opendj
     ports:
     - 1389:1389
   cas:
     image: osivia/cas
-    container_name: demo-cas
+    container_name: split-nuxeo-cas
     environment:
-      LDAP_HOST: demo-opendj
+      LDAP_HOST: split-nuxeo-opendj
+    ports:
+    - 8080
     depends_on:
     - opendj
   postgres-1:
     image: osivia/postgres
-    container_name: demo-postgres-1
-    ports:
-    - 5432
+    container_name: split-nuxeo-postgres-1
   postgres-2:
     image: osivia/postgres
-    container_name: demo-postgres-2
-    ports:
-    - 5432
+    container_name: split-nuxeo-postgres-2
   es-1:
     image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=demo-cluster-1
-    container_name: demo-es-1
+    command: elasticsearch -Des.cluster.name=es-cluster-1
+    container_name: split-nuxeo-es-1
     ports:
     - 9200
   es-2:
     image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=demo-cluster-2
-    container_name: demo-es-2
+    command: elasticsearch -Des.cluster.name=es-cluster-2
+    container_name: split-nuxeo-es-2
     ports:
     - 9200
   nuxeo-1:
     image: osivia/nuxeo:4.6
-    container_name: demo-nuxeo-1
+    container_name: split-nuxeo-nuxeo-1
     environment:
-      NUXEO_DB_HOST: demo-postgres-1
-      LDAP_HOST: demo-opendj
-      NUXEO_ES_CLUSTER: demo-cluster-1
-      NUXEO_ES_NODES: demo-es-1:9300
-      CAS_HOST: demo-cas:8080
+      NUXEO_DB_HOST: split-nuxeo-postgres-1
+      LDAP_HOST: split-nuxeo-opendj
+      NUXEO_ES_CLUSTER: es-cluster-1
+      NUXEO_ES_NODES: split-nuxeo-es-1:9300
+      CAS_HOST: split-nuxeo-cas:8080
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+    ports:
+    - 8080
     depends_on:
     - postgres-1
     - opendj
@@ -51,14 +51,16 @@ services:
     - es-1
   nuxeo-2:
     image: osivia/nuxeo:4.6
-    container_name: demo-nuxeo-2
+    container_name: split-nuxeo-nuxeo-2
     environment:
-      NUXEO_DB_HOST: demo-postgres-2
-      LDAP_HOST: demo-opendj
-      NUXEO_ES_CLUSTER: demo-cluster-2
-      NUXEO_ES_NODES: demo-es-2:9300
-      CAS_HOST: demo-cas:8080
+      NUXEO_DB_HOST: split-nuxeo-postgres-2
+      LDAP_HOST: split-nuxeo-opendj
+      NUXEO_ES_CLUSTER: es-cluster-2
+      NUXEO_ES_NODES: split-nuxeo-es-2:9300
+      CAS_HOST: split-nuxeo-cas:8080
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+    ports:
+    - 8080
     depends_on:
     - postgres-2
     - opendj
@@ -66,7 +68,7 @@ services:
     - es-2
   mysql:
     image: mysql:5.7
-    container_name: demo-mysql
+    container_name: split-nuxeo-mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: portaldb
@@ -74,33 +76,37 @@ services:
       MYSQL_PASSWORD: osivia
       MYSQL_ROOT_PASSWORD: osivia
   portal-1:
-    image: osivia/portal:4.6
-    container_name: demo-portal-1
+    image: osivia/portal:split-nuxeo
+    container_name: split-nuxeo-portal-1
     environment:
-      NUXEO_HOST: demo-nuxeo-1
-      PORTAL_DB_HOST: demo-mysql
-      CAS_HOST: demo-cas
+      NUXEO_HOST: split-nuxeo-nuxeo-1
+      PORTAL_DB_HOST: split-nuxeo-mysql
+      CAS_HOST: split-nuxeo-cas
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
-      LDAP_HOST: demo-opendj
+      LDAP_HOST: split-nuxeo-opendj
       EXTRANET_HOST: ${PUBLIC_HOST}
       INTRANET_HOST: ${PUBLIC_HOST}
     ports:
-    - 8787
+    - 8080    
+    - 8787:8787
+    volumes:
+    - ~/docker/volumes/demo-distribution-prod-4.6-SNAPSHOT:/opt/portal
     depends_on:
     - mysql
     - opendj
     - cas
     - nuxeo-1
+    - nuxeo-2
   httpd:
-    image: osivia/httpd:4.6
-    container_name: demo-httpd
+    image: osivia/httpd:split-nuxeo
+    container_name: split-nuxeo-httpd
     environment:
       PUBLIC_HOST: ${PUBLIC_HOST}
       AUXILIARY_HOST: ${AUXILIARY_HOST}
-      NUXEO_1_HOST: demo-nuxeo-1
-      NUXEO_2_HOST: demo-nuxeo-2
-      CAS_HOST: demo-cas
-      PORTAL_HOSTS: demo-portal-1
+      NUXEO_1_HOST: split-nuxeo-nuxeo-1
+      NUXEO_2_HOST: split-nuxeo-nuxeo-2
+      CAS_HOST: split-nuxeo-cas
+      PORTAL_HOSTS: split-nuxeo-portal-1
     ports:
     - 80:80
     - 443:443
