@@ -33,7 +33,7 @@ services:
     ports:
     - 9200
   nuxeo-1:
-    image: osivia/nuxeo:4.6
+    image: osivia/nuxeo:split-nuxeo
     container_name: split-nuxeo-nuxeo-1
     environment:
       NUXEO_DB_HOST: split-nuxeo-postgres-1
@@ -50,7 +50,7 @@ services:
     - cas
     - es-1
   nuxeo-2:
-    image: osivia/nuxeo:4.6
+    image: osivia/nuxeo:split-nuxeo
     container_name: split-nuxeo-nuxeo-2
     environment:
       NUXEO_DB_HOST: split-nuxeo-postgres-2
@@ -80,6 +80,7 @@ services:
     container_name: split-nuxeo-portal-1
     environment:
       NUXEO_HOST: split-nuxeo-nuxeo-1
+      NUXEO_2_HOST: split-nuxeo-nuxeo-2
       PORTAL_DB_HOST: split-nuxeo-mysql
       CAS_HOST: split-nuxeo-cas
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
