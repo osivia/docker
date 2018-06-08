@@ -44,6 +44,7 @@ services:
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
     ports:
     - 8080
+    - 8788
     depends_on:
     - postgres-1
     - opendj
@@ -61,6 +62,7 @@ services:
       CAS_PUBLIC_HOST: ${PUBLIC_HOST}
     ports:
     - 8080
+    - 8788
     depends_on:
     - postgres-2
     - opendj
