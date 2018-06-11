@@ -24,6 +24,7 @@ objectClass: portalPerson
 uid: admin
 cn: Administrateur
 sn: Administrateur
+mail: demo@osivia.org
 displayName: Administrateur du portail
 portalPersonProfile: cn=Administrators,ou=profiles,ou=groups,dc=osivia,dc=org
 userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
@@ -39,6 +40,7 @@ objectClass: portalPerson
 uid: demo
 cn: Démo
 sn: Démo
+mail: demo@osivia.org
 displayName: Utilisateur de démonstration
 userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
  Q==

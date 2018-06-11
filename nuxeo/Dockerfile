@@ -27,12 +27,6 @@ ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.1
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
-
-# Properties
-COPY nuxeo.conf /home/$NUXEO_USER/
-RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
-
-
 # Distribution
 RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.1/${NUXEO_DISTRIBUTION}.zip \
 	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
@@ -41,6 +35,10 @@ RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-rele
     && ln -s ${NUXEO_DISTRIBUTION} $NUXEO_HOME \
     && rm -f ${NUXEO_DISTRIBUTION}.zip
 
+
+# Properties
+COPY nuxeo.conf /home/$NUXEO_USER/
+RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 # Entrypoint
 COPY entrypoint.sh /
