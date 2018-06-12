@@ -48,6 +48,10 @@ services:
 #  NUXEO_ES_NODES: demo-es-1:9300,demo-es-2:9300
    CAS_HOST: demo-cas:8080
    CAS_PUBLIC_HOST: ${INTRANET_HOST}
+   MAIL_HOST: ${MAIL_HOST}
+   MAIL_PORT: ${MAIL_PORT}
+   MAIL_USERNAME: ${MAIL_USERNAME}
+   MAIL_PASSWORD: ${MAIL_PASSWORD}
 #  volumes:
 #   - ~/docker-share/nx-plugins:/opt/nuxeo/nxserver/plugins
   depends_on:
@@ -79,6 +83,10 @@ services:
 #   PORTAL_MEMBERS: demo-portal-2
    EXTRANET_HOST: ${EXTRANET_HOST}
    INTRANET_HOST: ${INTRANET_HOST}
+   MAIL_HOST: ${MAIL_HOST}
+   MAIL_PORT: ${MAIL_PORT}
+   MAIL_USERNAME: ${MAIL_USERNAME}
+   MAIL_PASSWORD: ${MAIL_PASSWORD}
 #  volumes:
 #   - ~/docker-share/portal-demo/deploy:/opt/portal/custom/deploy
 #   - ~/docker-share/portal-demo/production/lib:/opt/portal/jboss-as/server/production/lib
@@ -102,6 +110,10 @@ services:
 #   PORTAL_MEMBERS: demo-portal-1
 #   EXTRANET_HOST: ${EXTRANET_HOST}
 #   INTRANET_HOST: ${INTRANET_HOST}
+#   MAIL_HOST: ${MAIL_HOST}
+#   MAIL_PORT: ${MAIL_PORT}
+#   MAIL_USERNAME: ${MAIL_USERNAME}
+#   MAIL_PASSWORD: ${MAIL_PASSWORD}   
 #  volumes:
 #   - ~/docker-share/portal-demo/deploy:/opt/portal/custom/deploy
 #   - ~/docker-share/portal-demo/production/lib:/opt/portal/jboss-as/server/production/lib

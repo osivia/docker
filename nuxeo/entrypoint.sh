@@ -35,6 +35,12 @@ NUXEO_LOGS=${NUXEO_LOGS:-/var/log/nuxeo}
 # PID
 NUXEO_PID=${NUXEO_PID:-/var/run/nuxeo}
 
+# Mails
+MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
+MAIL_PORT=${MAIL_PORT:-587}
+MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.org}
+MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
+
 # SSL
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/nuxeo}
 
@@ -47,6 +53,11 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
         sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
+        
+        sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
+        sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $NUXEO_CONF
+        sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $NUXEO_CONF
+        sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $NUXEO_CONF
         
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
 
