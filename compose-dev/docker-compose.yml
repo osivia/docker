@@ -2,48 +2,52 @@ version: '3'
 services:
   opendj:
     image: osivia/opendj
-    container_name: demo-opendj
+    container_name: demo-nx8-opendj
     ports:
     - 1389:1389
   cas:
     image: osivia/cas
-    container_name: demo-cas
+    container_name: demo-nx8-cas
     environment:
-      LDAP_HOST: demo-opendj
-    depends_on:
-    - opendj
+      LDAP_HOST: demo-nx8-opendj
   postgres:
     image: osivia/postgres
-    container_name: demo-postgres
+    container_name: demo-nx8-postgres
     ports:
     - 5432
   es-node-1:
-    image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=demo
-    container_name: demo-es-1
+    image: elasticsearch:2.3.5
+    command: elasticsearch -Des.cluster.name=demo-nx8
+    container_name: demo-nx8-es-1
     ports:
-    - 9200
+    - 9200:9200
   nuxeo:
-    image: osivia/nuxeo
-    container_name: demo-nuxeo
+    image: nuxeo-dev-8
+    container_name: demo-nx8-nuxeo
     environment:
       PUBLIC_HOST: ${EXTRANET_HOST}
-      NUXEO_DB_HOST: demo-postgres
-      LDAP_HOST: demo-opendj
-      NUXEO_ES_CLUSTER: demo
-      NUXEO_ES_NODES: demo-es-1:9300
-      CAS_HOST: demo-cas:8080
+      NUXEO_DB_HOST: demo-nx8-postgres
+      LDAP_HOST: demo-nx8-opendj
+      NUXEO_ES_CLUSTER: demo-nx8
+      NUXEO_ES_NODES: demo-nx8-es-1:9300
+      CAS_HOST: demo-nx8-cas:8080
       CAS_PUBLIC_HOST: ${INTRANET_HOST}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    volumes:
+    - ~/docker-share/nx8/nuxeo:/opt/nuxeo
+    - demo-nx8-nuxeo-data:/data
     ports:
     - 8080
+    - 8788:8788
     depends_on:
     - postgres
-    - opendj
-    - cas
     - es-node-1
   mysql:
     image: mysql:5.7
-    container_name: demo-mysql
+    container_name: demo-nx8-mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: portaldb
@@ -51,37 +55,38 @@ services:
       MYSQL_PASSWORD: osivia
       MYSQL_ROOT_PASSWORD: osivia
   portal-1:
-    image: osivia/portal
-    container_name: demo-portal-1
+    image: portal-dev-8
+    container_name: demo-nx8-portal-1
     environment:
-      NUXEO_HOST: demo-nuxeo
-      PORTAL_DB_HOST: demo-mysql
-      CAS_HOST: demo-cas
+      NUXEO_HOST: demo-nx8-nuxeo
+      PORTAL_DB_HOST: demo-nx8-mysql
+      CAS_HOST: demo-nx8-cas
       CAS_PUBLIC_HOST: ${INTRANET_HOST}
-      LDAP_HOST: demo-opendj
+      LDAP_HOST: demo-nx8-opendj
       EXTRANET_HOST: ${EXTRANET_HOST}
       INTRANET_HOST: ${INTRANET_HOST}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
     ports:
     - 8080
     - 8787:8787
     volumes:
-    - ~/docker/volumes/demo-distribution-prod-4.7-SNAPSHOT:/opt/portal
+    - ~/docker-share/nx8/portal:/opt/portal
     depends_on:
     - mysql
-    - opendj
-    - cas
     - nuxeo
   httpd:
     image: osivia/httpd
-    container_name: demo-httpd
+    container_name: demo-nx8-httpd
     environment:
-      NUXEO_HOST: demo-nuxeo
-      CAS_HOST: demo-cas
-      PORTAL_HOSTS: demo-portal-1
+      NUXEO_HOST: demo-nx8-nuxeo
+      CAS_HOST: demo-nx8-cas
+      PORTAL_HOSTS: demo-nx8-portal-1
     ports:
     - 80:80
     - 443:443
-    depends_on:
-    - nuxeo
-    - cas
-    - portal-1
+volumes:
+  demo-nx8-nuxeo-data:
+  

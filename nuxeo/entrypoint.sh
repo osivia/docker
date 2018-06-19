@@ -46,7 +46,7 @@ MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 
 
 if [ "$1" = "nuxeoctl" ]; then
-    if [ ! -f $NUXEO_HOME/configured ]; then
+    if [ ! -f /configured ]; then
         echo "Configuration..."
     
         # Properties
@@ -60,12 +60,13 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $NUXEO_CONF
         
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
-
-        sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
-        sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF
-        sed -i s\\^[#]*nuxeo.db.name=.*$\\nuxeo.db.name=$NUXEO_DB_NAME\\g $NUXEO_CONF
-        sed -i s\\^[#]*nuxeo.db.user=.*$\\nuxeo.db.user=$NUXEO_DB_USER\\g $NUXEO_CONF
-        sed -i s\\^[#]*nuxeo.db.password=.*$\\nuxeo.db.password=$NUXEO_DB_PASSWORD\\g $NUXEO_CONF
+        
+        
+        sed -i s\\NUXEO_DB_HOST\\$NUXEO_DB_HOST\\g $NUXEO_CONF
+        sed -i s\\NUXEO_DB_PORT\\$NUXEO_DB_PORT\\g $NUXEO_CONF
+        sed -i s\\NUXEO_DB_NAME\\$NUXEO_DB_NAME\\g $NUXEO_CONF
+        sed -i s\\NUXEO_DB_USER\\$NUXEO_DB_USER\\g $NUXEO_CONF
+        sed -i s\\NUXEO_DB_PASSWORD\\$NUXEO_DB_PASSWORD\\g $NUXEO_CONF
 
         sed -i s\\^[#]*elasticsearch.clusterName=.*$\\elasticsearch.clusterName=$NUXEO_ES_CLUSTER\\g $NUXEO_CONF
         
@@ -88,7 +89,8 @@ if [ "$1" = "nuxeoctl" ]; then
         
         # Wizard
         sed -i s\\^[#]*nuxeo.wizard.done=.*$\\nuxeo.wizard.done=true\\g $NUXEO_CONF
-        touch $NUXEO_HOME/configured
+        
+        touch /configured
     fi
     
     # Wait database
@@ -98,17 +100,20 @@ if [ "$1" = "nuxeoctl" ]; then
     done
     echo "Connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT with $NUXEO_DB_USER@$NUXEO_DB_NAME"
     
+	# Redirect server.log to console
+    mkdir -p ${NUXEO_LOGS}
+    touch ${NUXEO_LOGS}/console.log
+    touch ${NUXEO_LOGS}/server.log
+    chown -R nuxeo: ${NUXEO_LOGS}
+
     # Command
     NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/$@"
     echo "NUXEO_CMD = $NUXEO_CMD"
     
-    # Redirect server.log to console
-    touch ${NUXEO_LOGS}/console.log 
-	tailf ${NUXEO_LOGS}/console.log &
-    
     exec su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
     
-    tailf ${NUXEO_LOGS}/console.log
+    tailf ${NUXEO_LOGS}/console.log &
+    tailf ${NUXEO_LOGS}/server.log
 fi
 
 

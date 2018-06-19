@@ -49,7 +49,7 @@ PORTAL_LOGS=${PORTAL_LOGS:-/var/log/portal}
 
 
 if [ "$1" = "start" ]; then
-    if [ ! -f $PORTAL_HOME/configured ]; then
+    if [ ! -f /configured ]; then
         echo "Configuration..."
     
         # Properties
@@ -144,7 +144,7 @@ if [ "$1" = "start" ]; then
 #        keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore $JAVA_HOME/lib/security/cacerts -srckeystore $SSL_DIRECTORY/server.p12 -srcstoretype PKCS12 -srcstorepass osivia -alias $PUBLIC_HOST
 
 
-        touch $PORTAL_HOME/configured
+        touch /configured
     fi    
 
     
@@ -156,19 +156,23 @@ if [ "$1" = "start" ]; then
     echo "Connection to $PORTAL_DB_HOST:$PORTAL_DB_PORT OK."
 
     # Wait nuxeo
-    echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
-    while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
-        sleep 1
-    done
-    echo "Connection to $NUXEO_HOST:8080 OK."
+    #echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
+    #while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
+    #    sleep 1
+    #done
+    #echo "Connection to $NUXEO_HOST:8080 OK."
     
+	# Redirect server.log to console
+    mkdir -p ${PORTAL_LOGS}
+    touch ${PORTAL_LOGS}/server.log
+    chown -R portal: ${PORTAL_LOGS}
+	tailf ${PORTAL_LOGS}/server.log &    
     
     # Start
     PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
     echo "PORTAL_CMD = $PORTAL_CMD"
 
-	# Redirect server.log to console
-	tailf ${PORTAL_LOGS}/server.log &
+
 
     exec su - $PORTAL_USER -c "$PORTAL_CMD"
 fi
