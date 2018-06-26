@@ -48,6 +48,9 @@ if [ "$1" = "start" ]; then
         echo "Configuration..."
     
         # Properties
+        sed -i s\\NUXEO_PUBLIC_HOST\\$NUXEO_PUBLIC_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\NUXEO_2_PUBLIC_HOST\\$NUXEO_2_PUBLIC_HOST\\g $PORTAL_PROPERTIES
+        
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $PORTAL_PROPERTIES
         

@@ -18,8 +18,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_VERSION 4.6.1
-ENV PORTAL_DISTRIBUTION demo-distribution-prod-${PORTAL_VERSION}
+ENV PORTAL_VERSION 5.1.5-SNAPSHOT
+ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-dev-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
 
@@ -33,8 +33,9 @@ COPY run.conf /home/$PORTAL_USER/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/${PORTAL_VERSION}/demo-distribution-${PORTAL_VERSION}.zip -O ${PORTAL_DISTRIBUTION}.zip \
-	&& unzip ${PORTAL_DISTRIBUTION}.zip \
+COPY toutatice-portail-acrennes-distribution.zip /opt/${PORTAL_DISTRIBUTION}.zip
+RUN cd /opt \
+	&& unzip -q ${PORTAL_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
     && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
