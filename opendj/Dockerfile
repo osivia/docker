@@ -22,7 +22,7 @@ RUN chmod -R 755 opendj
 # Configuration
 RUN /opt/opendj/setup \
           --cli \
-          --baseDN dc=osivia,dc=org \
+          --baseDN dc=ent-bretagne,dc=fr \
           --ldapPort ${LDAP_PORT} \
           --adminConnectorPort ${ADMIN_CONNECTOR_PORT} \
           --rootUserDN cn=Directory\ Manager \
@@ -31,10 +31,12 @@ RUN /opt/opendj/setup \
           --noPropertiesFile \
           --acceptLicense
 
-COPY 90-portal.ldif /opt/opendj/config/schema/
+#COPY 90-portal.ldif /opt/opendj/config/schema/
+COPY 99-user.ldif /opt/opendj/config/schema/
 
 # Config spécifique passwords
 RUN sed -i s\\^[#]*ds-cfg-allow-pre-encoded-passwords:.*$\\ds-cfg-allow-pre-encoded-passwords:true\\g /opt/opendj/config/config.ldif
+RUN sed -i s\\^[#]*ds-cfg-single-structural-objectclass-behavior:.*$\\ds-cfg-single-structural-objectclass-behavior:accept\\g /opt/opendj/config/config.ldif
 
 # Import
 COPY import.ldif /opt/
