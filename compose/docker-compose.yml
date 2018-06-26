@@ -1,12 +1,12 @@
 version: '3'
 services:
   opendj:
-    image: osivia/opendj
+    image: osivia/opendj:split-nuxeo
     container_name: split-nuxeo-opendj
     ports:
     - 1389:1389
   cas:
-    image: osivia/cas
+    image: osivia/cas:split-nuxeo
     container_name: split-nuxeo-cas
     environment:
       LDAP_HOST: split-nuxeo-opendj
@@ -17,21 +17,29 @@ services:
   postgres-1:
     image: osivia/postgres
     container_name: split-nuxeo-postgres-1
+    volumes:
+    - ./split-nuxeo-postgres-1-data:/var/lib/postgresql/data
   postgres-2:
     image: osivia/postgres
     container_name: split-nuxeo-postgres-2
+    volumes:
+    - ./split-nuxeo-postgres-2-data:/var/lib/postgresql/data
   es-1:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster-1
     container_name: split-nuxeo-es-1
     ports:
     - 9200
+    volumes:
+    - split-nuxeo-es-1-data:/usr/share/elasticsearch/data
   es-2:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster-2
     container_name: split-nuxeo-es-2
     ports:
     - 9200
+    volumes:
+    - split-nuxeo-es-2-data:/usr/share/elasticsearch/data
   nuxeo-1:
     image: osivia/nuxeo:split-nuxeo
     container_name: split-nuxeo-nuxeo-1
@@ -45,13 +53,15 @@ services:
     ports:
     - 8080
     - 8788
+    volumes:
+    - split-nuxeo-nuxeo-1-data:/data
     depends_on:
     - postgres-1
     - opendj
     - cas
     - es-1
   nuxeo-2:
-    image: osivia/nuxeo:split-nuxeo
+    image: osivia/nuxeo:split-nuxeo-p1d
     container_name: split-nuxeo-nuxeo-2
     environment:
       NUXEO_DB_HOST: split-nuxeo-postgres-2
@@ -63,6 +73,8 @@ services:
     ports:
     - 8080
     - 8788
+    volumes:
+    - split-nuxeo-nuxeo-2-data:/data
     depends_on:
     - postgres-2
     - opendj
@@ -77,10 +89,14 @@ services:
       MYSQL_USER: portal
       MYSQL_PASSWORD: osivia
       MYSQL_ROOT_PASSWORD: osivia
+    volumes:
+    - split-nuxeo-mysql-data:/var/lib/mysql
   portal-1:
     image: osivia/portal:split-nuxeo
     container_name: split-nuxeo-portal-1
     environment:
+      NUXEO_PUBLIC_HOST: ${PUBLIC_HOST}
+      NUXEO_2_PUBLIC_HOST: ${AUXILIARY_HOST}
       NUXEO_HOST: split-nuxeo-nuxeo-1
       NUXEO_2_HOST: split-nuxeo-nuxeo-2
       PORTAL_DB_HOST: split-nuxeo-mysql
@@ -90,10 +106,8 @@ services:
       EXTRANET_HOST: ${PUBLIC_HOST}
       INTRANET_HOST: ${PUBLIC_HOST}
     ports:
-    - 8080    
+    - 8080
     - 8787:8787
-    volumes:
-    - ~/docker/volumes/demo-distribution-prod-4.6-SNAPSHOT:/opt/portal
     depends_on:
     - mysql
     - opendj
@@ -118,3 +132,11 @@ services:
     - nuxeo-1
     - nuxeo-2
     - portal-1
+volumes:
+  split-nuxeo-postgres-1-data:
+  split-nuxeo-postgres-2-data:
+  split-nuxeo-nuxeo-1-data:
+  split-nuxeo-nuxeo-2-data:
+  split-nuxeo-es-1-data:
+  split-nuxeo-es-2-data:
+  split-nuxeo-mysql-data:
