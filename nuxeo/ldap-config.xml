@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<component name="org.osivia.ldap.storage.users">
+  <implementation class="org.nuxeo.ecm.directory.ldap.LDAPDirectoryDescriptor" />
+  <implementation class="org.nuxeo.ecm.directory.ldap.LDAPServerDescriptor" />
+  <require>org.nuxeo.ecm.directory.ldap.LDAPDirectoryFactory</require>
+
+  <!-- the groups SQL directories are required to make this bundle work -->
+  <require>org.nuxeo.ecm.directory.sql.storage</require>
+
+  <extension target="org.nuxeo.ecm.directory.ldap.LDAPDirectoryFactory"
+             point="servers">
+    <server name="default">
+      <ldapUrl>${ldap.url}</ldapUrl>
+      <bindDn>${ldap.manager.dn}</bindDn>
+      <bindPassword>${ldap.manager.pswd}</bindPassword>
+    </server>
+  </extension>
+
+  <extension target="org.nuxeo.ecm.directory.ldap.LDAPDirectoryFactory"
+    point="directories">
+    <directory name="userLdapDirectory">
+      <server>default</server>
+
+      <rdnAttribute>uid</rdnAttribute>
+
+      <schema>user</schema>
+      <idField>username</idField>
+      <passwordField>password</passwordField>
+      <fieldMapping name="username">uid</fieldMapping>
+      <fieldMapping name="password">userPassword</fieldMapping>
+      <fieldMapping name="firstName">givenName</fieldMapping>
+      <fieldMapping name="lastName">sn</fieldMapping>
+      <fieldMapping name="email">mail</fieldMapping>
+      <searchFilter>(&amp;((objectClass=inetOrgPerson)))</searchFilter>
+
+      <searchBaseDn>${ldap.persondn}</searchBaseDn>
+      <searchClass>inetOrgPerson</searchClass>
+      <searchScope>onelevel</searchScope>
+      <substringMatchType>subany</substringMatchType>
+
+      <readOnly>true</readOnly>
+
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>20000</cacheMaxSize>
+      <querySizeLimit>500</querySizeLimit>
+      <queryTimeLimit>60000</queryTimeLimit>
+
+      <references>
+
+		  <ldapReference field="groups" 
+	                         directory="groupLdapDirectory"
+	                         forceDnConsistencyCheck="false"  
+	                         staticAttributeId="portalPersonProfile"/>
+      </references>
+
+
+    </directory>
+
+    <directory name="groupLdapDirectory">
+      <server>default</server>
+
+      <rdnAttribute>cn</rdnAttribute>
+
+
+      <schema>group</schema>
+      <idField>groupname</idField>
+      <fieldMapping name="groupname">cn</fieldMapping>
+      <fieldMapping name="description">description</fieldMapping>
+      <fieldMapping name="members">member</fieldMapping>
+      <fieldMapping name="subGroups">subGroups</fieldMapping>
+
+      <searchBaseDn>${ldap.groupdn}</searchBaseDn>
+      <searchClass>groupOfNames</searchClass>
+      <searchScope>subtree</searchScope>
+      <substringMatchType>subany</substringMatchType>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>2000</cacheMaxSize>
+      <querySizeLimit>500</querySizeLimit>
+      <queryTimeLimit>60000</queryTimeLimit>
+
+      <readOnly>true</readOnly>
+
+      <references>
+
+        <ldapReference field="members" directory="userLdapDirectory"
+                       forceDnConsistencyCheck="false" 
+                       staticAttributeId="member" />
+
+        <ldapReference field="subGroups" directory="groupLdapDirectory"
+                       forceDnConsistencyCheck="false"  
+                       staticAttributeId="subGroups"/>
+        <ldapReference field="parentGroups" directory="groupLdapDirectory" 
+                       forceDnConsistencyCheck="false"  
+                       staticAttributeId="parentGroups"/>
+      </references>
+
+    </directory>
+
+  </extension>
+</component>

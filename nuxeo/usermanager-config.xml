@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<component name="org.osivia.usermanager.config">
+
+  <extension target="org.nuxeo.ecm.platform.usermanager.UserService"
+	point="userManager">
+	<userManager>
+
+		<users>
+			<directory>userLdapDirectory</directory>
+			<!--searchFields append="true"> <searchField>username</searchField> <searchField>firstName</searchField> 
+				<searchField>lastName</searchField> <searchField>compagny</searchField> </searchFields> 
+				<listingMode>search_only</listingMode -->
+				
+			<!-- Anonymous user -->
+			<anonymousUser id="utilisateur-invité">
+				<property name="firstName">Utilisateur</property>
+				<property name="lastName">Invité (compte anonyme)</property>
+			</anonymousUser>
+		</users>
+		
+		<groups>
+			<directory>groupLdapDirectory</directory>
+		</groups>
+		
+		<defaultGroup>members</defaultGroup>
+		<!-- Defines technical (or Super) Adminitrators in LDAP (Administrators 
+			must be defined in LDAP) -->
+		<disableDefaultAdministratorsGroup>true</disableDefaultAdministratorsGroup>
+		<administratorsGroup>Administrators</administratorsGroup>
+
+		<groupSortField>groupname</groupSortField>
+		<userSortField>lastName</userSortField>
+
+		<!-- Override default cache -->
+		<userCacheName>default-ottc-user-cache</userCacheName>
+
+	</userManager>
+</extension>
+
+  
+</component>
