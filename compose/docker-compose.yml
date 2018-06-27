@@ -18,12 +18,12 @@ services:
     image: osivia/postgres
     container_name: split-nuxeo-postgres-1
     volumes:
-    - ./split-nuxeo-postgres-1-data:/var/lib/postgresql/data
+    - split-nuxeo-postgres-1-data:/var/lib/postgresql/data
   postgres-2:
     image: osivia/postgres
     container_name: split-nuxeo-postgres-2
     volumes:
-    - ./split-nuxeo-postgres-2-data:/var/lib/postgresql/data
+    - split-nuxeo-postgres-2-data:/var/lib/postgresql/data
   es-1:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster-1
@@ -132,6 +132,15 @@ services:
     - nuxeo-1
     - nuxeo-2
     - portal-1
+  kibana-1:
+    image: kibana:4.1
+    container_name: split-nuxeo-kibana-1
+    environment:
+      ELASTICSEARCH_URL: http://es-1:9200
+    ports:
+    - 5601
+    depends_on:
+    - es-1
 volumes:
   split-nuxeo-postgres-1-data:
   split-nuxeo-postgres-2-data:
