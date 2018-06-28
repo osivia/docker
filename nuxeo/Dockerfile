@@ -39,8 +39,9 @@ RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-rele
 	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
-    && ln -s ${NUXEO_DISTRIBUTION} $NUXEO_HOME \
+    && ln -s ${NUXEO_DISTRIBUTION} nuxeo \
     && rm -f ${NUXEO_DISTRIBUTION}.zip
+COPY usermanager-config.xml /opt/nuxeo/templates/opentoutatice/nxserver/config/
 
 
 # Entrypoint

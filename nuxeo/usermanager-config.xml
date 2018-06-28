@@ -25,8 +25,10 @@
 		<defaultGroup>members</defaultGroup>
 		<!-- Defines technical (or Super) Adminitrators in LDAP (Administrators 
 			must be defined in LDAP) -->
-		<disableDefaultAdministratorsGroup>true</disableDefaultAdministratorsGroup>
-		<administratorsGroup>Administrators</administratorsGroup>
+            
+        <defaultAdministratorId>Administrator</defaultAdministratorId>
+        <administratorsGroup>SuperAdministrators</administratorsGroup>
+        <disableDefaultAdministratorsGroup>true</disableDefaultAdministratorsGroup>
 
 		<groupSortField>groupname</groupSortField>
 		<userSortField>lastName</userSortField>
