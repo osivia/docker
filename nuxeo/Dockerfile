@@ -1,12 +1,14 @@
 FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
+RUN apt-get update  \
+ && apt-get install sudo
+
 # Openoffice
-RUN apt-get update \
-    && apt-get install -y netcat \
+RUN apt-get install -y netcat \
     && apt-get purge -y
 
-RUN apt-get install -y imagemagick 
+RUN sudo apt-get install -y imagemagick 
 
 RUN apt-get  install -y libreoffice 
 
@@ -22,7 +24,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.1
+ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.2
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
