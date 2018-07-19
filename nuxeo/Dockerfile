@@ -30,7 +30,7 @@ ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.2
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.1/${NUXEO_DISTRIBUTION}.zip \
+RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.2/${NUXEO_DISTRIBUTION}.zip \
 	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
