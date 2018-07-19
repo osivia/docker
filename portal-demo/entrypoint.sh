@@ -49,7 +49,7 @@ PORTAL_LOGS=${PORTAL_LOGS:-/var/log/portal}
 
 
 if [ "$1" = "start" ]; then
-    if [ ! -f $PORTAL_HOME/configured ]; then
+    if [ ! -f /configured ]; then
         echo "Configuration..."
     
         # Properties
@@ -144,7 +144,7 @@ if [ "$1" = "start" ]; then
 #        keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore $JAVA_HOME/lib/security/cacerts -srckeystore $SSL_DIRECTORY/server.p12 -srcstoretype PKCS12 -srcstorepass osivia -alias $PUBLIC_HOST
 
 
-        touch $PORTAL_HOME/configured
+        touch /configured
     fi    
 
     
