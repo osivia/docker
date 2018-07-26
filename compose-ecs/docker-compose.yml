@@ -1,0 +1,88 @@
+version: "3"
+services:    
+    demo-httpd:
+      environment:
+        - CAS_HOST=demo-cas
+        - NUXEO_HOST=demo-nuxeo
+        - 'PORTAL_HOSTS=demo-portal-1'
+      image: 'osivia/httpd:latest'
+      links:
+        - demo-cas
+        - demo-nuxeo
+        - demo-portal-1
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "nginx"        
+      ports:
+        - '80:80'
+        - '443:443'
+    demo-cas:
+      environment:
+        - LDAP_HOST=demo-opendj
+      image: 'osivia/cas:latest'
+      links:
+        - demo-opendj
+    demo-portal-1:
+      environment:
+        - CAS_HOST=demo-cas
+        - CAS_PUBLIC_HOST=demo-intra.osivia.org
+        - EXTRANET_HOST=demo-public.osivia.org
+        - INTRANET_HOST=demo-intra.osivia.org
+        - LDAP_HOST=demo-opendj
+        - NUXEO_HOST=demo-nuxeo
+        - PORTAL_DB_HOST=demo-mysql
+      image: 'osivia/portal:latest'
+      ports:
+        - "8787:8787"
+      links:
+        - demo-cas
+        - demo-mysql
+        - demo-nuxeo
+        - demo-opendj
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "nginx"
+    demo-mysql:
+      command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci'
+      environment:
+        - MYSQL_DATABASE=portaldb
+        - MYSQL_PASSWORD=osivia
+        - MYSQL_ROOT_PASSWORD=osivia
+        - MYSQL_USER=portal
+      image: 'mysql:5.7'
+    demo-postgres:
+      image: 'osivia/postgres:latest'
+    demo-opendj:
+      image: 'osivia/opendj:latest'     
+    demo-nuxeo:
+      environment:
+        - 'CAS_HOST=demo-cas:8080'
+        - CAS_PUBLIC_HOST=demo-intra.osivia.org
+        - LDAP_HOST=demo-opendj
+        - NUXEO_DB_HOST=demo-postgres
+        - NUXEO_ES_CLUSTER=demo
+        - 'NUXEO_ES_NODES=demo-es-master:9300'
+        - PUBLIC_HOST=demo-public.osivia.org
+      image: 'osivia/nuxeo:latest'
+      links:
+        - demo-cas
+        - demo-es-master
+        - demo-opendj
+        - demo-postgres   
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "nuxeo"        
+    demo-es-master:
+      command: elasticsearch -Des.cluster.name=demo -Dnetwork.host=0.0.0.0 -Ddiscovery.zen.minimum_master_nodes=1 -Ddiscovery.zen.ping.unicast.hosts=demo-es-master
+      image: 'elasticsearch:1.7.6'
+      ports:
+        - '9200:9200'

@@ -1,0 +1,7 @@
+version: 1
+task_definition:
+  services:    
+    demo-portal-1:
+      mem_limit: 2GB
+    demo-nuxeo:
+      mem_limit: 2GB
