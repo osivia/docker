@@ -29,10 +29,11 @@ ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7-SNAPSHOT
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
-# Distribution
+COPY ${NUXEO_DISTRIBUTION}.zip /opt
+
+# Distribution (copy from context)
 RUN cd /opt \
 && rm -f ${NUXEO_DISTRIBUTION} \
-&& wget  http://www.osivia.org/downloads/${NUXEO_DISTRIBUTION}.zip \
 && unzip ${NUXEO_DISTRIBUTION}.zip \
 && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
 &&  chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
