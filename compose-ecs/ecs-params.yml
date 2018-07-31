@@ -7,3 +7,5 @@ task_definition:
       mem_limit: 3GB
     demo-es-master:
       mem_limit: 1GB
+    demo-opendj:
+      mem_limit: 1GB      
