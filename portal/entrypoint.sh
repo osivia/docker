@@ -17,19 +17,19 @@ PORTAL_DB_PASSWORD=${PORTAL_DB_PASSWORD:-osivia}
 
 # Nuxeo
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
-NUXEO_2_HOST=${NUXEO_2_HOST:-nuxeo2}
 
 # LDAP
 LDAP_HOST=${LDAP_HOST:-opendj}
 LDAP_PORT=${LDAP_PORT:-1389}
 
+# Mails
+MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
+MAIL_PORT=${MAIL_PORT:-587}
+MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.org}
+MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
+
 # CAS
 CAS_HOST=${CAS_HOST:-cas}
-CAS_PUBLIC_HOST=${CAS_PUBLIC_HOST:-cas}
-
-# Public urls
-EXTRANET_HOST=${EXTRANET_HOST:-demo}
-INTRANET_HOST=${INTRANET_HOST:-intra.demo}
 
 # Cluster
 PORTAL_MEMBERS=${PORTAL_MEMBERS:-""}
@@ -48,12 +48,8 @@ if [ "$1" = "start" ]; then
         echo "Configuration..."
     
         # Properties
-        sed -i s\\NUXEO_PUBLIC_HOST\\$NUXEO_PUBLIC_HOST\\g $PORTAL_PROPERTIES
-        sed -i s\\NUXEO_2_PUBLIC_HOST\\$NUXEO_2_PUBLIC_HOST\\g $PORTAL_PROPERTIES
-        
+        sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
-        sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $PORTAL_PROPERTIES
-        
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
 
         sed -i s\\^[#]*db.host=.*$\\db.host=$PORTAL_DB_HOST:$PORTAL_DB_PORT\\g $PORTAL_PROPERTIES
@@ -62,80 +58,74 @@ if [ "$1" = "start" ]; then
         sed -i s\\^[#]*db.manager.pswd=.*$\\db.manager.pswd=$PORTAL_DB_PASSWORD\\g $PORTAL_PROPERTIES
 
         sed -i s\\^[#]*nuxeo.privateHost=.*$\\nuxeo.privateHost=$NUXEO_HOST\\g $PORTAL_PROPERTIES
-        sed -i s\\^[#]*nuxeo.satellite.bnd.privateHost=.*$\\nuxeo.satellite.bnd.privateHost=$NUXEO_2_HOST\\g $PORTAL_PROPERTIES
         
         sed -i s\\^[#]*ldap.host=.*$\\ldap.host=$LDAP_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*ldap.port=.*$\\ldap.port=$LDAP_PORT\\g $PORTAL_PROPERTIES
-		
-		# Clustering web
-		sed -i s\\^[#]*portal.web.cluster.tcpAddr=.*$\\portal.web.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8930]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8930]"
-		done
-		sed -i s\\^[#]*portal.web.cluster.initial_hosts=.*$\\portal.web.cluster.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        
+        sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $PORTAL_PROPERTIES
+        sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $PORTAL_PROPERTIES
+        sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $PORTAL_PROPERTIES       
+        
+        # Clustering web
+        sed -i s\\^[#]*portal.web.cluster.tcpAddr=.*$\\portal.web.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8930]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8930]"
+        done
+        sed -i s\\^[#]*portal.web.cluster.initial_hosts=.*$\\portal.web.cluster.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-		# Clustering
-		sed -i s\\^[#]*portal.cluster.tcpAddr=.*$\\portal.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8920]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8920]"
-		done
-		sed -i s\\^[#]*portal.cluster.initial_hosts=.*$\\portal.cluster.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        # Clustering
+        sed -i s\\^[#]*portal.cluster.tcpAddr=.*$\\portal.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8920]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8920]"
+        done
+        sed -i s\\^[#]*portal.cluster.initial_hosts=.*$\\portal.cluster.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-		# Custom cache
-		sed -i s\\^[#]*portal.custom.cache.tcpAddr=.*$\\portal.custom.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8910]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8910]"
-		done
-		sed -i s\\^[#]*portal.custom.cache.initial_hosts=.*$\\portal.custom.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        # Custom cache
+        sed -i s\\^[#]*portal.custom.cache.tcpAddr=.*$\\portal.custom.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8910]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8910]"
+        done
+        sed -i s\\^[#]*portal.custom.cache.initial_hosts=.*$\\portal.custom.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-		# Hibernate cache
-		sed -i s\\^[#]*portal.hibernate.cache.tcpAddr=.*$\\portal.hibernate.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8900]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8900]"
-		done
-		sed -i s\\^[#]*portal.hibernate.cache.initial_hosts=.*$\\portal.hibernate.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        # Hibernate cache
+        sed -i s\\^[#]*portal.hibernate.cache.tcpAddr=.*$\\portal.hibernate.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8900]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8900]"
+        done
+        sed -i s\\^[#]*portal.hibernate.cache.initial_hosts=.*$\\portal.hibernate.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-		# EJB3 Entity cache
-		sed -i s\\^[#]*portal.ejb3.entity.cache.tcpAddr=.*$\\portal.ejb3.entity.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8940]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8940]"
-		done
-		sed -i s\\^[#]*portal.ejb3.entity.cache.initial_hosts=.*$\\portal.ejb3.entity.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        # EJB3 Entity cache
+        sed -i s\\^[#]*portal.ejb3.entity.cache.tcpAddr=.*$\\portal.ejb3.entity.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8940]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8940]"
+        done
+        sed -i s\\^[#]*portal.ejb3.entity.cache.initial_hosts=.*$\\portal.ejb3.entity.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-		# SFSB cache
-		sed -i s\\^[#]*portal.ejb3.sfsb.cache.tcpAddr=.*$\\portal.ejb3.sfsb.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
-		CLUSTER_MEMBERS="$HOSTNAME[8950]"
-		for element in "${PORTAL_MEMBERS_ARRAY[@]}"
-		do
-			CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8950]"
-		done
-		sed -i s\\^[#]*portal.ejb3.sfsb.cache.initial_hosts=.*$\\portal.ejb3.sfsb.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+        # SFSB cache
+        sed -i s\\^[#]*portal.ejb3.sfsb.cache.tcpAddr=.*$\\portal.ejb3.sfsb.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8950]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8950]"
+        done
+        sed -i s\\^[#]*portal.ejb3.sfsb.cache.initial_hosts=.*$\\portal.ejb3.sfsb.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
-
-		# Public urls
-		echo "demo.extranet.url=${EXTRANET_HOST}" >> $PORTAL_PROPERTIES
-		echo "demo.intranet.url=${INTRANET_HOST}" >> $PORTAL_PROPERTIES
 
         # Logs
         mkdir -p $PORTAL_LOGS
-		touch ${PORTAL_LOGS}/server.log
+        touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
-
-
-
-        # SSL
-#        mkdir -p $SSL_DIRECTORY
-#        keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore $JAVA_HOME/lib/security/cacerts -srckeystore $SSL_DIRECTORY/server.p12 -srcstoretype PKCS12 -srcstorepass osivia -alias $PUBLIC_HOST
 
 
         touch $PORTAL_HOME/configured
@@ -161,12 +151,11 @@ if [ "$1" = "start" ]; then
     PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
     echo "PORTAL_CMD = $PORTAL_CMD"
 
-	# Redirect server.log to console
-	tailf ${PORTAL_LOGS}/server.log &
+    # Redirect server.log to console
+    tailf ${PORTAL_LOGS}/server.log &
 
     exec su - $PORTAL_USER -c "$PORTAL_CMD"
 fi
 
 
 exec "$@"
-

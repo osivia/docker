@@ -1,18 +1,28 @@
-FROM java:7-jre
+FROM openjdk:8-jdk
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
-# Openoffice
+# Update
 RUN apt-get update \
-    && apt-get install -y netcat \
-    && apt-get purge -y
+    && apt-get install -y --no-install-recommends \
+        netcat \
+	    perl \
+	    locales \
+	    pwgen \
+	    imagemagick \
+	    ffmpeg2theora \
+	    ufraw \
+	    poppler-utils \
+	    libwpd-tools \
+	    exiftool \
+	    ghostscript \
+	    libreoffice \
+	    ffmpeg \
+        x264 \
+    && apt-get purge -y \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y imagemagick 
-
-RUN apt-get  install -y libreoffice 
-
-
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+# Locale
+RUN localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
 ENV LANG fr_FR.utf8
 RUN locale >> /etc/default/locale
 
@@ -22,8 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION 4.6.1
-ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-${NUXEO_VERSION}
+ENV NUXEO_DISTRIBUTION interactik-nuxeo-distribution-1.0-SNAPSHOT
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
@@ -35,8 +44,9 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/opentoutatice-ecm/distribtion/ottc-collab-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
-	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+RUN cd /opt \
+    && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
     && ln -s ${NUXEO_DISTRIBUTION} nuxeo \
@@ -54,4 +64,3 @@ CMD ["nuxeoctl", "console"]
 EXPOSE 8080
 
 WORKDIR $NUXEO_HOME
-

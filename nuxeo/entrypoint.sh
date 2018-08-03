@@ -6,7 +6,6 @@ set -e
 PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 
 CAS_HOST=${CAS_HOST:-cas}
-CAS_PUBLIC_HOST=${CAS_PUBLIC_HOST:-cas}
 
 # Nuxeo conf
 NUXEO_CONF=/home/$NUXEO_USER/nuxeo.conf
@@ -20,9 +19,6 @@ NUXEO_DB_PASSWORD=${NUXEO_DB_PASSWORD:-osivia}
 
 # LDAP
 LDAP_HOST=${LDAP_HOST:-opendj}
-#NUXEO_LDAP_PORT=${NUXEO_LDAP_PORT:-1389}
-#NUXEO_LDAP_USER=${NUXEO_LDAP_USER:-cn=Directory manager}
-#NUXEO_LDAP_PASSWORD=${NUXEO_LDAP_PASSWORD:-osivia}
 
 # Elasticsearch
 NUXEO_ES_CLUSTER=${NUXEO_ES_CLUSTER:-demo}
@@ -45,7 +41,7 @@ if [ "$1" = "nuxeoctl" ]; then
     
         # Properties
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
-        sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $NUXEO_CONF
+        sed -i s\\CAS_PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
@@ -59,7 +55,7 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\^[#]*elasticsearch.clusterName=.*$\\elasticsearch.clusterName=$NUXEO_ES_CLUSTER\\g $NUXEO_CONF
 
         sed -i s\\^[#]*elasticsearch.addressList=.*$\\#elasticsearch.addressList=\\g $NUXEO_CONF
-		echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
+        echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
 
         # Data
         mkdir -p $NUXEO_DATA
@@ -96,4 +92,3 @@ fi
 
 
 exec "$@"
-

@@ -1,151 +1,98 @@
-version: '3'
+version: "3"
 services:
   opendj:
-    image: osivia/opendj:split-nuxeo
-    container_name: split-nuxeo-opendj
+    image: osivia/opendj:interactik
     ports:
-    - 1389:1389
+      - 1389:1389
   cas:
-    image: osivia/cas:split-nuxeo
-    container_name: split-nuxeo-cas
+    image: osivia/cas:interactik
     environment:
-      LDAP_HOST: split-nuxeo-opendj
+      - LDAP_HOST=opendj
     ports:
-    - 8080
+      - 8080
     depends_on:
-    - opendj
-  postgres-1:
-    image: osivia/postgres
-    container_name: split-nuxeo-postgres-1
+      - opendj
+  postgres:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_PASSWORD=osivia
+      - POSTGRES_USER=nuxeo
+      - POSTGRES_DB=nuxeodb
     volumes:
-    - split-nuxeo-postgres-1-data:/var/lib/postgresql/data
-  postgres-2:
-    image: osivia/postgres
-    container_name: split-nuxeo-postgres-2
-    volumes:
-    - split-nuxeo-postgres-2-data:/var/lib/postgresql/data
-  es-1:
+      - postgres-data:/var/lib/postgresql/data
+  es:
     image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=es-cluster-1
-    container_name: split-nuxeo-es-1
+    command: elasticsearch -Des.cluster.name=es-cluster
     ports:
-    - 9200
+      - 9200
     volumes:
-    - split-nuxeo-es-1-data:/usr/share/elasticsearch/data
-  es-2:
-    image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=es-cluster-2
-    container_name: split-nuxeo-es-2
-    ports:
-    - 9200
-    volumes:
-    - split-nuxeo-es-2-data:/usr/share/elasticsearch/data
-  nuxeo-1:
-    image: osivia/nuxeo:split-nuxeo
-    container_name: split-nuxeo-nuxeo-1
+      - es-data:/usr/share/elasticsearch/data
+  nuxeo:
+    image: osivia/nuxeo:interactik
     environment:
-      NUXEO_DB_HOST: split-nuxeo-postgres-1
-      LDAP_HOST: split-nuxeo-opendj
-      NUXEO_ES_CLUSTER: es-cluster-1
-      NUXEO_ES_NODES: split-nuxeo-es-1:9300
-      CAS_HOST: split-nuxeo-cas:8080
-      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - LDAP_HOST=opendj
+      - CAS_HOST=cas:8080
+      - NUXEO_DB_HOST=postgres
+      - NUXEO_ES_CLUSTER=es-cluster
+      - NUXEO_ES_NODES=es:9300
     ports:
-    - 8080
-    - 8788
+      - 8080
+      - 8788
     volumes:
-    - split-nuxeo-nuxeo-1-data:/data
+      - nuxeo-data:/data
     depends_on:
-    - postgres-1
-    - opendj
-    - cas
-    - es-1
-  nuxeo-2:
-    image: osivia/nuxeo:split-nuxeo-p1d
-    container_name: split-nuxeo-nuxeo-2
-    environment:
-      NUXEO_DB_HOST: split-nuxeo-postgres-2
-      LDAP_HOST: split-nuxeo-opendj
-      NUXEO_ES_CLUSTER: es-cluster-2
-      NUXEO_ES_NODES: split-nuxeo-es-2:9300
-      CAS_HOST: split-nuxeo-cas:8080
-      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
-    ports:
-    - 8080
-    - 8788
-    volumes:
-    - split-nuxeo-nuxeo-2-data:/data
-    depends_on:
-    - postgres-2
-    - opendj
-    - cas
-    - es-2
+      - opendj
+      - cas
+      - postgres
+      - es
   mysql:
     image: mysql:5.7
-    container_name: split-nuxeo-mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_DATABASE: portaldb
-      MYSQL_USER: portal
-      MYSQL_PASSWORD: osivia
-      MYSQL_ROOT_PASSWORD: osivia
+      - MYSQL_DATABASE=portaldb
+      - MYSQL_USER=portal
+      - MYSQL_PASSWORD=osivia
+      - MYSQL_ROOT_PASSWORD=osivia
     volumes:
-    - split-nuxeo-mysql-data:/var/lib/mysql
-  portal-1:
-    image: osivia/portal:split-nuxeo
-    container_name: split-nuxeo-portal-1
+      - mysql-data:/var/lib/mysql
+  portal:
+    image: osivia/portal:interactik
     environment:
-      NUXEO_PUBLIC_HOST: ${PUBLIC_HOST}
-      NUXEO_2_PUBLIC_HOST: ${AUXILIARY_HOST}
-      NUXEO_HOST: split-nuxeo-nuxeo-1
-      NUXEO_2_HOST: split-nuxeo-nuxeo-2
-      PORTAL_DB_HOST: split-nuxeo-mysql
-      CAS_HOST: split-nuxeo-cas
-      CAS_PUBLIC_HOST: ${PUBLIC_HOST}
-      LDAP_HOST: split-nuxeo-opendj
-      EXTRANET_HOST: ${PUBLIC_HOST}
-      INTRANET_HOST: ${PUBLIC_HOST}
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - NUXEO_HOST=nuxeo
+      - PORTAL_DB_HOST=mysql
+      - CAS_HOST=cas
+      - LDAP_HOST=opendj
     ports:
-    - 8080
-    - 8787:8787
+      - 8080
+      - 8787:8787
     depends_on:
-    - mysql
-    - opendj
-    - cas
-    - nuxeo-1
-    - nuxeo-2
+      - mysql
+      - opendj
+      - cas
+      - nuxeo
   httpd:
-    image: osivia/httpd:split-nuxeo
-    container_name: split-nuxeo-httpd
+    image: osivia/httpd:interactik
     environment:
-      PUBLIC_HOST: ${PUBLIC_HOST}
-      AUXILIARY_HOST: ${AUXILIARY_HOST}
-      NUXEO_1_HOST: split-nuxeo-nuxeo-1
-      NUXEO_2_HOST: split-nuxeo-nuxeo-2
-      CAS_HOST: split-nuxeo-cas
-      PORTAL_HOSTS: split-nuxeo-portal-1
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - CAS_HOST=cas
+      - NUXEO_HOST=nuxeo
+      - PORTAL_HOSTS=portal
     ports:
     - 80:80
     - 443:443
     depends_on:
     - cas
-    - nuxeo-1
-    - nuxeo-2
-    - portal-1
-  kibana-1:
-    image: kibana:4.1
-    container_name: split-nuxeo-kibana-1
-    environment:
-      ELASTICSEARCH_URL: http://es-1:9200
+    - nuxeo
+    - portal
+  evrigo:
+    image: httpd:2.4
     ports:
-    - 5601
-    depends_on:
-    - es-1
+    - 80
 volumes:
-  split-nuxeo-postgres-1-data:
-  split-nuxeo-postgres-2-data:
-  split-nuxeo-nuxeo-1-data:
-  split-nuxeo-nuxeo-2-data:
-  split-nuxeo-es-1-data:
-  split-nuxeo-es-2-data:
-  split-nuxeo-mysql-data:
+  postgres-data:
+  es-data:
+  nuxeo-data:
+  mysql-data:
+
