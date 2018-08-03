@@ -16,11 +16,18 @@ services:
     ports:
     - 5432
   es-node-1:
-    image: elasticsearch:2.3.5
+    image: elasticsearch:2.4.6
     command: elasticsearch -Des.cluster.name=demo-nx8
     container_name: demo-nx8-es-1
     ports:
     - 9200:9200
+  kibana:
+    image: kibana:4.6.6
+    container_name: demo-nx8-kibana
+    environment:
+      ELASTICSEARCH_URL: http://demo-nx8-es-1:9200
+    ports:
+    - 5601:5601
   nuxeo:
     image: nuxeo-dev-8
     container_name: demo-nx8-nuxeo
