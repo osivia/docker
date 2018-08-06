@@ -8,4 +8,8 @@ task_definition:
     demo-es-master:
       mem_limit: 1GB
     demo-opendj:
-      mem_limit: 1GB      
+      mem_limit: 1GB 
+    demo-cas:
+      mem_limit: 1GB
+    demo-postgres:
+      mem_limit: 1GB
