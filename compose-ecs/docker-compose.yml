@@ -5,7 +5,7 @@ services:
         - CAS_HOST=demo-cas
         - NUXEO_HOST=demo-nuxeo
         - 'PORTAL_HOSTS=demo-portal-1'
-      image: 'osivia/httpd:latest'
+      image: 'osivia/httpd:certif'
       links:
         - demo-cas
         - demo-nuxeo
