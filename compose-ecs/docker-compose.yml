@@ -15,7 +15,7 @@ services:
         options:
           awslogs-region: "eu-west-2"
           awslogs-group: "MY_LOGGING"
-          awslogs-stream-prefix: "nginx"        
+          awslogs-stream-prefix: "osivia"        
       ports:
         - '80:80'
         - '443:443'
@@ -25,6 +25,12 @@ services:
       image: 'osivia/cas:latest'
       links:
         - demo-opendj
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "osivia"          
     demo-portal-1:
       environment:
         - CAS_HOST=demo-cas
@@ -47,7 +53,12 @@ services:
         options:
           awslogs-region: "eu-west-2"
           awslogs-group: "MY_LOGGING"
-          awslogs-stream-prefix: "portal"
+          awslogs-stream-prefix: "osivia"
+      ulimits:
+        nproc: 65535
+        nofile:
+          soft: 8192
+          hard: 8192
     demo-mysql:
       command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci'
       environment:
@@ -56,10 +67,28 @@ services:
         - MYSQL_ROOT_PASSWORD=osivia
         - MYSQL_USER=portal
       image: 'mysql:5.7'
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "osivia"   
     demo-postgres:
       image: 'osivia/postgres:latest'
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "osivia"      
     demo-opendj:
-      image: 'osivia/opendj:latest'     
+      image: 'osivia/opendj:latest'
+      logging:
+        driver: "awslogs"
+        options:
+          awslogs-region: "eu-west-2"
+          awslogs-group: "MY_LOGGING"
+          awslogs-stream-prefix: "osivia"
     demo-nuxeo:
       environment:
         - 'CAS_HOST=demo-cas:8080'
@@ -80,7 +109,7 @@ services:
         options:
           awslogs-region: "eu-west-2"
           awslogs-group: "MY_LOGGING"
-          awslogs-stream-prefix: "nuxeo"        
+          awslogs-stream-prefix: "osivia"        
     demo-es-master:
       command: elasticsearch -Des.cluster.name=demo -Dnetwork.host=0.0.0.0 -Ddiscovery.zen.minimum_master_nodes=1 -Ddiscovery.zen.ping.unicast.hosts=demo-es-master
       image: 'elasticsearch:1.7.6'
@@ -91,4 +120,4 @@ services:
         options:
           awslogs-region: "eu-west-2"
           awslogs-group: "MY_LOGGING"
-          awslogs-stream-prefix: "es-master"
+          awslogs-stream-prefix: "osivia"
