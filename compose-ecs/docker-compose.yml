@@ -40,9 +40,11 @@ services:
         - LDAP_HOST=demo-opendj
         - NUXEO_HOST=demo-nuxeo
         - PORTAL_DB_HOST=demo-mysql
-      image: 'osivia/portal:latest'
+      image: 'osivia/portal:ecs'
       ports:
         - "8787:8787"
+      volumes:
+        - /home/ec2-user/portal-log:/var/log/portal
       links:
         - demo-cas
         - demo-mysql
