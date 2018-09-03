@@ -429,12 +429,12 @@
 
    
     <category name="org.jboss.portal" additivity="false">
-      <priority value="DEBUG"/>
+      <priority value="INFO"/>
       <appender-ref ref="PORTAL"/>
    </category>
    
    <category name="org.osivia.portal" additivity="false">
-      <priority value="DEBUG"/>
+      <priority value="INFO"/>
       <appender-ref ref="PORTAL"/>
    </category>
 
