@@ -1,11 +1,11 @@
 version: "3"
 services:
   opendj:
-    image: osivia/opendj:interactik
+    image: opendj:tribu
     ports:
       - 1389:1389
   cas:
-    image: osivia/cas:interactik
+    image: cas:tribu
     environment:
       - LDAP_HOST=opendj
     ports:
@@ -28,7 +28,7 @@ services:
     volumes:
       - es-data:/usr/share/elasticsearch/data
   nuxeo:
-    image: osivia/nuxeo:interactik
+    image: nuxeo:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
@@ -36,6 +36,7 @@ services:
       - NUXEO_DB_HOST=postgres
       - NUXEO_ES_CLUSTER=es-cluster
       - NUXEO_ES_NODES=es:9300
+      - OO_HOST=onlyoffice
     ports:
       - 8080
       - 8788
@@ -57,7 +58,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   portal:
-    image: osivia/portal:interactik
+    image: portal:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
@@ -73,12 +74,13 @@ services:
       - cas
       - nuxeo
   httpd:
-    image: osivia/httpd:interactik
+    image: httpd:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
       - NUXEO_HOST=nuxeo
       - PORTAL_HOSTS=portal
+      - OO_HOST=onlyoffice
     ports:
     - 80:80
     - 443:443
@@ -86,10 +88,13 @@ services:
     - cas
     - nuxeo
     - portal
-  evrigo:
-    image: httpd:2.4
-    ports:
-    - 80
+    - onlyoffice
+    volumes:
+      - ./certs:/etc/ssl/certs       
+  onlyoffice:
+    image: onlyoffice/documentserver
+    volumes:
+      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
 volumes:
   postgres-data:
   es-data:
