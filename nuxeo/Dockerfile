@@ -32,7 +32,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION interactik-nuxeo-distribution-1.0-SNAPSHOT
+ENV NUXEO_VERSION=1.0.2
+ENV NUXEO_DISTRIBUTION interactik-nuxeo-distribution-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
@@ -44,8 +45,8 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 
 # Distribution
-COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
+    && wget -q https://projet.toutatice.fr/nexus/content/repositories/toutatice-releases/fr/toutatice/acrennes/sites/interactik-nuxeo-distribution/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
