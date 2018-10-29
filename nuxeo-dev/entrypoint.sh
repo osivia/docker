@@ -8,6 +8,8 @@ PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 CAS_HOST=${CAS_HOST:-cas}
 CAS_PUBLIC_HOST=${CAS_PUBLIC_HOST:-cas}
 
+OO_HOST=${OO_HOST:-onlyoffice}
+
 # Nuxeo conf
 NUXEO_CONF=/home/$NUXEO_USER/nuxeo.conf
 
@@ -54,6 +56,8 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         
+		sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
+		
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
         sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $NUXEO_CONF
         sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $NUXEO_CONF

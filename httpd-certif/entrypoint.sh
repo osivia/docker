@@ -22,6 +22,7 @@ if [ ! -f $HTTPD_HOME/configured ]; then
 #    sed -i s\\PUBLIC_HOST\\$HOSTNAME\\g $HTTPD_CONFIG_FILE
     sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
+    sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE    
 	
 	for element in "${PORTAL_NODES_ARRAY[@]}"
 	do
