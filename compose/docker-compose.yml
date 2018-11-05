@@ -1,17 +1,20 @@
 version: "3"
 services:
   opendj:
-    image: opendj:tribu
+    image: osivia/opendj:tribu
     ports:
       - 1389:1389
+    volumes:
+      - opendj-data:/opt/opendj/db
+      - opendj-backup:/backup      
   cas:
-    image: cas:tribu
+    image: osivia/cas:tribu
     environment:
       - LDAP_HOST=opendj
     ports:
       - 8080
-    depends_on:
-      - opendj
+    #depends_on:
+    #  - opendj
   postgres:
     image: postgres:9.5
     environment:
@@ -20,6 +23,8 @@ services:
       - POSTGRES_DB=nuxeodb
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - postgres-backup:/backup
+      - ../tools/postgres:/root/bin
   es:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster
@@ -28,7 +33,7 @@ services:
     volumes:
       - es-data:/usr/share/elasticsearch/data
   nuxeo:
-    image: nuxeo:tribu
+    image: osivia/nuxeo:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
@@ -43,8 +48,8 @@ services:
     volumes:
       - nuxeo-data:/data
     depends_on:
-      - opendj
-      - cas
+    #  - opendj
+    #  - cas
       - postgres
       - es
   mysql:
@@ -58,7 +63,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   portal:
-    image: portal:tribu
+    image: osivia/portal:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
@@ -70,11 +75,11 @@ services:
       - 8787:8787
     depends_on:
       - mysql
-      - opendj
-      - cas
-      - nuxeo
+    #  - opendj
+    #  - cas
+    #  - nuxeo
   httpd:
-    image: httpd:tribu
+    image: osivia/httpd:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
@@ -84,11 +89,11 @@ services:
     ports:
     - 80:80
     - 443:443
-    depends_on:
-    - cas
-    - nuxeo
-    - portal
-    - onlyoffice
+    #depends_on:
+    #- cas
+    #- nuxeo
+    #- portal
+    #- onlyoffice
     volumes:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
@@ -96,7 +101,10 @@ services:
     volumes:
       - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
 volumes:
+  opendj-data:
+  opendj-backup:
   postgres-data:
+  postgres-backup:
   es-data:
   nuxeo-data:
   mysql-data:
