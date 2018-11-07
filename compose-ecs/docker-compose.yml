@@ -130,3 +130,5 @@ services:
       image: onlyoffice/documentserver
       volumes:
         - /home/ec2-user/onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+	  links:
+       - demo-nuxeo        
