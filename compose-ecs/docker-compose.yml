@@ -52,6 +52,7 @@ services:
         - demo-mysql
         - demo-nuxeo
         - demo-opendj
+        - onlyoffice
       logging:
         driver: "awslogs"
         options:
