@@ -56,7 +56,7 @@ if [ "$1" = "nuxeoctl" ]; then
         sed -i s\\CAS_PUBLIC_HOST\\$CAS_PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         
-		sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
+	sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
 		
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
         sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $NUXEO_CONF
