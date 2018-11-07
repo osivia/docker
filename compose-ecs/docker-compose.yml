@@ -52,7 +52,6 @@ services:
         - demo-mysql
         - demo-nuxeo
         - demo-opendj
-        - onlyoffice
       logging:
         driver: "awslogs"
         options:
@@ -109,7 +108,8 @@ services:
         - demo-cas
         - demo-es-master
         - demo-opendj
-        - demo-postgres   
+        - demo-postgres
+        - onlyoffice   
       logging:
         driver: "awslogs"
         options:
