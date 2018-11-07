@@ -5,11 +5,13 @@ services:
         - CAS_HOST=demo-cas
         - NUXEO_HOST=demo-nuxeo
         - 'PORTAL_HOSTS=demo-portal-1'
+        - OO_HOST=onlyoffice
       image: 'osivia/httpd:certif'
       links:
         - demo-cas
         - demo-nuxeo
         - demo-portal-1
+        - onlyoffice
       logging:
         driver: "awslogs"
         options:
@@ -40,7 +42,7 @@ services:
         - LDAP_HOST=demo-opendj
         - NUXEO_HOST=demo-nuxeo
         - PORTAL_DB_HOST=demo-mysql
-      image: 'osivia/portal:ecs'
+      image: 'osivia/portal:ecs-latest'
       ports:
         - "8787:8787"
       volumes:
@@ -100,6 +102,7 @@ services:
         - NUXEO_ES_CLUSTER=demo
         - 'NUXEO_ES_NODES=demo-es-master:9300'
         - PUBLIC_HOST=demo-public.osivia.org
+        - OO_HOST=onlyoffice
       image: 'osivia/nuxeo:latest'
       links:
         - demo-cas
@@ -123,3 +126,7 @@ services:
           awslogs-region: "eu-west-2"
           awslogs-group: "MY_LOGGING"
           awslogs-stream-prefix: "osivia"
+    onlyoffice:
+      image: onlyoffice/documentserver
+      volumes:
+        - /home/ec2-user/onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
