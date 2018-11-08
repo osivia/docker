@@ -29,7 +29,7 @@ RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user
 
 # Distribution
 RUN cd /opt \
-    && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/foad-distribution/${PORTAL_VERSION}/${PORTAL_ZIP} \
+    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/foad-distribution/${PORTAL_VERSION}/${PORTAL_ZIP} \
     && unzip -q ${PORTAL_ZIP} \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
