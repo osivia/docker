@@ -102,7 +102,7 @@ services:
         - NUXEO_ES_CLUSTER=demo
         - 'NUXEO_ES_NODES=demo-es-master:9300'
         - PUBLIC_HOST=demo-public.osivia.org
-        - OO_HOST=onlyoffice
+        - OO_HOST={IP}
       image: 'osivia/nuxeo:latest'
       links:
         - demo-cas
