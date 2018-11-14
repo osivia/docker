@@ -104,6 +104,8 @@ services:
         - PUBLIC_HOST=demo-public.osivia.org
         - OO_HOST={IP}
       image: 'osivia/nuxeo:latest'
+      ports:
+        - "8788:8788"      
       links:
         - demo-cas
         - demo-es-master
