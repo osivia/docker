@@ -109,7 +109,6 @@ services:
         - demo-es-master
         - demo-opendj
         - demo-postgres
-        - onlyoffice   
       logging:
         driver: "awslogs"
         options:
