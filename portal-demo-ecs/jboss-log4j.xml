@@ -46,7 +46,7 @@
   <!-- ============================== -->
    <!-- Append messages to the console -->
    <!-- ============================== -->
-<!--
+
    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
       <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
       <param name="Target" value="System.out"/>
@@ -57,7 +57,7 @@
         <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
       </layout>
    </appender>
--->
+
 
   <!-- ============================== -->
    <!-- Debugging portail             -->
@@ -389,8 +389,9 @@
    <!-- ======================= -->
    <root>
       <appender-ref ref="FILE"/>
+      <appender-ref ref="CONSOLE" />
       <priority value ="INFO" />
-   </root>
+    </root>
 
   
    <!-- Clustering logging -->

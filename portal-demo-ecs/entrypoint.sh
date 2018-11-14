@@ -167,10 +167,9 @@ if [ "$1" = "start" ]; then
     PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
     echo "PORTAL_CMD = $PORTAL_CMD"
 
-	# Redirect server.log to console
-	tailf ${PORTAL_LOGS}/server.log &
-
-    exec su - $PORTAL_USER -c "$PORTAL_CMD"
+    # Start
+    PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
+    exec su - $PORTAL_USER -c "$PORTAL_CMD 2>&1"
 fi
 
 
