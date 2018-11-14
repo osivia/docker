@@ -1,87 +1,82 @@
-version: '3'
-services:
-  opendj:
-    image: osivia/opendj
-    container_name: demo-opendj
-    ports:
-    - 1389:1389
-  cas:
-    image: osivia/cas
-    container_name: demo-cas
-    environment:
-      LDAP_HOST: demo-opendj
-    depends_on:
-    - opendj
-  postgres:
-    image: osivia/postgres
-    container_name: demo-postgres
-    ports:
-    - 5432
-  es-node-1:
-    image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=demo
-    container_name: demo-es-1
-    ports:
-    - 9200
-  nuxeo:
-    image: osivia/nuxeo
-    container_name: demo-nuxeo
-    environment:
-      PUBLIC_HOST: ${EXTRANET_HOST}
-      NUXEO_DB_HOST: demo-postgres
-      LDAP_HOST: demo-opendj
-      NUXEO_ES_CLUSTER: demo
-      NUXEO_ES_NODES: demo-es-1:9300
-      CAS_HOST: demo-cas:8080
-      CAS_PUBLIC_HOST: ${INTRANET_HOST}
-    ports:
-    - 8080
-    depends_on:
-    - postgres
-    - opendj
-    - cas
-    - es-node-1
-  mysql:
-    image: mysql:5.7
-    container_name: demo-mysql
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    environment:
-      MYSQL_DATABASE: portaldb
-      MYSQL_USER: portal
-      MYSQL_PASSWORD: osivia
-      MYSQL_ROOT_PASSWORD: osivia
-  portal-1:
-    image: osivia/portal
-    container_name: demo-portal-1
-    environment:
-      NUXEO_HOST: demo-nuxeo
-      PORTAL_DB_HOST: demo-mysql
-      CAS_HOST: demo-cas
-      CAS_PUBLIC_HOST: ${INTRANET_HOST}
-      LDAP_HOST: demo-opendj
-      EXTRANET_HOST: ${EXTRANET_HOST}
-      INTRANET_HOST: ${INTRANET_HOST}
-    ports:
-    - 8080
-    - 8787:8787
-    volumes:
-    - ~/docker/volumes/demo-distribution-prod-4.7-SNAPSHOT:/opt/portal
-    depends_on:
-    - mysql
-    - opendj
-    - cas
-    - nuxeo
-  httpd:
-    image: osivia/httpd
-    container_name: demo-httpd
-    environment:
-      NUXEO_HOST: demo-nuxeo
-      CAS_HOST: demo-cas
-      PORTAL_HOSTS: demo-portal-1
-    ports:
-    - 80:80
-    - 443:443
-    depends_on:
-    - nuxeo
-    - cas
-    - portal-1
+version: "3"
+services:    
+    demo-cas:
+      environment:
+        - LDAP_HOST=demo-opendj
+      image: 'osivia/cas:latest'
+      depends_on:
+        - demo-opendj
+    demo-es-master:
+      command: elasticsearch -Des.cluster.name=demo -Dnetwork.host=0.0.0.0 -Ddiscovery.zen.minimum_master_nodes=1 -Ddiscovery.zen.ping.unicast.hosts=demo-es-master
+      image: 'elasticsearch:1.7.6'
+      ports:
+        - '9200:9200'
+    demo-httpd:
+      environment:
+        - CAS_HOST=demo-cas
+        - NUXEO_HOST=demo-nuxeo
+        - 'PORTAL_HOSTS=demo-portal-1'
+        - OO_HOST=onlyoffice        
+      image: 'osivia/httpd:certif'
+      depends_on:
+        - demo-cas
+        - demo-nuxeo
+        - demo-portal-1
+        - onlyoffice
+      ports:
+        - '80:80'
+        - '443:443'
+    demo-mysql:
+      command: '--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci'
+      environment:
+        - MYSQL_DATABASE=portaldb
+        - MYSQL_PASSWORD=osivia
+        - MYSQL_ROOT_PASSWORD=osivia
+        - MYSQL_USER=portal
+      image: 'mysql:5.7'
+    demo-nuxeo:
+      environment:
+        - 'CAS_HOST=demo-cas:8080'
+        - CAS_PUBLIC_HOST=dev-intra.osivia.org
+        - LDAP_HOST=demo-opendj
+        - NUXEO_DB_HOST=demo-postgres
+        - NUXEO_ES_CLUSTER=demo
+        - 'NUXEO_ES_NODES=demo-es-master:9300'
+        - PUBLIC_HOST=dev-public.osivia.org
+        - OO_HOST=onlyoffice-ip        
+      image: 'osivia/nuxeo:dev'
+      depends_on:
+        - demo-cas
+        - demo-es-master
+        - demo-opendj
+        - demo-postgres
+      ports:
+        - "8788:8788"
+    demo-opendj:
+      image: 'osivia/opendj:latest'
+    demo-portal-1:
+      environment:
+        - CAS_HOST=demo-cas
+        - CAS_PUBLIC_HOST=dev-intra.osivia.org
+        - EXTRANET_HOST=dev-public.osivia.org
+        - INTRANET_HOST=dev-intra.osivia.org
+        - LDAP_HOST=demo-opendj
+        - NUXEO_HOST=demo-nuxeo
+        - PORTAL_DB_HOST=demo-mysql
+      image: 'osivia/portal:dev'
+      ports:
+        - "8787:8787"
+      volumes:
+        - .\distrib\demo-distribution-prod-4.7-SNAPSHOT:/opt/demo-distribution-prod-4.7-SNAPSHOT
+      depends_on:
+        - demo-cas
+        - demo-mysql
+        - demo-nuxeo
+        - demo-opendj
+    demo-postgres:
+      image: 'osivia/postgres:latest'
+    onlyoffice:
+      image: onlyoffice/documentserver
+      volumes:
+        - .\onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json        
+      
