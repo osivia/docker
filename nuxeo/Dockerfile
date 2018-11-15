@@ -24,13 +24,14 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.3
+ENV NUXEO_DISTRIBUTION_VERSION 4.7.5
+ENV NUXEO_DISTRIBUTION demo-nx-distrib-4.7.5
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/4.7.3/${NUXEO_DISTRIBUTION}.zip \
+RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-nx-distrib/${NUXEO_DISTRIBUTION_VERSION}/${NUXEO_DISTRIBUTION}.zip \
 	&& unzip ${NUXEO_DISTRIBUTION}.zip  \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \

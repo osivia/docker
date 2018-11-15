@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_VERSION 4.7.9
+ENV PORTAL_VERSION 4.7.10
 ENV PORTAL_DISTRIBUTION demo-distribution-prod-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
@@ -27,13 +27,22 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-RUN cd /opt && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/${PORTAL_VERSION}/demo-distribution-${PORTAL_VERSION}.zip -O ${PORTAL_DISTRIBUTION}.zip \
-	&& unzip ${PORTAL_DISTRIBUTION}.zip \
+RUN cd /opt \
+    && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/${PORTAL_VERSION}/demo-distribution-${PORTAL_VERSION}.zip -O ${PORTAL_DISTRIBUTION}.zip 
+
+#SNAPSHOT (get from current directory)
+#COPY ${PORTAL_DISTRIBUTION}.zip /opt
+
+RUN cd /opt \
+    && unzip ${PORTAL_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
     && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
     && rm -f ${PORTAL_DISTRIBUTION}.zip
 
+
+COPY jboss-log4j.xml /opt/${PORTAL_DISTRIBUTION}/jboss-as/server/production/conf
+	
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
