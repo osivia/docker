@@ -21,7 +21,7 @@ RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # Distribution
-RUN cd ${TOMCAT_ROOT} && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/jasig/cas/cas-server-webapp/4.4.15.4/cas-server-webapp-4.4.15.4.war -O cas.war
+RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/org/jasig/cas/cas-server-webapp/4.4.15.4/cas-server-webapp-4.4.15.4.war -O cas.war
 
 RUN mkdir -p /appli/conf
 

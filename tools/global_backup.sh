@@ -43,7 +43,7 @@ export PASSPHRASE=osivia
 duplicity full ${WORKDIR} scp://root@${BKP_HOST}/${BKP_HOSTDIR} > ${LOGDIR}/full_Backup_Log_$repDate_localmachine_admin.log
 
 # Get the disk space
-echo "Availble Disk Space on Server" >> ${LOGDIR}/full_Backup_Log_$repDate_localmachine_admin.log
+echo "Available Disk Space on Server" >> ${LOGDIR}/full_Backup_Log_$repDate_localmachine_admin.log
 echo >> ${LOGDIR}/full_Backup_Log_$repDate_localmachine_admin.log
 ssh root@${BKP_HOST} df -h >> ${LOGDIR}/full_Backup_Log_$repDate_localmachine_admin.log
 
