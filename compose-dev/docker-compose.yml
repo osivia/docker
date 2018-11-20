@@ -44,7 +44,7 @@ services:
         - 'NUXEO_ES_NODES=demo-es-master:9300'
         - PUBLIC_HOST=dev-public.osivia.org
         - OO_HOST=onlyoffice-ip        
-      image: 'osivia/nuxeo:dev'
+      image: 'osivia/nuxeo:latest'
       depends_on:
         - demo-cas
         - demo-es-master
@@ -63,11 +63,12 @@ services:
         - LDAP_HOST=demo-opendj
         - NUXEO_HOST=demo-nuxeo
         - PORTAL_DB_HOST=demo-mysql
-      image: 'osivia/portal:dev'
+      image: 'osivia/portal:latest'
       ports:
         - "8787:8787"
-      volumes:
-        - .\distrib\demo-distribution-prod-4.7-SNAPSHOT:/opt/demo-distribution-prod-4.7-SNAPSHOT
+# Local deployments
+#      volumes:
+#        - .\distrib\demo-distribution-prod-4.7-SNAPSHOT:/opt/demo-distribution-prod-4.7-SNAPSHOT
       depends_on:
         - demo-cas
         - demo-mysql
