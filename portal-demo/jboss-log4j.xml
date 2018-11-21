@@ -387,13 +387,7 @@
    <!-- ======================= -->
    <!-- Setup the Root category -->
    <!-- ======================= -->
-   <root>
-      <appender-ref ref="FILE"/>
-      <appender-ref ref="CONSOLE" />
-      <priority value ="INFO" />
-    </root>
 
-  
    <!-- Clustering logging -->
    <!-- Uncomment the following to redirect the org.jgroups and
       org.jboss.ha categories to a cluster.log file.
@@ -429,12 +423,12 @@
    </category>
 
    
-    <category name="org.jboss.portal" additivity="false">
+    <category name="org.jboss.portal" additivity="true">
       <priority value="INFO"/>
       <appender-ref ref="PORTAL"/>
    </category>
    
-   <category name="org.osivia.portal" additivity="false">
+   <category name="org.osivia.portal" additivity="true">
       <priority value="INFO"/>
       <appender-ref ref="PORTAL"/>
    </category>
@@ -453,8 +447,8 @@
 
   <!-- paser en mode INFO pour faire du profiling -->
   <category name="PORTAL_PROFILER"  additivity="false">
-      	<appender-ref ref="PORTAL_PROFILER_APPENDER"/>
-	<priority value="INFO"/>
+	  <priority value="INFO"/>
+      <appender-ref ref="PORTAL_PROFILER_APPENDER"/>
    </category>
 
   <category name="PORTAL_STATUS"  additivity="false">
@@ -489,7 +483,13 @@
    </category>
 
 
-   
+   <root>
+      <priority value ="INFO"/>
+      <appender-ref ref="FILE"/>
+      <appender-ref ref="CONSOLE"/>
+   </root>
+
+  
 
 
 </log4j:configuration>
