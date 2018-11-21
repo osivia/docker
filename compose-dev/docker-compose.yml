@@ -63,12 +63,9 @@ services:
         - LDAP_HOST=demo-opendj
         - NUXEO_HOST=demo-nuxeo
         - PORTAL_DB_HOST=demo-mysql
-      image: 'osivia/portal:latest'
+      image: 'osivia/portal:dev'
       ports:
         - "8787:8787"
-# Local deployments
-#      volumes:
-#        - .\distrib\demo-distribution-prod-4.7-SNAPSHOT:/opt/demo-distribution-prod-4.7-SNAPSHOT
       depends_on:
         - demo-cas
         - demo-mysql

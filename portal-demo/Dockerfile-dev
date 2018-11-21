@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_VERSION 4.7.10
+ENV PORTAL_VERSION 4.7-SNAPSHOT
 ENV PORTAL_DISTRIBUTION demo-distribution-prod-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
@@ -27,8 +27,11 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-RUN cd /opt \
-    && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/${PORTAL_VERSION}/demo-distribution-${PORTAL_VERSION}.zip -O ${PORTAL_DISTRIBUTION}.zip 
+#RUN cd /opt \
+#    && wget http://www.osivia.org/nexus/content/repositories/osivia-releases/org/osivia/demo/demo-distribution/${PORTAL_VERSION}/demo-distribution-${PORTAL_VERSION}.zip -O ${PORTAL_DISTRIBUTION}.zip 
+
+#SNAPSHOT (get from current directory)
+COPY ${PORTAL_DISTRIBUTION}.zip /opt
 
 RUN cd /opt \
     && unzip ${PORTAL_DISTRIBUTION}.zip \
