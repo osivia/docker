@@ -19,6 +19,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_VERSION 4.7.10
+#SNAPSHOT (get from current directory)
+#ENV PORTAL_VERSION 4.7-SNAPSHOT
 ENV PORTAL_DISTRIBUTION demo-distribution-prod-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
