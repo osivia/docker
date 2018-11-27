@@ -32,6 +32,12 @@ services:
       - 9200
     volumes:
       - es-data:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:4.1
+    environment:
+      - ELASTICSEARCH_URL=http://es:9200    
+    ports:
+      - 5601:5601
   nuxeo:
     image: osivia/nuxeo:tribu
     environment:
@@ -44,7 +50,7 @@ services:
       - OO_HOST=onlyoffice
     ports:
       - 8080
-      - 8788
+      - 8788:8788
     volumes:
       - nuxeo-data:/data
     depends_on:
