@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_ENV prod
-ENV PORTAL_VERSION 4.4-SNAPSHOT
+ENV PORTAL_VERSION 4.4.15.4
 ENV PORTAL_ZIP foad-distribution-${PORTAL_VERSION}.zip
 ENV PORTAL_DISTRIBUTION foad-distribution-${PORTAL_ENV}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
@@ -28,9 +28,8 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-COPY foad-distribution.zip /opt/${PORTAL_ZIP}
 RUN cd /opt \
-#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/foad-distribution/${PORTAL_VERSION}/${PORTAL_ZIP} \
+    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/foad-distribution/${PORTAL_VERSION}/${PORTAL_ZIP} \
     && unzip -q ${PORTAL_ZIP} \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
