@@ -140,11 +140,11 @@ if [ "$1" = "start" ]; then
     echo "Connection to $PORTAL_DB_HOST:$PORTAL_DB_PORT OK."
 
     # Wait nuxeo
-    echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
-    while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
-        sleep 1
-    done
-    echo "Connection to $NUXEO_HOST:8080 OK."
+#    echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
+#    while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
+#        sleep 1
+#    done
+#    echo "Connection to $NUXEO_HOST:8080 OK."
     
     
     # Start
@@ -152,7 +152,7 @@ if [ "$1" = "start" ]; then
     echo "PORTAL_CMD = $PORTAL_CMD"
 
     # Redirect server.log to console
-    tailf ${PORTAL_LOGS}/server.log &
+    tail -f ${PORTAL_LOGS}/server.log &
 
     exec su - $PORTAL_USER -c "$PORTAL_CMD"
 fi

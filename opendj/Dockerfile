@@ -15,7 +15,7 @@ ENV ADMIN_CONNECTOR_PORT 5555
 
 # Distribution
 WORKDIR /opt
-RUN wget https://github.com/ForgeRock/opendj-community-edition/releases/download/ce%2F2.6.4/OpenDJ-2.6.4.zip && unzip OpenDJ-2.6.4.zip && rm -f OpenDJ-2.6.4.zip
+RUN wget -q https://github.com/ForgeRock/opendj-community-edition/releases/download/ce%2F2.6.4/OpenDJ-2.6.4.zip && unzip -q OpenDJ-2.6.4.zip && rm -f OpenDJ-2.6.4.zip
 RUN chmod -R 755 opendj
 
 
@@ -31,7 +31,6 @@ RUN /opt/opendj/setup \
           --noPropertiesFile \
           --acceptLicense
 
-#COPY 90-portal.ldif /opt/opendj/config/schema/
 COPY 99-user.ldif /opt/opendj/config/schema/
 
 # Config spécifique passwords

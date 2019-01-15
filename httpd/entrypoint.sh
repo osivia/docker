@@ -10,6 +10,8 @@ IFS=', ' read -r -a PORTAL_NODES_ARRAY <<< $PORTAL_HOSTS
 HTTPD_HOME=/root
 HTTPD_CONFIG_FILE=/usr/local/apache2/conf/extra/reverse-proxy.conf
 
+CERTS_FILES=/etc/ssl/certs
+
 
 if [ ! -f $HTTPD_HOME/configured ]; then
     echo "Configuration..."
@@ -18,11 +20,17 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     echo "# OSIVIA Platform" >> /usr/local/apache2/conf/httpd.conf
     echo "Include conf/extra/reverse-proxy.conf" >> /usr/local/apache2/conf/httpd.conf    
 
-    openssl req -nodes -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=$HOSTNAME"
-    openssl x509 -req -in /etc/ssl/server.csr -signkey /etc/ssl/server.key -out /etc/ssl/server.crt -days 999
+	if [ ! -f $CERTS_FILES/server.crt ]; then
+    	openssl req -nodes -newkey rsa:2048 -keyout $CERTS_FILES/server.key -out $CERTS_FILES/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=$HOSTNAME"
+    	openssl x509 -req -in $CERTS_FILES/server.csr -signkey $CERTS_FILES/server.key -out $CERTS_FILES/server.crt -days 999
+    fi
 
     sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
+    sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
+    
+    sed -i s\\CERTS_FILES\\$CERTS_FILES\\g $HTTPD_CONFIG_FILE
+    
     
     for element in "${PORTAL_NODES_ARRAY[@]}"
     do

@@ -32,21 +32,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=1.0.2
-ENV NUXEO_DISTRIBUTION interactik-nuxeo-distribution-${NUXEO_VERSION}
+ENV NUXEO_VERSION=4.6-SNAPSHOT
+ENV NUXEO_DISTRIBUTION acrennes-nx-distrib-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
-
-
-# Properties
-COPY nuxeo.conf /home/$NUXEO_USER/
-RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 
 
 # Distribution
-RUN cd /opt \
-    && wget -q https://projet.toutatice.fr/nexus/content/repositories/toutatice-releases/fr/toutatice/acrennes/sites/interactik-nuxeo-distribution/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
+RUN cd /opt \ 
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
@@ -54,14 +49,18 @@ RUN cd /opt \
     && rm -f ${NUXEO_DISTRIBUTION}.zip
 COPY usermanager-config.xml /opt/nuxeo/templates/opentoutatice/nxserver/config/
 
+# Properties
+COPY nuxeo.conf /home/$NUXEO_USER/
+RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 # Entrypoint
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["nuxeoctl", "console"]
+CMD ["start"]
 
 
 EXPOSE 8080
+EXPOSE 8788
 
 WORKDIR $NUXEO_HOME

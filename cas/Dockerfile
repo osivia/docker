@@ -1,8 +1,10 @@
 FROM tomcat:7
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+RUN apt-get update && apt-get install -y locales vim \
+	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8 \
+	&& apt-get purge -y \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG fr_FR.utf8
 RUN locale >> /etc/default/locale
