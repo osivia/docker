@@ -17,7 +17,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-prod-5.3.1-SNAPSHOT
+ENV PORTAL_ENVIRONMENT=dev
+ENV PORTAL_VERSION=5.4-SNAPSHOT
+ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
 
