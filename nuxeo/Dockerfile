@@ -32,7 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.6-SNAPSHOT
+ENV NUXEO_VERSION=4.7-SNAPSHOT
 ENV NUXEO_DISTRIBUTION acrennes-nx-distrib-${NUXEO_VERSION}
 
 # User
