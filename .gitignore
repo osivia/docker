@@ -1,3 +1,6 @@
+*.zip
+compose/certs/*
+
 
 # Created by https://www.gitignore.io/api/eclipse
 
