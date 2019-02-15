@@ -1,14 +1,13 @@
 version: "3"
 services:
   opendj:
-    image: osivia/opendj:toutatice
+    image: osivia/opendj
     ports:
       - 1389:1389
     volumes:
       - opendj-data:/opt/opendj/db
-      - opendj-backup:/backup      
   cas:
-    image: osivia/cas:toutatice
+    image: osivia/cas
     environment:
       - LDAP_HOST=opendj
     ports:
@@ -21,8 +20,6 @@ services:
       - POSTGRES_DB=nuxeodb
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - postgres-backup:/backup
-      - ../tools/postgres:/root/bin
   es:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster
@@ -37,7 +34,7 @@ services:
     ports:
       - 5601:5601
   nuxeo:
-    image: osivia/nuxeo:toutatice
+    image: osivia/nuxeo:index-education
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
@@ -48,7 +45,7 @@ services:
       - OO_HOST=onlyoffice
     ports:
       - 8080
-      - 8788:8788
+      - 8788
     volumes:
       - nuxeo-data:/data
     depends_on:
@@ -65,7 +62,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   portal:
-    image: osivia/portal:toutatice
+    image: osivia/portal:index-education
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
@@ -74,11 +71,11 @@ services:
       - LDAP_HOST=opendj
     ports:
       - 8080
-      - 8787:8787
+      - 8787
     depends_on:
       - mysql
   httpd:
-    image: osivia/httpd:toutatice
+    image: osivia/httpd:index-education
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
@@ -96,9 +93,7 @@ services:
       - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
 volumes:
   opendj-data:
-  opendj-backup:
   postgres-data:
-  postgres-backup:
   es-data:
   nuxeo-data:
   mysql-data:

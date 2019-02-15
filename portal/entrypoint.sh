@@ -139,13 +139,6 @@ if [ "$1" = "start" ]; then
     done
     echo "Connection to $PORTAL_DB_HOST:$PORTAL_DB_PORT OK."
 
-    # Wait nuxeo
-#    echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
-#    while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
-#        sleep 1
-#    done
-#    echo "Connection to $NUXEO_HOST:8080 OK."
-    
     
     # Start
     PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"

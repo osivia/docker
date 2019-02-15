@@ -32,22 +32,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.7-SNAPSHOT
-ENV NUXEO_DISTRIBUTION acrennes-nx-distrib-${NUXEO_VERSION}
+ENV NUXEO_VERSION=1.0-SNAPSHOT
+ENV NUXEO_DISTRIBUTION index-cloud-ens-nuxeo-distrib-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
-COPY ${NUXEO_DISTRIBUTION}.zip /opt/
-
 
 # Distribution
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \ 
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
     && ln -s ${NUXEO_DISTRIBUTION} nuxeo \
     && rm -f ${NUXEO_DISTRIBUTION}.zip
-COPY usermanager-config.xml /opt/nuxeo/templates/opentoutatice/nxserver/config/
 
 # Properties
 COPY nuxeo.conf /home/$NUXEO_USER/
@@ -57,7 +55,7 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["start"]
+CMD ["nuxeoctl", "console"]
 
 
 EXPOSE 8080

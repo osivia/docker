@@ -1,4 +1,4 @@
-FROM java:8-jre
+FROM openjdk:8-jdk
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
@@ -17,9 +17,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_ENVIRONMENT=dev
-ENV PORTAL_VERSION=5.4-SNAPSHOT
-ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
+ENV PORTAL_ENVIRONMENT=prod
+ENV PORTAL_VERSION=1.0-SNAPSHOT
+ENV PORTAL_DISTRIBUTION index-cloud-ens-portal-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
 
@@ -27,13 +27,13 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-COPY toutatice-portail-acrennes-distribution.zip /opt/
+COPY ${PORTAL_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-    && unzip -q toutatice-portail-acrennes-distribution.zip \
+    && unzip -q ${PORTAL_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
     && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
-    && rm -f toutatice-portail-acrennes-distribution.zip
+    && rm -f ${PORTAL_DISTRIBUTION}.zip
 
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
