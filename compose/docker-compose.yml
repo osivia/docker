@@ -3,10 +3,10 @@ services:
   opendj:
     image: osivia/opendj:toutatice
     ports:
-      - 1389:1389
+      - 1389
     volumes:
       - opendj-data:/opt/opendj/db
-      - opendj-backup:/backup      
+      #- opendj-backup:/backup      
   cas:
     image: osivia/cas:toutatice
     environment:
@@ -21,8 +21,8 @@ services:
       - POSTGRES_DB=nuxeodb
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - postgres-backup:/backup
-      - ../tools/postgres:/root/bin
+      #- postgres-backup:/backup
+      #- ../tools/postgres:/root/bin
   es:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster
@@ -35,7 +35,7 @@ services:
     environment:
       - ELASTICSEARCH_URL=http://es:9200    
     ports:
-      - 5601:5601
+      - 5601
   nuxeo:
     image: osivia/nuxeo:toutatice
     environment:
@@ -48,7 +48,7 @@ services:
       - OO_HOST=onlyoffice
     ports:
       - 8080
-      - 8788:8788
+      - 8788
     volumes:
       - nuxeo-data:/data
     depends_on:
@@ -74,7 +74,7 @@ services:
       - LDAP_HOST=opendj
     ports:
       - 8080
-      - 8787:8787
+      - 8787
     depends_on:
       - mysql
   httpd:
@@ -86,8 +86,8 @@ services:
       - PORTAL_HOSTS=portal
       - OO_HOST=onlyoffice
     ports:
-    - 80:80
-    - 443:443
+    - 80:${PUBLIC_HTTP_PORT}
+    - 443:${PUBLIC_HTTPS_PORT}
     volumes:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
@@ -96,9 +96,9 @@ services:
       - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
 volumes:
   opendj-data:
-  opendj-backup:
+  #opendj-backup:
   postgres-data:
-  postgres-backup:
+  #postgres-backup:
   es-data:
   nuxeo-data:
   mysql-data:

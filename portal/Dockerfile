@@ -17,8 +17,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_ENVIRONMENT=dev
-ENV PORTAL_VERSION=5.4-SNAPSHOT
+ENV PORTAL_ENVIRONMENT=prod
+ENV PORTAL_VERSION=5.4-RC1
 ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
@@ -27,7 +27,10 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-COPY toutatice-portail-acrennes-distribution.zip /opt/
+#COPY toutatice-portail-acrennes-distribution.zip /opt/
+RUN cd /opt \ 
+    && wget -q  https://projet.toutatice.fr/nexus/content/repositories/toutatice-releases/toutatice-portail/acrennes/distribution/toutatice-portail-acrennes-distribution/${PORTAL_VERSION}/toutatice-portail-acrennes-distribution-${PORTAL_VERSION}.zip -O toutatice-portail-acrennes-distribution.zip 
+
 RUN cd /opt \
     && unzip -q toutatice-portail-acrennes-distribution.zip \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
@@ -38,6 +41,7 @@ RUN cd /opt \
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
+COPY environnement_portail.properties /opt/portal
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 # Entrypoint
