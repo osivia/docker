@@ -84,7 +84,7 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - httpd-certs:/etc/ssl/certs
+            - httpd-ssl:/etc/ssl
     onlyoffice:
         image: onlyoffice/documentserver
         volumes:
@@ -95,4 +95,4 @@ volumes:
     es-data:
     nuxeo-data:
     mysql-data:
-    httpd-certs:
+    httpd-ssl:
