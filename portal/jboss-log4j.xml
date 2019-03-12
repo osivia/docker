@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: jboss-log4j.xml 62403 2007-04-18 15:26:43Z dimitris@jboss.org $ -->
+
+<!--
+   | For more configuration infromation and examples see the Jakarta Log4j
+   | owebsite: http://jakarta.apache.org/log4j
+ -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+   <!-- ================================= -->
+   <!-- Preserve messages in a local file -->
+   <!-- ================================= -->
+
+   <!-- A time/date based rolling appender -->
+   <appender name="FILE" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/server.log"/>
+      <param name="Threshold" value="INFO"/>
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>
+
+  <!-- ============================== -->
+   <!-- Append messages to the console -->
+   <!-- ============================== -->
+
+   <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="Target" value="System.out"/>
+      <param name="Threshold" value="INFO"/>
+
+      <layout class="org.apache.log4j.PatternLayout">
+
+        <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
+      </layout>
+   </appender>
+
+
+  <!-- ============================== -->
+   <!-- Debugging portail             -->
+   <!-- ============================== -->
+
+ <appender name="PORTAL" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal.log"/>
+      <param name="Append" value="true"/>
+
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+      
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>
+
+
+ <appender name="PORTAL_ERROR" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_error.log"/>
+      <param name="Append" value="true"/>
+
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%d %m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>
+   
+  <appender name="PORTAL_USER_ERROR_APPENDER" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_user_error.log"/>
+      <param name="Append" value="true"/>
+
+
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>   
+
+
+  <appender name="PORTAL_PROFILER_APPENDER" class="org.jboss.logging.appender.DailyRollingFileAppender">
+
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_profiler.log"/>
+      <param name="Append" value="true"/>
+
+       <!-- Rollover at the top of each hour -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%m%n"/>
+      </layout>
+
+   </appender>   
+ 
+
+  <appender name="PORTAL_STATUS_APPENDER" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_status.log"/>
+      <param name="Append" value="true"/>
+
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>   
+
+
+
+  <appender name="PORTAL_SUPERVISOR_APPENDER" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_supervisor.log"/>
+      <param name="Append" value="true"/>
+ 
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.osivia.portal.core.error.LoggerPatternLayout">
+      </layout>
+   </appender>
+   
+
+
+ 
+    <!-- ====================== -->
+   <!-- More Appender examples -->
+   <!-- ====================== -->
+
+   <!-- Buffer events and log them asynchronously
+   <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <appender-ref ref="FILE"/>
+     <appender-ref ref="CONSOLE"/>
+     <appender-ref ref="SMTP"/>
+   </appender>
+   -->
+
+   <!-- EMail events to an administrator
+   <appender name="SMTP" class="org.apache.log4j.net.SMTPAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <param name="Threshold" value="ERROR"/>
+     <param name="To" value="admin@myhost.domain.com"/>
+     <param name="From" value="nobody@myhost.domain.com"/>
+     <param name="Subject" value="JBoss Sever Errors"/>
+     <param name="SMTPHost" value="localhost"/>
+     <param name="BufferSize" value="10"/>
+     <layout class="org.apache.log4j.PatternLayout">
+       <param name="ConversionPattern" value="[%d{ABSOLUTE},%c{1}] %m%n"/>
+     </layout>
+   </appender>
+   -->
+
+   <!-- Syslog events
+   <appender name="SYSLOG" class="org.apache.log4j.net.SyslogAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <param name="Facility" value="LOCAL7"/>
+     <param name="FacilityPrinting" value="true"/>
+     <param name="SyslogHost" value="localhost"/>
+     <layout class="org.apache.log4j.PatternLayout">
+       <param name="ConversionPattern" value="[%d{ABSOLUTE},%c{1}] %m%n"/>
+     </layout>
+   </appender>
+   -->
+
+   <!-- Log events to JMS (requires a topic to be created)
+   <appender name="JMS" class="org.apache.log4j.net.JMSAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <param name="Threshold" value="ERROR"/>
+     <param name="TopicConnectionFactoryBindingName" value="java:/ConnectionFactory"/>
+     <param name="TopicBindingName" value="topic/MyErrorsTopic"/>
+   </appender>
+   -->
+
+   <!-- Log events through SNMP
+   <appender name="TRAP_LOG" class="org.apache.log4j.ext.SNMPTrapAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <param name="ImplementationClassName" value="org.apache.log4j.ext.JoeSNMPTrapSender"/>
+     <param name="ManagementHost" value="127.0.0.1"/>
+     <param name="ManagementHostTrapListenPort" value="162"/>
+     <param name="EnterpriseOID" value="1.3.6.1.4.1.24.0"/>
+     <param name="LocalIPAddress" value="127.0.0.1"/>
+     <param name="LocalTrapSendPort" value="161"/>
+     <param name="GenericTrapType" value="6"/>
+     <param name="SpecificTrapType" value="12345678"/>
+     <param name="CommunityString" value="public"/>
+     <param name="ForwardStackTraceWithTrap" value="true"/>
+     <param name="Threshold" value="DEBUG"/>
+     <param name="ApplicationTrapOID" value="1.3.6.1.4.1.24.12.10.22.64"/>
+     <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d,%p,[%t],[%c],%m%n"/>
+     </layout>
+   </appender>
+   -->
+
+   <!--  Emit events as JMX notifications
+   <appender name="JMX" class="org.jboss.monitor.services.JMXNotificationAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      
+      <param name="Threshold" value="WARN"/>
+      <param name="ObjectName" value="jboss.system:service=Logging,type=JMXNotificationAppender"/>
+      
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%d %-5p [%c] %m"/>
+      </layout>
+   </appender>
+   -->
+   
+   <!-- ================ -->
+   <!-- Limit categories -->
+   <!-- ================ -->
+
+
+   <!-- Limit the category to WARN as its INFO is verbose -->
+   <category name="org.apache">
+      <priority value="WARN"/>
+   </category>
+   <category name="org.jboss.serial">
+      <priority value="WARN"/>
+   </category>
+   <category name="org.jgroups">
+      <priority value="WARN"/>
+   </category>
+
+   <category name="jacorb">
+      <priority value="WARN"/>
+   </category>
+
+  <category name="org.hibernate">
+      <priority value="WARN"/>
+   </category>
+ <category name="net.sf.ehcache">
+      <priority value="WARN"/>
+   </category>
+ <category name="org.jbpm">
+      <priority value="WARN"/>
+ </category>
+ <category name="com.arjuna">
+      <priority value="WARN"/>
+ </category>
+
+<category name="org.ajax4jsf">
+      <priority value="WARN"/>
+ </category>
+<category name="org.quartz">
+      <priority value="WARN"/>
+ </category>
+
+<category name="javax.enterprise">
+      <priority value="WARN"/>
+ </category>
+
+<category name="facelets">
+      <priority value="WARN"/>
+ </category>
+
+<category name="org.richfaces">
+      <priority value="WARN"/>
+ </category>
+
+   <!--
+      | An example of enabling the custom TRACE level priority that is used
+      | by the JBoss internals to diagnose low level details. This example
+      | turns on TRACE level msgs for the org.jboss.ejb.plugins package and its
+      | subpackages. This will produce A LOT of logging output.
+      |
+      | Note: since jboss AS 4.2.x, the trace level is supported natively by
+      | log4j, so although the custom org.jboss.logging.XLevel priority will
+      | still work, there is no need to use it. The two examples that follow
+      | will both enable trace logging.
+   <category name="org.jboss.system">
+     <priority value="TRACE" class="org.jboss.logging.XLevel"/>
+   </category>
+   <category name="org.jboss.ejb.plugins">
+     <priority value="TRACE"/>
+   </category>
+   -->
+  
+   <!--
+       | Logs these events to SNMP:
+           - server starts/stops
+           - cluster evolution (node death/startup)
+           - When an EJB archive is deployed (and associated verified messages)
+           - When an EAR archive is deployed
+      	 
+   <category name="org.jboss.system.server.Server">
+     <priority value="INFO" />
+     <appender-ref ref="TRAP_LOG"/>
+   </category>
+  
+   <category name="org.jboss.ha.framework.interfaces.HAPartition.lifecycle">
+     <priority value="INFO" />
+     <appender-ref ref="TRAP_LOG"/>
+   </category>
+
+   <category name="org.jboss.deployment.MainDeployer">
+     <priority value="ERROR" />
+     <appender-ref ref="TRAP_LOG"/>
+   </category>
+   
+   <category name="org.jboss.ejb.EJBDeployer">
+     <priority value="INFO" />
+     <appender-ref ref="TRAP_LOG"/>
+   </category>
+   
+   <category name="org.jboss.deployment.EARDeployer">
+     <priority value="INFO" />
+     <appender-ref ref="TRAP_LOG"/>
+   </category>
+   -->
+
+ 
+   
+   <!-- ======================= -->
+   <!-- Setup the Root category -->
+   <!-- ======================= -->
+
+   <!-- Clustering logging -->
+   <!-- Uncomment the following to redirect the org.jgroups and
+      org.jboss.ha categories to a cluster.log file.
+
+   <appender name="CLUSTER" class="org.jboss.logging.appender.RollingFileAppender">
+     <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+     <param name="File" value="${jboss.server.log.dir}/cluster.log"/>
+     <param name="Append" value="false"/>
+     <param name="MaxFileSize" value="500KB"/>
+     <param name="MaxBackupIndex" value="1"/>
+
+     <layout class="org.apache.log4j.PatternLayout">
+       <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+     </layout>
+   </appender>
+   <category name="org.jgroups">
+     <priority value="DEBUG" />
+     <appender-ref ref="CLUSTER"/>
+   </category>
+   <category name="org.jboss.ha">
+     <priority value="DEBUG" />
+     <appender-ref ref="CLUSTER"/>
+   </category>
+   -->
+
+   <!-- ======================= -->
+   <!-- PORTAL SPECIFIC LOGGERS -->
+   <!-- ======================= -->
+
+  <category name="PORTAL" additivity="false">
+      <priority value="INFO"/>
+      <appender-ref ref="PORTAL"/>
+   </category>
+
+   
+    <category name="org.jboss.portal" additivity="true">
+      <priority value="INFO"/>
+      <appender-ref ref="PORTAL"/>
+   </category>
+   
+   <category name="org.osivia.portal" additivity="true">
+      <priority value="INFO"/>
+      <appender-ref ref="PORTAL"/>
+   </category>
+
+
+  <category name="PORTAL_ERROR" additivity="false">
+      <priority value="ERROR"/>
+      <appender-ref ref="PORTAL_ERROR"/>
+   </category>
+
+
+  <category name="PORTAL_USER_ERROR"  additivity="false">
+      <priority value="ERROR"/>
+      <appender-ref ref="PORTAL_USER_ERROR_APPENDER"/>
+   </category>
+
+  <!-- paser en mode INFO pour faire du profiling -->
+  <category name="PORTAL_PROFILER"  additivity="false">
+	  <priority value="INFO"/>
+      <appender-ref ref="PORTAL_PROFILER_APPENDER"/>
+   </category>
+
+  <category name="PORTAL_STATUS"  additivity="false">
+      <priority value="INFO"/>
+      <appender-ref ref="PORTAL_STATUS_APPENDER"/>
+   </category>
+
+
+  <category name="PORTAL_WINDOW">
+      <priority value="ERROR"/>
+   </category>
+
+
+ <!-- Supervisor -->
+
+ <category name="PORTAL_SUPERVISOR" additivity="false">
+      <priority value="DEBUG"/>
+      <appender-ref ref="PORTAL_SUPERVISOR_APPENDER"/>
+   </category>
+
+
+<!-- portlet errors are displayed in PORTAL appender -->
+  <category name="javax.portlet">
+      <priority value="ERROR"/>
+      <appender-ref ref="PORTAL_SUPERVISOR_APPENDER"/>
+   </category>
+
+<!-- cas errors are displayed in PORTAL appender -->
+  <category name="edu.yale.its.tp.cas">
+      <priority value="ERROR"/>
+      <appender-ref ref="PORTAL_SUPERVISOR_APPENDER"/>
+   </category>
+
+
+   <root>
+      <priority value ="INFO"/>
+      <appender-ref ref="FILE"/>
+      <appender-ref ref="CONSOLE"/>
+   </root>
+
+  
+
+
+</log4j:configuration>

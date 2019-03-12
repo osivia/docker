@@ -3,7 +3,10 @@ MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
 RUN apt-get update \
-    && apt-get install -y netcat locales vim \
+    && apt-get install -y --no-install-recommends \
+        netcat \
+        locales \
+        vim \
     && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -35,6 +38,9 @@ RUN cd /opt \
     && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
     && rm -f ${PORTAL_DISTRIBUTION}.zip
 
+
+COPY jboss-log4j.xml /opt/${PORTAL_DISTRIBUTION}/jboss-as/server/production/conf
+	
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
