@@ -32,15 +32,17 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=1.0-SNAPSHOT
-ENV NUXEO_DISTRIBUTION index-cloud-ens-nuxeo-distrib-${NUXEO_VERSION}
+ENV NUXEO_VERSION=1.0-ALPHA-3
+ENV NUXEO_DISTRIBUTION_NAME index-cloud-ens-nuxeo-distrib
+ENV NUXEO_DISTRIBUTION ${NUXEO_DISTRIBUTION_NAME}-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-COPY ${NUXEO_DISTRIBUTION}.zip /opt/
-RUN cd /opt \ 
+#COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+RUN cd /opt \
+    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/nuxeo/${NUXEO_DISTRIBUTION_NAME}/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
