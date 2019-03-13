@@ -69,7 +69,7 @@ services:
             - LDAP_HOST=opendj
         ports:
             - 8080
-            - 8787
+            - 8787:8787
         depends_on:
             - mysql
     httpd:
