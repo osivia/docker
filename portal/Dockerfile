@@ -32,7 +32,7 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-#COPY ${PORTAL_DISTRIBUTION}.zip /opt/
+#COPY ${PORTAL_DISTRIBUTION}.zip /opt/${PORTAL_DISTRIBUTION_ZIP}
 RUN cd /opt \
     && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/portal/${PORTAL_DISTRIBUTION_NAME}/${PORTAL_VERSION}/${PORTAL_DISTRIBUTION_ZIP} \
     && unzip -q ${PORTAL_DISTRIBUTION_ZIP} \
