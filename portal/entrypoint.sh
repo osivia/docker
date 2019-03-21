@@ -23,10 +23,10 @@ LDAP_HOST=${LDAP_HOST:-opendj}
 LDAP_PORT=${LDAP_PORT:-1389}
 
 # Mails
-MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
-MAIL_PORT=${MAIL_PORT:-587}
-MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.org}
-MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
+MAIL_HOST=${MAIL_HOST:-localhost}
+#MAIL_PORT=${MAIL_PORT:-587}
+#MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.org}
+#MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 
 # CAS
 CAS_HOST=${CAS_HOST:-cas}
@@ -62,7 +62,7 @@ if [ "$1" = "start" ]; then
         sed -i s\\^[#]*ldap.host=.*$\\ldap.host=$LDAP_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*ldap.port=.*$\\ldap.port=$LDAP_PORT\\g $PORTAL_PROPERTIES
         
-        sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $PORTAL_PROPERTIES
+		sed -i s\\^[#]*mail.smtp.host=.*$\\mail.smtp.host=$MAIL_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $PORTAL_PROPERTIES       

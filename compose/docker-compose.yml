@@ -3,7 +3,7 @@ services:
   opendj:
     image: osivia/opendj:toutatice
     ports:
-      - 1389
+      - 1389:${PUBLIC_LDAP_PORT}
     volumes:
       - opendj-data:/opt/opendj/db
       #- opendj-backup:/backup      
@@ -30,12 +30,22 @@ services:
       - 9200
     volumes:
       - es-data:/usr/share/elasticsearch/data
-  kibana:
-    image: kibana:4.1
-    environment:
-      - ELASTICSEARCH_URL=http://es:9200    
+  fakesmtp:
+    image: munkyboy/fakesmtp
     ports:
-      - 5601
+      - 25
+    volumes:
+      - ./mails:/var/mail
+  fakesmtp-web:
+    image: mjstewart/fakesmtp-web:1.2
+    ports:
+      - 60500:8080
+    volumes:
+      - ./mails:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - fakesmtp
   nuxeo:
     image: osivia/nuxeo:toutatice
     environment:
@@ -46,9 +56,10 @@ services:
       - NUXEO_ES_CLUSTER=es-cluster
       - NUXEO_ES_NODES=es:9300
       - OO_HOST=onlyoffice
+      - MAIL_HOST=fakesmtp
     ports:
       - 8080
-      - 8788
+      - 8788:${PUBLIC_NUXEO_DEBUG_PORT}
     volumes:
       - nuxeo-data:/data
     depends_on:
@@ -72,19 +83,22 @@ services:
       - PORTAL_DB_HOST=mysql
       - CAS_HOST=cas
       - LDAP_HOST=opendj
+      - MAIL_HOST=fakesmtp
     ports:
       - 8080
-      - 8787
+      - 8787:${PUBLIC_PORTAL_DEBUG_PORT}
     depends_on:
       - mysql
   httpd:
     image: osivia/httpd:toutatice
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
+      - HTTPS_PROVIDED=${HTTPS_PROVIDED}
       - CAS_HOST=cas
       - NUXEO_HOST=nuxeo
       - PORTAL_HOSTS=portal
       - OO_HOST=onlyoffice
+      - WEBMAIL_HOST=fakesmtp-web
     ports:
     - 80:${PUBLIC_HTTP_PORT}
     - 443:${PUBLIC_HTTPS_PORT}
@@ -93,7 +107,13 @@ services:
   onlyoffice:
     image: onlyoffice/documentserver
     volumes:
-      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
+      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json  
+  kibana:
+    image: kibana:4.1
+    environment:
+      - ELASTICSEARCH_URL=http://es:9200    
+    ports:
+      - 5601:${PUBLIC_KIBANA_PORT}          
 volumes:
   opendj-data:
   #opendj-backup:
@@ -102,4 +122,5 @@ volumes:
   es-data:
   nuxeo-data:
   mysql-data:
+  mail-data:
 
