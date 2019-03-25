@@ -1,0 +1,112 @@
+version: "3"
+services:
+    opendj:
+        image: osivia/opendj
+        ports:
+            - 1389:1389
+        volumes:
+            - opendj-data:/opt/opendj/db
+    cas:
+        image: osivia/cas
+        environment:
+            - LDAP_HOST=opendj
+        ports:
+            - 8080
+    postgres:
+        image: postgres:9.5
+        environment:
+            - POSTGRES_PASSWORD=osivia
+            - POSTGRES_USER=nuxeo
+            - POSTGRES_DB=nuxeodb
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+    es:
+        image: elasticsearch:1.7.6
+        command: elasticsearch -Des.cluster.name=cloud-ens-cluster
+        volumes:
+            - es-data:/usr/share/elasticsearch/data
+    kibana:
+        image: kibana:4.1
+        environment:
+            - ELASTICSEARCH_URL=http://es:9200
+        ports:
+            - 5601:5601
+    nuxeo:
+        image: osivia/nuxeo:cloud-ens
+        environment:
+            - PUBLIC_HOST=${PUBLIC_HOST}
+            - LDAP_HOST=opendj
+            - CAS_HOST=cas:8080
+            - NUXEO_DB_HOST=postgres
+            - NUXEO_ES_CLUSTER=cloud-ens-cluster
+            - NUXEO_ES_NODES=es:9300
+            - OO_HOST=onlyoffice
+        ports:
+            - 8080
+            - 8788:8788
+        volumes:
+            - nuxeo-data:/data
+        depends_on:
+            - postgres
+            - es
+    mysql:
+        image: mysql:5.7
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        environment:
+            - MYSQL_DATABASE=portaldb
+            - MYSQL_USER=portal
+            - MYSQL_PASSWORD=osivia
+            - MYSQL_ROOT_PASSWORD=osivia
+        volumes:
+            - mysql-data:/var/lib/mysql
+    portal-1:
+        image: osivia/portal:cloud-ens
+        environment:
+            - PUBLIC_HOST=${PUBLIC_HOST}
+            - NUXEO_HOST=nuxeo
+            - PORTAL_DB_HOST=mysql
+            - CAS_HOST=cas
+            - LDAP_HOST=opendj
+            - PORTAL_MEMBERS=portal-2            
+        ports:
+            - 8080
+            - 8787:8787
+        depends_on:
+            - mysql
+    portal-2:
+        image: osivia/portal:cloud-ens
+        environment:
+            - PUBLIC_HOST=${PUBLIC_HOST}
+            - NUXEO_HOST=nuxeo
+            - PORTAL_DB_HOST=mysql
+            - CAS_HOST=cas
+            - LDAP_HOST=opendj
+            - PORTAL_MEMBERS=portal-1
+        ports:
+            - 8080
+        depends_on:
+            - mysql            
+    httpd:
+        image: osivia/httpd:cloud-ens
+        environment:
+            - PUBLIC_HOST=${PUBLIC_HOST}
+            - CAS_HOST=cas
+            - NUXEO_HOST=nuxeo
+            - PORTAL_HOSTS=portal-1,portal-2
+            - OO_HOST=onlyoffice
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - httpd-ssl:/etc/ssl
+    onlyoffice:
+        image: onlyoffice/documentserver
+        volumes:
+            - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+volumes:
+    opendj-data:
+    postgres-data:
+    es-data:
+    nuxeo-data:
+    mysql-data:
+    httpd-ssl:
