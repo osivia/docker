@@ -1,20 +1,28 @@
 FROM java:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
-RUN apt-get update  \
- && apt-get install sudo
+# Update
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        netcat \
+	    perl \
+	    locales \
+	    pwgen \
+	    imagemagick \
+	    ffmpeg2theora \
+	    ufraw \
+	    poppler-utils \
+	    libwpd-tools \
+	    exiftool \
+	    ghostscript \
+	    libreoffice \
+	    #ffmpeg \
+        #x264 \
+    && apt-get purge -y \
+    && rm -rf /var/lib/apt/lists/*
 
-# Openoffice
-RUN apt-get install -y netcat \
-    && apt-get purge -y
-
-RUN sudo apt-get install -y imagemagick 
-
-RUN apt-get  install -y libreoffice 
-
-
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
+# Locale
+RUN localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
 ENV LANG fr_FR.utf8
 RUN locale >> /etc/default/locale
 
