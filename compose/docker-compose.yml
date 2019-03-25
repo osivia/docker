@@ -43,7 +43,7 @@ services:
             - OO_HOST=onlyoffice
         ports:
             - 8080
-            - 8788
+            - 8788:8788
         volumes:
             - nuxeo-data:/data
         depends_on:
