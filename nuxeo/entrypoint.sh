@@ -36,6 +36,8 @@ NUXEO_PID=${NUXEO_PID:-/var/run/nuxeo}
 # SSL
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/nuxeo}
 
+# Mail
+MAIL_HOST=${MAIL_HOST:localhost}
 
 if [ "$1" = "start" ]; then
     if [ ! -f $NUXEO_HOME/configured ]; then
@@ -46,8 +48,9 @@ if [ "$1" = "start" ]; then
         sed -i s\\CAS_PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
-        
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
+        sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
+        
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF

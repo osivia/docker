@@ -32,13 +32,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.7-SNAPSHOT
+ENV NUXEO_VERSION=4.7
 ENV NUXEO_DISTRIBUTION acrennes-nx-distrib-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
-COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 
+
+#COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+RUN cd /opt \ 
+    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/toutatice-ecm/acrennes/acrennes-nx-distrib/${NUXEO_VERSION}/acrennes-nx-distrib-${NUXEO_VERSION}.zip
 
 # Distribution
 RUN cd /opt \ 

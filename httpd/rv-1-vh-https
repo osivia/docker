@@ -1,0 +1,38 @@
+
+LoadModule ssl_module modules/mod_ssl.so
+
+Listen 443
+
+## =============
+## Configuration of forced https redirection
+<VirtualHost *:80>
+    RewriteEngine On
+    RewriteOptions Inherit
+
+    RewriteRule (.*) https://%{HTTP_HOST}$1 [R=301,L]
+
+</VirtualHost>
+## End of forced https redirection
+
+## =============
+## Common SSL settings
+SSLPassPhraseDialog builtin
+SSLSessionCache shmcb:/var/cache/mod_ssl/scache(512000)
+SSLSessionCacheTimeout 300
+SSLRandomSeed startup file:/dev/urandom 256
+SSLRandomSeed connect builtin
+SSLCryptoDevice builtin
+## End of common SSL settings
+
+## =============
+## Configuration of https virtual host
+<VirtualHost *:443>
+    
+    SSLEngine on
+    
+    SSLProtocol all -SSLv2
+    SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+    
+    SSLCertificateFile CERTS_FILES/server.crt
+    SSLCertificateKeyFile CERTS_FILES/server.key
+    
