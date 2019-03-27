@@ -120,6 +120,17 @@ if [ "$1" = "start" ]; then
             CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8950]"
         done
         sed -i s\\^[#]*portal.ejb3.sfsb.cache.initial_hosts=.*$\\portal.ejb3.sfsb.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+		
+		
+		# Connect cache
+        sed -i s\\^[#]*portal.connect.cache.tcpAddr=.*$\\portal.connect.cache.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
+        CLUSTER_MEMBERS="$HOSTNAME[8960]"
+        for element in "${PORTAL_MEMBERS_ARRAY[@]}"
+        do
+            CLUSTER_MEMBERS="$CLUSTER_MEMBERS,$element[8960]"
+        done
+        sed -i s\\^[#]*portal.connect.cache.initial_hosts=.*$\\portal.connect.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
+
 
 
         # Logs
