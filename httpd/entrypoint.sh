@@ -37,7 +37,7 @@ if [ ! -f $HTTPD_HOME/configured ]; then
 		#HTTPD_SSL_CONFIG_FILE=/usr/local/apache2/conf/extra/ssl.conf
 		cat /tmp/rv-1-vh-https >> $HTTPD_CONFIG_FILE
 		
-		CERTS_FILES=/etc/ssl/certs
+		CERTS_FILES=/etc/ssl
 		if [ ! -f $CERTS_FILES/server.crt ]; then
 	    	openssl req -nodes -newkey rsa:2048 -keyout $CERTS_FILES/server.key -out $CERTS_FILES/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=$HOSTNAME"
 	    	openssl x509 -req -in $CERTS_FILES/server.csr -signkey $CERTS_FILES/server.key -out $CERTS_FILES/server.crt -days 999
