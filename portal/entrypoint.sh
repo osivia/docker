@@ -35,6 +35,9 @@ CAS_HOST=${CAS_HOST:-cas}
 PORTAL_MEMBERS=${PORTAL_MEMBERS:-""}
 IFS=', ' read -r -a PORTAL_MEMBERS_ARRAY <<< $PORTAL_MEMBERS
 
+# Public urls
+EXTRANET_HOST=${EXTRANET_HOST:-demo}
+INTRANET_HOST=${INTRANET_HOST:-intra.demo}
 
 # Logs
 PORTAL_LOGS=${PORTAL_LOGS:-/var/log/portal}
@@ -48,7 +51,8 @@ if [ "$1" = "start" ]; then
         echo "Configuration..."
     
         # Properties
-        sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\EXTRANET_HOST\\$EXTRANET_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\INTRANET_HOST\\$INTRANET_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
 
@@ -121,6 +125,9 @@ if [ "$1" = "start" ]; then
         done
         sed -i s\\^[#]*portal.ejb3.sfsb.cache.initial_hosts=.*$\\portal.ejb3.sfsb.cache.initial_hosts=$CLUSTER_MEMBERS\\g $PORTAL_PROPERTIES
 
+		# Public urls
+		echo "demo.extranet.url=${EXTRANET_HOST}" >> $PORTAL_PROPERTIES
+		echo "demo.intranet.url=${INTRANET_HOST}" >> $PORTAL_PROPERTIES
 
         # Logs
         mkdir -p $PORTAL_LOGS

@@ -1,13 +1,13 @@
 version: "3"
 services:
     opendj:
-        image: osivia/opendj:toutatice
+        image: osivia/opendj:demo
         ports:
             - 1389:${PUBLIC_LDAP_PORT}
         volumes:
             - opendj-data:/opt/opendj/db
     cas:
-        image: osivia/cas:toutatice
+        image: osivia/cas:demo
         environment:
             - LDAP_HOST=opendj
         ports:
@@ -44,7 +44,7 @@ services:
         depends_on:
             - fakesmtp
     nuxeo:
-        image: osivia/nuxeo:toutatice
+        image: osivia/nuxeo:demo
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - LDAP_HOST=opendj
@@ -73,9 +73,10 @@ services:
         volumes:
             - mysql-data:/var/lib/mysql
     portal:
-        image: osivia/portal:toutatice
+        image: osivia/portal:demo
         environment:
-            - PUBLIC_HOST=${PUBLIC_HOST}
+            - EXTRANET_HOST=${PUBLIC_HOST}
+            - INTRANET_HOST=${INTRANET_HOST}
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
             - CAS_HOST=cas
@@ -87,7 +88,7 @@ services:
         depends_on:
             - mysql
     httpd:
-        image: osivia/httpd:toutatice
+        image: osivia/httpd:demo
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - HTTPS_PROVIDED=${HTTPS_PROVIDED}
