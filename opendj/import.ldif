@@ -1,0 +1,95 @@
+dn: dc=osivia,dc=org
+objectClass: domain
+objectClass: top
+dc: osivia
+
+dn: ou=groups,dc=osivia,dc=org
+objectClass: organizationalUnit
+objectClass: top
+description: Groupes
+ou: groups
+
+dn: ou=users,dc=osivia,dc=org
+objectClass: organizationalUnit
+objectClass: top
+description: Utilisateurs
+ou: users
+
+dn: uid=admin,ou=users,dc=osivia,dc=org
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: portalPerson
+uid: admin
+cn: Administrateur
+sn: Administrateur
+mail: demo@osivia.org
+displayName: Administrateur du portail
+portalPersonProfile: cn=Administrators,ou=profiles,ou=groups,dc=osivia,dc=org
+userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
+ Q==
+
+
+dn: uid=demo,ou=users,dc=osivia,dc=org
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: portalPerson
+uid: demo
+cn: Démo
+sn: Démo
+mail: demo@osivia.org
+displayName: Utilisateur de démonstration
+userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
+ Q==
+
+
+dn: ou=collabProfiles,ou=groups,dc=osivia,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: profiles
+
+
+dn: ou=profiles,ou=groups,dc=osivia,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: profiles
+
+dn: ou=roles,ou=groups,dc=osivia,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: roles
+
+dn: cn=Administrators,ou=profiles,ou=groups,dc=osivia,dc=org
+objectClass: groupOfUniqueNames
+objectClass: top
+description: Administrateurs du portail
+uniqueMember: uid=admin,ou=users,dc=osivia,dc=org
+cn: Administrators
+
+dn: cn=members,ou=profiles,ou=groups,dc=osivia,dc=org
+objectClass: groupOfUniqueNames
+objectClass: top
+description: Membres
+cn: members
+
+dn: cn=role_admin,ou=roles,ou=groups,dc=osivia,dc=org
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: role_admin
+uniqueMember: uid=admin,ou=users,dc=osivia,dc=org
+
+dn: cn=role_workspace-management,ou=roles,ou=groups,dc=osivia,dc=org
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: role_workspace-management
+uniqueMember: uid=admin,ou=users,dc=osivia,dc=org
+
+
+dn: cn=role_person-management,ou=roles,ou=groups,dc=osivia,dc=org
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: role_person-management
+uniqueMember: uid=admin,ou=users,dc=osivia,dc=org
