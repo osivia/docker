@@ -7,11 +7,14 @@ services:
         volumes:
             - opendj-data:/opt/opendj/db
     cas:
-        image: osivia/cas
+        image: osivia/cas:cloud-ens
         environment:
             - LDAP_HOST=opendj
+            - JPDA_ADDRESS=8000
+            - JPDA_TRANSPORT=dt_socket
         ports:
             - 8080
+            - 8789:8000
     postgres:
         image: postgres:9.5
         environment:
@@ -31,6 +34,22 @@ services:
             - ELASTICSEARCH_URL=http://es:9200
         ports:
             - 5601:5601
+    fakesmtp:
+        image: munkyboy/fakesmtp
+        ports:
+            - 25
+        volumes:
+            - ./mails:/var/mail
+    fakesmtp-web:
+        image: mjstewart/fakesmtp-web:1.2
+        ports:
+            - 60500:8080
+        volumes:
+            - ./mails:/var/mail
+        environment:
+            - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+        depends_on:
+           - fakesmtp               
     nuxeo:
         image: osivia/nuxeo:cloud-ens
         environment:
@@ -70,6 +89,7 @@ services:
             - PORTAL_MEMBERS=portal-2
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}     
+            #- MAIL_HOST=fakesmtp            
         ports:
             - 8080
             - 8787:8787
@@ -86,6 +106,7 @@ services:
             - PORTAL_MEMBERS=portal-1
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}              
+            #- MAIL_HOST=fakesmtp                  
         ports:
             - 8080
         depends_on:
@@ -98,6 +119,7 @@ services:
             - NUXEO_HOST=nuxeo
             - PORTAL_HOSTS=portal-1,portal-2
             - OO_HOST=onlyoffice
+            - WEBMAIL_HOST=fakesmtp-web
         ports:
             - 80:80
             - 81:81            
