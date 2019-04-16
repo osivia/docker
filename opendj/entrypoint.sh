@@ -19,7 +19,7 @@ if [ ! -f $OPENDJ_HOME/configured ]; then
     
 	## Configuration
 	# Allow pre encoded passwords
-	$OPENDJ_HOME/bin/dsconfig -w osivia  -X -n set-password-policy-prop --policy-name "Default Password Policy" --advanced --set allow-pre-encoded-passwords:true --trustAl
+	$OPENDJ_HOME/bin/dsconfig -w osivia  -X -n set-password-policy-prop --policy-name "Default Password Policy" --advanced --set allow-pre-encoded-passwords:true --trustAll
 	# Create unique constraint for mail field
 	$OPENDJ_HOME/bin/dsconfig create-plugin -w osivia --plugin-name "Unique mail address" --type unique-attribute --set enabled:true --set base-dn:dc=osivia,dc=org --set type:mail --trustAll --no-prompt
 	# install custom schemas 
