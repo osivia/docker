@@ -42,6 +42,9 @@ PORTAL_LOGS=${PORTAL_LOGS:-/var/log/portal}
 # SSL
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/portal}
 
+#PRONOTE Secrets
+PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET:-??PRONOTESECRET??}
+PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET:-??PRONOTESECRET??}
 
 if [ "$1" = "start" ]; then
     if [ ! -f $PORTAL_HOME/configured ]; then
@@ -51,6 +54,10 @@ if [ "$1" = "start" ]; then
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
+		
+        sed -i s\\PRONOTE_JWT_SECRET\\$PRONOTE_JWT_SECRET\\g $PORTAL_PROPERTIES
+        sed -i s\\PRONOTE_OAUTH2_CLIENT_SECRET\\$PRONOTE_OAUTH2_CLIENT_SECRET\\g $PORTAL_PROPERTIES		
+		
 
         sed -i s\\^[#]*db.host=.*$\\db.host=$PORTAL_DB_HOST:$PORTAL_DB_PORT\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*db.base-name=.*$\\db.base-name=$PORTAL_DB_NAME\\g $PORTAL_PROPERTIES
