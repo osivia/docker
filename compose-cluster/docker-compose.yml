@@ -1,7 +1,7 @@
 version: "3"
 services:
     opendj:
-        image: osivia/opendj
+        image: osivia/opendj:cloud-ens
         ports:
             - 1389:1389
         volumes:
