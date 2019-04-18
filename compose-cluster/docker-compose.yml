@@ -6,8 +6,8 @@ services:
             - 1389:1389
         volumes:
             - opendj-data:/opt/opendj/db
-    cas:
-        image: osivia/cas:cloud-ens
+    tomcat:
+        image: osivia/tomcat:cloud-ens
         environment:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
@@ -55,7 +55,7 @@ services:
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - LDAP_HOST=opendj
-            - CAS_HOST=cas:8080
+            - CAS_HOST=tomcat:8080
             - NUXEO_DB_HOST=postgres
             - NUXEO_ES_CLUSTER=cloud-ens-cluster
             - NUXEO_ES_NODES=es:9300
@@ -84,7 +84,7 @@ services:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
-            - CAS_HOST=cas
+            - CAS_HOST=tomcat
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-2
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
@@ -101,7 +101,7 @@ services:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
-            - CAS_HOST=cas
+            - CAS_HOST=tomcat
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-1
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
@@ -115,7 +115,7 @@ services:
         image: osivia/httpd:cloud-ens
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
-            - CAS_HOST=cas
+            - CAS_HOST=tomcat
             - NUXEO_HOST=nuxeo
             - PORTAL_HOSTS=portal-1,portal-2
             - OO_HOST=onlyoffice
