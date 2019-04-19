@@ -1,0 +1,39 @@
+dn: dc=index-education,dc=fr
+objectClass: domain
+objectClass: top
+dc: index-education
+
+dn: ou=users,dc=index-education,dc=fr
+objectClass: organizationalUnit
+objectClass: top
+description: Utilisateurs
+ou: users
+
+dn: uid=lbillon,ou=users,dc=index-education,dc=fr
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: portalPerson
+uid: lbillon
+cn: Billon Loïc
+sn: Billon
+mail: lbillon@osivia.com
+displayName: Loïc Billon
+userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
+ Q==
+
+dn: uid=jsteux,ou=users,dc=index-education,dc=fr
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: portalPerson
+uid: jsteux
+cn: Steux Jean-Sébastien
+sn: Steux
+mail: jssteux@osivia.com
+displayName: Jean-Sébastien Steux
+userPassword:: e1NTSEF9Vlg0dmErVDVJRjQ0RkNrRjFORVVRbWRPdndhSVcyckJRMkZObnc9P
+ Q==
+

@@ -12,9 +12,14 @@ services:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
             - JPDA_TRANSPORT=dt_socket
+            - PUBLIC_HOST=${PUBLIC_HOST}            
         ports:
             - 8080
             - 8789:8000
+        volumes:
+            - httpd-ssl:/export/httpd/ssl
+        depends_on:
+           - httpd    
     postgres:
         image: postgres:9.5
         environment:
@@ -89,7 +94,7 @@ services:
             - PORTAL_MEMBERS=portal-2
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}     
-            #- MAIL_HOST=fakesmtp            
+            - MAIL_HOST=fakesmtp            
         ports:
             - 8080
             - 8787:8787
@@ -106,7 +111,7 @@ services:
             - PORTAL_MEMBERS=portal-1
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}              
-            #- MAIL_HOST=fakesmtp                  
+            - MAIL_HOST=fakesmtp                  
         ports:
             - 8080
         depends_on:
@@ -126,6 +131,10 @@ services:
             - 443:443
         volumes:
             - httpd-ssl:/etc/ssl
+        networks:
+            default:
+                aliases:
+                    - ${PUBLIC_HOST}
     onlyoffice:
         image: onlyoffice/documentserver
         volumes:

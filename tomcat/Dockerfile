@@ -1,7 +1,7 @@
-FROM tomcat:7
+FROM tomcat:7-jre8
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
-RUN apt-get update && apt-get install -y locales vim \
+RUN apt-get update && apt-get install -y locales vim openssl \
 	&& localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8 \
 	&& apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
@@ -23,11 +23,14 @@ WORKDIR $CATALINA_HOME
 # Distribution
 #RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/org/jasig/cas/cas-server-webapp/4.4.15.4/cas-server-webapp-4.4.15.4.war -O cas.war
 COPY cas.war /usr/local/tomcat/webapps/
+COPY cas-pronote.war /usr/local/tomcat/webapps/
 COPY pronote-ws.war /usr/local/tomcat/webapps/
 
 RUN mkdir -p /appli/conf
 
 COPY cas.properties $CAS_CONFIG
+COPY cas-pronote.properties $CAS_CONFIG
+
 COPY ehcache-replicated.xml $CAS_CONFIG
 COPY log4j2.xml $CAS_CONFIG
 COPY server.xml $CATALINA_HOME/conf

@@ -38,6 +38,7 @@ COPY 90-portal.ldif /opt
 
 # Import
 COPY import.ldif /opt
+COPY import-cas-pronote.ldif /opt
 #RUN /opt/opendj/bin/import-ldif --ldifFile /opt/import.ldif --backendID userRoot --rejectFile /opt/rejected-entries.log --skipFile /opt/skipped-entries.log --overwrite
 
 
