@@ -1,3 +1,4 @@
+version: 1
 dn: dc=ent-bretagne,dc=fr
 objectClass: domain
 objectClass: top
@@ -9,12 +10,12 @@ objectClass: top
 ou: personnes
 
 dn: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Lemoine Nathalie
 displayName: Nathalie Lemoine
 employeeNumber: 05E9210298ATP
@@ -60,12 +61,12 @@ userPassword:: e1NTSEF9NW5SK0RQbDFOY2JWK1BGOGJ2QmE4QXZlK1k2RnZyVVIrTE05ZWc9P
  Q==
 
 dn: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Mery Jeanne-Marie
 displayName: Jeanne-Marie Mery
 employeeNumber: 07E9209508EHM
@@ -102,9 +103,9 @@ userPassword:: e1NTSEF9T2FZekNKbmFJVGxKYlZnSFN3VWVibUdDdzJZV282WTcwb0ZubXU3S
  mJTeU1Bb2tHZmVaeWdRPT0=
 
 dn: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Rupin Nx
@@ -127,19 +128,15 @@ userPassword:: e1NTSEF9SXpNV2VXVk9WbDk4NjgrTnNCSE1ocktwQkVEZTVUT2kraWZXcnc9P
  Q==
 
 dn: uid=Administrator,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn:: U3lzdMOobWU=
 displayName: Administrator
 ENTPersonProfils: cn=SuperAdministrators,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 ENTPersonProfils: cn=Administrators,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-ENTPersonProfils: cn=Members,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-ENTPersonProfils: cn=3500ef6a-ee4e-44c1-8f11-e16e4b88558e_animateurs,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-ENTPersonProfils: cn=744b8c10-9457-417a-8f56-164abadca799_animateurs,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-ENTPersonProfils: cn=80300bd9-e34a-4388-9a82-7af74c4358ca_animateurs,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 ENTPersonProfils: cn=workspace_test_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 ENTPersonSourceSI: SERIA-T
 givenName: Admin
@@ -150,9 +147,9 @@ userPassword:: e1NTSEF9VkNFNDZBSDdRc25BZjhpZUVyY09VQlNnREx3VUJyV2VDalNJN1E9P
  Q==
 
 dn: uid=assistance,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Assistance
@@ -171,9 +168,9 @@ userPassword:: e1NTSEF9QVliL2Fad2ZRSldtaVhZQWdrWVBOMUI2dzZMdHViR2d2ZE1KZFE9P
  Q==
 
 dn: uid=hsimpson,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: ENTAuxPersRelEleve
 objectClass: top
@@ -194,12 +191,12 @@ userPassword:: e1NTSEF9L2xQZHVaem01L2taSXl3TEhHdmc2d1dSdEZmamdsNkJkeHV1SlE9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTEleve
 objectClass: top
+objectClass: ENTEleve
 cn: Lisa Simpson
 displayName: Lisa Simpson
 ENTEleveStructRattachId: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
@@ -217,12 +214,12 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
  Q==
 
 dn: uid=bsimpson,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTEleve
 objectClass: top
+objectClass: ENTEleve
 cn: Bart Simpson
 displayName: Bart Simpson
 ENTEleveStructRattachId: uid=bsimpson,ou=personnes,dc=ent-bretagne,dc=fr
@@ -242,9 +239,9 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
  Q==
 
 dn: uid=professeur@AGRI,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Le prof
@@ -263,12 +260,12 @@ userPassword:: e1NTSEF9WExFU1FHRkNyZG5YUEJ4WlAyUlRQclM1dEZMRGU0UjR3cTM2Ync9P
  Q==
 
 dn: uid=msimpson,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTEleve
 objectClass: top
+objectClass: ENTEleve
 cn: Maggie Simpson
 displayName: Maggie Simpson
 ENTEleveStructRattachId: uid=msimpson,ou=personnes,dc=ent-bretagne,dc=fr
@@ -286,12 +283,12 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
  Q==
 
 dn: uid=srose,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Rose Sandrine
 displayName: Sandrine Rose
 employeeNumber: 62G0415835KFN
@@ -344,9 +341,9 @@ uid: srose
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=nxjahier,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Jahier Nx
@@ -371,12 +368,12 @@ userPassword:: e1NTSEF9TmhIN2ZoT20yQ2JFS09VR0FiOWt5K2NpNllSdEVxUnFvbHNDVFE9P
  Q==
 
 dn: uid=abarbier1,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Barbier Alain
 displayName: Alain Barbier
 employeeNumber: 35G9305309DCI
@@ -419,12 +416,12 @@ userPassword:: e3NoYX0wWGU3S2RRclgrSWxweERyQ3BUdkRjZnFDRTA9
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=faubry,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Aubry Fabienne
 displayName: Fabienne Aubry
 employeeNumber: 14A1325162ISI
@@ -466,12 +463,12 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
  Q==
 
 dn: uid=bpasquier1,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Pasquier Brigitte
 displayName: Brigitte Pasquier
 employeeNumber: 35G9304549DFN
@@ -512,12 +509,12 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
 userPassword:: e3NoYX0wWGU3S2RRclgrSWxweERyQ3BUdkRjZnFDRTA9
 
 dn: uid=pmahe,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Mahe Patrice
 displayName: Patrice mahe
 employeeNumber: 35G9301050VAH
@@ -562,12 +559,12 @@ userPassword:: e1NTSEF9VXRWZkQ3OTV3aEpwSElUREg5K0F0SUdheGFvdlpoMzNRNXQvTnc9P
  Q==
 
 dn: uid=edoyen,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Doyen Evelyne
 displayName: Evelyne Doyen
 employeeNumber: 56G9302596MCG
@@ -606,9 +603,9 @@ uid: edoyen
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=nxlehelley,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Le Helley NX
@@ -633,12 +630,12 @@ userPassword:: e1NTSEF9TmhIN2ZoT20yQ2JFS09VR0FiOWt5K2NpNllSdEVxUnFvbHNDVFE9P
  Q==
 
 dn: uid=cboudry,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Boudry Christelle
 displayName: Christelle Boudry
 employeeNumber: 25E9989343SEV
@@ -688,12 +685,12 @@ userPassword:: e1NTSEEyNTZ9d1VwYVNxLzE3VUx6d2YzSk1OR2VMRGFjUG00M2t3di8wQU9vO
  EtpSzhOaU1rdEtBaTc5OGVBPT0=
 
 dn: uid=kkechis,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Kechis Karen
 displayName: Karen
 employeeNumber: 14P1422837APY
@@ -734,12 +731,12 @@ userPassword:: e1NTSEF9Mk1GMldFTEVCUFFPMUhFamFlL3NWbm8yRjRURFB0Uk5NMGRjSGc9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=bcottin,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Cottin Brigitte
 displayName: Brigitte Cottin
 employeeNumber: 14E9219732WER
@@ -785,12 +782,12 @@ userPassword:: e1NTSEF9TWpzaGk3a1JiWDZmekZURGhFcWhOVWtEUHdtUlF0MW1jVDIyTVE9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=bcabioch,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Cabioch Bertrand
 displayName: Bertrand Cabioch
 employeeNumber: 35G9301127ARB
@@ -846,12 +843,12 @@ userPassword:: e1NTSEF9VTRJWUVReEJEQ1lya1pSb3dZMm94a05TRXpWYmU1VTVZVmdLSmc9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=adupriez,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Dupriez Ariane
 displayName: Ariane Dupriez
 employeeNumber: 14E0455346IRI
@@ -886,12 +883,12 @@ userPassword:: e1NTSEF9ZEdzSVJwSXg1T2w5Sm52TFdIOUs1NWpxQ2RmVXhzTWptam41bFE9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=pmercier,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Mercier Pierrette
 displayName: Pierrette Mercier
 employeeNumber: 14E9322158MIV
@@ -937,12 +934,12 @@ userPassword:: e3NzaGF9aXY0eFJPK2lYNlFOUVhvS0t6SWZkK1EvV2V5MnpTUUxNa05vbHc9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=cpavageau,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Pavageau Catherine
 displayName: Catherine Pavageau
 employeeNumber: 14E9938316NRA
@@ -983,12 +980,12 @@ userPassword:: e1NTSEF9NG00ZnBaNlZPMHA4QjlQckVqNkE2dE85cThLM1E5Q0NjbHQ4ckE9P
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=etest,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Test Estelle
 displayName:: Q29tcHRlIMOpdGFibGlzc2VtZW50IFRlc3Q=
 employeeNumber: 35G9305309DCI
@@ -1031,12 +1028,12 @@ userPassword:: e3NoYX0wWGU3S2RRclgrSWxweERyQ3BUdkRjZnFDRTA9
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=rrose,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn:: Um9zZSBSZW7DqQ==
 displayName:: UmVuw6kgUm9zZQ==
 employeeNumber: 62G0415835KFN
@@ -1089,12 +1086,12 @@ uid: rrose
 userPassword:: e3NoYX16NVZHMyszY0NUelR6SWNEeFVmRE15dFVNRmM9
 
 dn: uid=bjoyaux,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Joyaux Bastien
 displayName: Bastien Joyaux
 employeeNumber: 17E1074957HFS
@@ -1177,12 +1174,12 @@ userPassword:: e1NTSEEyNTZ9YlpaVjBVT2JkUVB4ekYrOFVRUlpmV0JjdGVCT0hmVytYK3d2Z
  C8wMFk2YVVMNFpMYXA2NmNBPT0=
 
 dn: uid=tdufour,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTAuxEnseignant
 objectClass: top
+objectClass: ENTAuxEnseignant
 cn: Dufour Thierry
 displayName: Thierry Dufour
 employeeNumber: 17E1074957HFS
@@ -1267,9 +1264,9 @@ userPassword:: e1NTSEEyNTZ9Y1BoNU1HYmFuVVp3bTNQbXhndkVSeHpNQU9sT2MwUTd2UmRWV
  WF1ZTRueGUrWnF6VlpCRzRBPT0=
 
 dn: uid=pnoctulle,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: top
 cn: Noctulle Pierre
@@ -1304,9 +1301,9 @@ userPassword:: e1NTSEEyNTZ9MDNxaUFXdm9ycVRXcGgyejl0RUV3UnkrT3hmdGpndnovMk1Td
  nJLOFhvV2UrSXdEdkJQQm93PT0=
 
 dn: uid=claudine.lang@aten,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
 objectClass: ENTAuxPersRelEleve
 objectClass: top
@@ -1333,12 +1330,12 @@ userPassword:: e1NTSEF9VkFUZ2pWZGxaMkJJTkJqN1QzZkxOY0xzL0MrR2pGdlR0TWNhTVE9P
  Q==
 
 dn: uid=esther.lang,ou=personnes,dc=ent-bretagne,dc=fr
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
 objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 objectClass: ENTPerson
-objectClass: ENTEleve
 objectClass: top
+objectClass: ENTEleve
 cn: Esther LANG
 displayName: Esther LANG
 Divcod: 3B
@@ -1439,10 +1436,9 @@ objectClass: top
 ou: profils
 
 dn: cn=0350032V_TOUS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350032V_TOUS
 description:: TWVtYnJlcyBkZSBsJ8OpdGFibGlzc2VtZW50IDAzNTAwMzJW
 ENTDisplayName:: TWVtYnJlcyBkZSBsJ8OpdGFibGlzc2VtZW50ICgwMzUwMDMyVik=
@@ -1455,10 +1451,9 @@ member: uid=professeur,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350032V_ENS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350032V_ENS
 description:: RW5zZWlnbmFudHMgZGUgbCfDqXRhYmxpc3NlbWVudCAwMzUwMDMyVg==
 ENTDisplayName: Enseignants (0350032V)
@@ -1503,46 +1498,41 @@ ExplicitMember: uid=adrien.paya,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=tpi_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: tpi_Tous
 description:: VG91dGVzIGxlcyBwZXJzb25uZXMgZHUgcMO0bGUgVFBJIChUZWNobm9sb2dpZS
  BldCBQcm9mZXNzaW9ubmVsIEluZHVzdHJpZWwpIg==
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Agents,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Agents
 description: Role "Agents"
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=ac-rennes_ENS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: ac-rennes_ENS
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=STILP_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_Tous
 description: Toutes les personnes de la discipline STILP
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350032V_Personnels,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350032V_Personnels
 description:: UGVyc29ubmVscyBlbnNlaWdhbnRzIGV0IGFkbWluaXN0cmF0aWZzIGRlIGwnw6
  l0YWJsaXNzZW1lbnQgMDM1MDAzMlY=
@@ -1552,92 +1542,82 @@ ENTProfilTag: implicite
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=EspaceEducatif_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: EspaceEducatif_Tous
 description:: VG91dGVzIGxlcyBwZXJzb25uZXMgZGUgbCdFc3BhY2Ugw4lkdWNhdGlm
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=STILP_EnsPublic,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_EnsPublic
 description: Tous les enseignants des EPLE de la discipline STILP
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=STILP_Materiaux-Souples_EnsPublic,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_Materiaux-Souples_EnsPublic
 description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGZpbGnDqHJlIE1hdMOpcmlhdXggU291cG
  xlcyBkZSBsYSBkaXNjaXBsaW5lCgkJCVNUSSBMUCAoZW5zZWlnbmVtZW50IHB1YmxpYyk=
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=STILP_Materiaux-Souples_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_Materiaux-Souples_Ens
 description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGZpbGnDqHJlIE1hdGVyaWF1eCBTb3VwbG
  VzIGRlIGxhIGRpc2NpcGxpbmUgU1RJIExQ
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=STILP_Materiaux-Souples_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_Materiaux-Souples_Tous
 description:: TCdlbnNlbWJsZSBkZXMgaW50ZXJ2ZW5hbnRzIGRlIGxhIGZpbGnDqHJlIE1hdG
  VyaWF1eCBTb3VwbGVzIGRlIGxhIGRpc2NpcGxpbmUgU1RJIExQ
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-enseignant,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-enseignant
 description: Enseignants
 
 dn: cn=STILP_Materiaux-Souples-BacProMMVMCM_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: STILP_Materiaux-Souples-BacProMMVMCM_Tous
 description:: TCdlbnNlbWJsZSBkZXMgZW5zZWlnbmFudHMgZGUgbGEgZmlsacOocmUgTWF0ZX
  JpYXV4IFNvdXBsZXMgKEJhY1BybyBNTVZNQ00pIGRlIGxhIGRpc2NpcGxpbmUgU1RJIExQ
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-tous
 description: Personnels
 
 dn: cn=personnel-enseignant-2D,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-enseignant-2D
 description: Profil des enseignants, des documentalistes, des chefs de travaux du 2D public et prive
 
 dn: cn=ENS-LP_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: ENS-LP_Tous
 description: Tous les personnels enseignant en LP (PLP, Certifies, et Agreges)
 ENTProfilDerMaj: 20110908
@@ -1645,18 +1625,16 @@ ENTProfilTag: implicite
 member: uid=nlemoine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-enseignant-2D-public,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-enseignant-2D-public
 description: Profil des enseignants, des documentalistes, des chefs de travaux du 2D public
 
 dn: cn=0350059Z_TOUS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350059Z_TOUS
 description:: TWVtYnJlcyBkZSBsJ8OpdGFibGlzc2VtZW50IDAzNTAwNTla
 ENTDisplayName:: TWVtYnJlcyBkZSBsJ8OpdGFibGlzc2VtZW50ICgwMzUwMDU5Wik=
@@ -1664,10 +1642,9 @@ ENTProfilDerMaj: 20130828
 member: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350059Z_ENS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350059Z_ENS
 description:: RW5zZWlnbmFudHMgZGUgbCfDqXRhYmxpc3NlbWVudCAwMzUwMDU5Wg==
 ENTDisplayName: Enseignants (0350059Z)
@@ -1676,20 +1653,18 @@ ENTProfilDerMaj: 20130828
 member: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=BioSMS_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: BioSMS_Tous
 description:: VG91dGVzIGxlcyBwZXJzb25uZXMgZGUgbGEgZGlzY2lwbGluZSBCaW90ZWNobm
  9sb2dpZSBldCBTY2llbmNlcyBNw6lkaWNvLVNvY2lhbGVzIGR1IHDDtGxlIFRQSQ==
 member: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=BioSMS_STMS_EnsPublic,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: BioSMS_STMS_EnsPublic
 description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGRpc2NpcGxpbmUgQmlvdGVjaG5vbG9naW
  UgZXQgU2NpZW5jZXMgTcOpZGljby1Tb2NpYWxlcyBmaWxpw6hyZSBTVE1TIChlbnNlaWduZW1lb
@@ -1697,10 +1672,9 @@ description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGRpc2NpcGxpbmUgQmlvdGVjaG5vbG9naW
 member: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=BioSMS_STMS_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: BioSMS_STMS_Ens
 description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGRpc2NpcGxpbmUgQmlvdGVjaG5vbG9naW
  UgZXQgU2NpZW5jZXMgTcOpZGljby1Tb2NpYWxlcyBmaWxpw6hyZSBTVE1TIChlbnNlaWduZW1lb
@@ -1708,10 +1682,9 @@ description:: TGVzIGVuc2VpZ25hbnRzIGRlIGxhIGRpc2NpcGxpbmUgQmlvdGVjaG5vbG9naW
 member: uid=jmery-legare,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Administrators,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Administrators
 description: Profil des Administrateurs de Toutatice
 ENTProfilType: Administration
@@ -1719,10 +1692,9 @@ member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=nxjahier,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=toutatice_admin,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: toutatice_admin
 description: Administrateurs toutatice
 ENTDisplayName: Administrateurs toutatice
@@ -1731,10 +1703,9 @@ ExplicitMember: uid=cadam5,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=SERIA-T_nx,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: SERIA-T_nx
 description:: TGVzIGNvbXB0ZXMgbnV4w6lvIGR1IGTDqXBhcnRlbWVudCBTZXJpYSBUIGR1IF
  NFUklB
@@ -1746,10 +1717,9 @@ member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=professeur,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=azazaz_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: azazaz_animateur
 description: Animateurs de l'espace de travail azazaz
 ENTDisplayName: Animateurs de l'espace de travail azazaz
@@ -1760,19 +1730,17 @@ ENTProfilType: open-workspace
 member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=SuperAdministrators,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: SuperAdministrators
 description: Profil des Supers Administrateurs de Toutatice
 member: uid=Administrator,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: _animateur
 description: Animateurs de l'espace de travail Convergences en sciences
 ENTDisplayName: Animateurs de l'espace de travail Convergences en sciences
@@ -1781,10 +1749,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=_contributeur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: _contributeur
 description: Contributeurs de l'espace de travail Convergences en sciences
 ENTDisplayName: Contributeurs de l'espace de travail Convergences en sciences
@@ -1793,10 +1760,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=_lecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: _lecteur
 description: Lecteurs de l'espace de travail Convergences en sciences
 ENTDisplayName: Lecteurs de l'espace de travail Convergences en sciences
@@ -1805,10 +1771,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=0220195T_Conseildadministration_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0220195T_Conseildadministration_animateur
 description: Animateurs de l'espace de travail Conseil d'administration
 ENTDisplayName: Animateurs de l'espace de travail Conseil d'administration
@@ -1817,10 +1782,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=0220195T_Conseildadministration_contributeur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0220195T_Conseildadministration_contributeur
 description: Contributeurs de l'espace de travail Conseil d'administration
 ENTDisplayName: Contributeurs de l'espace de travail Conseil d'administration
@@ -1829,10 +1793,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=0220195T_Conseildadministration_lecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0220195T_Conseildadministration_lecteur
 description: Lecteurs de l'espace de travail Conseil d'administration
 ENTDisplayName: Lecteurs de l'espace de travail Conseil d'administration
@@ -1841,10 +1804,9 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=IA35_NvxDirecteurs,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA35_NvxDirecteurs
 description:: TGVzIG5vdXZlYXV4IGRpcmVjdGV1cnMgZCfDqWNvbGUgZHUgMzU=
 member: uid=eguillot2,ou=personnes,dc=ent-bretagne,dc=fr
@@ -1885,10 +1847,9 @@ member: uid=pmoneger,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=yruban,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-enseignant-1D,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-enseignant-1D
 description: Profil des enseignants, des documentalistes, des chefs de travaux du 1D public et prive
 ENTProfilPeuplement: implicite
@@ -1896,10 +1857,9 @@ ENTProfilTag: Profils vues metiers
 ENTProfilType: macroprofil
 
 dn: cn=personnel-enseignant-1D-public,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-enseignant-1D-public
 description: Profil des enseignants, des documentalistes, des chefs de travaux du 1D public
 ENTProfilPeuplement: implicite
@@ -1907,10 +1867,9 @@ ENTProfilTag: Profils vues metiers
 ENTProfilType: macroprofil
 
 dn: cn=0352762M_BND_Validation1D,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_BND_Validation1D
 description: Circo de test
 ENTDisplayName: Circo test
@@ -1957,10 +1916,9 @@ member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=nxjahier,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=DSDEN35_BND_EtudeDossiers,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DSDEN35_BND_EtudeDossiers
 description: Dsden de test
 ENTDisplayName: Dsden test
@@ -2005,10 +1963,9 @@ ExplicitMember: uid=adrien.paya,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=bsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=powerusers,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: powerusers
 description: Profil des Administrateurs fonctionnels de Toutatice
 ENTProfilDerMaj: 20140828
@@ -2018,10 +1975,9 @@ member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=Toutatice,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Circo_test,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Circo_test
 description: Circo de test
 ENTDisplayName: Circo test
@@ -2068,10 +2024,9 @@ member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=nxjahier,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350267A_DEC,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350267A_DEC
 description: Circo de test
 ENTDisplayName: Circo test
@@ -2082,10 +2037,9 @@ member: uid=srose,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=cboudry,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350267A,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350267A
 description: Circo de test
 ENTDisplayName: Circo test
@@ -2131,10 +2085,9 @@ member: uid=srose,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_ien,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_IEN
 description:: SW5zcGVjdGV1ciBkZSBsJ8OJZHVjYXRpb24gbmF0aW9uYWxlIGRlIGxhIGNpcm
  NvbnNjcmlwdGlvbiAoMDM1Mjc2Mk0p
@@ -2148,10 +2101,9 @@ ENTProfilTag: PU
 member: uid=abarbier1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_sec,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_SEC
 description:: U2VjcsOpdGFpcmVzIGRlIGwnw4lkdWNhdGlvbiBuYXRpb25hbGUgZGUgbGEgY2
  lyY29uc2NyaXB0aW9uICgwMzUyNzYyTSk=
@@ -2164,10 +2116,9 @@ ENTProfilTag: PU
 member: uid=faubry,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_cpc,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_CPC
 description:: Q29uc2VpbGxlcnMgcMOpZGFnb2dpcXVlcyBkZSBsYSBjaXJjb25zY3JpcHRpb2
  4gKDAzNTI3NjJNKQ==
@@ -2182,10 +2133,9 @@ member: uid=pmahe,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=bpasquier1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_dec,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_DEC
 description:: RGlyZWN0ZXVycyBkZXMgw6ljb2xlcyBkZSBsYSBjaXJjb25zY3JpcHRpb24gKD
  AzNTI3NjJNKQ==
@@ -2229,10 +2179,9 @@ member: uid=lblanchard2,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=cboudry,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_ENS
 description:: RW5zZWlnbmFudHMgZGVzIMOpY29sZXMgZGUgbGEgY2lyY29uc2NyaXB0aW9uIC
  gwMzUyNzYyTSk=
@@ -2529,14 +2478,12 @@ member: uid=vbilliet,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=mle-devehat1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_ensref,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_ENSREF
 description:: RW5zZWlnbmFudHMgcsOpZsOpcmVudHMgcG91ciBsYSBzY29sYXJpc2F0aW9uIG
- RlcyDDqWzDqHZlcyBoYW5kaWNhcMOpcyBkZSBsYSBjaXJjb25zY3JpcHRpb24gKDAzNTI3NjJNK
- Q==
+ RlcyDDqWzDqHZlcyBoYW5kaWNhcMOpcyBkZSBsYSBjaXJjb25zY3JpcHRpb24gKDAzNTI3NjJNKQ==
 ENTDisplayName:: RW5zZWlnbmFudHMgcsOpZsOpcmVudHMgcG91ciBsYSBzY29sYXJpc2F0aW9
  uIGRlcyDDqWzDqHZlcyBoYW5kaWNhcMOpcyBkZSBsYSBjaXJjb25zY3JpcHRpb24gTElGRlJF
 ENTManager: cn=0352762M_IEN,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
@@ -2546,10 +2493,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=0352762m_eatice,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_EATICE
 description: Enseignants accompagnateurs TICE de la circonscription (0352762M)
 ENTDisplayName: Enseignants accompagnateurs TICE de la circonscription LIFFRE
@@ -2560,10 +2506,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=0352762m_rased,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_RASED
 description: Enseignants du RASED de la circonscription (0352762M)
 ENTDisplayName: Enseignants du RASED de la circonscription LIFFRE
@@ -2574,10 +2519,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=0352762m_psy,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_PSY
 description: Psychologues scolaires de la circonscription (0352762M)
 ENTDisplayName: Psychologues scolaires de la circonscription LIFFRE
@@ -2588,10 +2532,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=0352762m_tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_TOUS
 description: Membres de la circonscription 0352762M
 ENTDisplayName: Membres de la circonscription LIFFRE
@@ -2993,10 +2936,9 @@ member: uid=mle-devehat1,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=jmarion1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352762m_invites,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352762M_invites
 description:: SW52aXTDqXMgZGUgbCfDqXRhYmxpc3NlbWVudCAwMzUyNzYyTQ==
 ENTDisplayName:: SW52aXTDqXMgTElGRlJF
@@ -3007,10 +2949,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=DSDEN35_BND_LecteursDossiers,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DSDEN35_BND_LecteursDossiers
 description: Dsden de test
 ENTDisplayName: Dsden test
@@ -3055,10 +2996,9 @@ ExplicitMember: uid=adrien.paya,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=msimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350267A_ENS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350267A_ENS
 description: Circo de test
 ENTDisplayName: Circo test
@@ -3104,10 +3044,9 @@ member: uid=srose,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=edoyen,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=IA35_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA35_Ens
 description: Les enseignants du 35
 member: uid=srose,ou=personnes,dc=ent-bretagne,dc=fr
@@ -3115,50 +3054,44 @@ member: uid=edoyen,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=cboudry,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=IA22_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA22_Ens
 description: Les enseignants du 22
 
 dn: cn=IA29_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA29_Ens
 description: Les enseignants du 29
 
 dn: cn=IA56_Ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA56_Ens
 description: Les enseignants du 56
 
 dn: cn=IA22_Circonscription_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA22_Circonscription_Tous
 description: Les membres des circonscriptions du 22
 
 dn: cn=IA29_Circonscription_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA29_Circonscription_Tous
 description: Les membres des circonscriptions du 29
 
 dn: cn=IA35_Circonscription_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA35_Circonscription_Tous
 description: Les membres des circonscriptions du 35
 member: uid=abarbier1,ou=personnes,dc=ent-bretagne,dc=fr
@@ -3167,18 +3100,16 @@ member: uid=faubry,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=pmahe,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=IA56_Circonscription_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA56_Circonscription_Tous
 description: Les membres des circonscriptions du 56
 
 dn: cn=DSDEN35_BND_EtudeDossiers_ListeReduitePourDirecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DSDEN35_BND_EtudeDossiers_ListeReduitePourDirecteur
 description: Dsden de test
 ENTDisplayName: Dsden test
@@ -3223,10 +3154,9 @@ ExplicitMember: uid=adrien.paya,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=DSDEN35_BND_EtudeDossiers_ChefsdeService,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DSDEN35_BND_EtudeDossiers_ChefsdeService
 description: Dsden de test
 ENTDisplayName: Dsden test
@@ -3271,10 +3201,9 @@ ExplicitMember: uid=adrien.paya,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352541X_DIR,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352541X_DIR
 description:: UGVyc29ubmVscyBkZSBkaXJlY3Rpb24gZGUgbCfDqXRhYmxpc3NlbWVudCAwMz
  UyNTQxWA==
@@ -3290,10 +3219,9 @@ member: uid=cboudry,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=mmoreau4,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=ia35_chefetabpublic,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: IA35_ChefEtabPublic
 description:: TCdlbnNlbWJsZSBkZXMgY2hlZnMgZCfDqXRhYmxpc3NlbWVudCBwdWJsaWMgZH
  UgMzU=
@@ -3493,10 +3421,9 @@ member: uid=pjegu,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=rmuller,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-etab-2d-public,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-etab-2D-public
 description:: UHJvZmlsIHBlcnNvbm5lbHMgZGVzIMOpdGFibGlzc2VtZW50cyBwdWJsaWNz
 ENTProfilPeuplement: implicite
@@ -3504,10 +3431,9 @@ ENTProfilTag: Profils vues metiers
 ENTProfilType: macroprofil
 
 dn: cn=personnel-direction-2d-public,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-direction-2D-public
 description:: UHJvZmlsIGRlcyBwZXJzb25uZWxzIGRlIGRpcmVjdGlvbiBkdSBzZWNvbmQgZG
  VncsOpIHB1YmxpYw==
@@ -3516,10 +3442,9 @@ ENTProfilTag: Profils vues metiers
 ENTProfilType: macroprofil
 
 dn: cn=personnel-gestionnaire-lycee,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-gestionnaire-lycee
 description:: VG91cyBsZXMgZ2VzdGlvbm5haXJlcyBseWPDqWVz
 ENTProfilDerMaj: 20160828
@@ -3857,10 +3782,9 @@ member: uid=vcanerot,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=mlouis1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-gestionnaire-college,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-gestionnaire-college
 description:: VG91cyBsZXMgZ2VzdGlvbm5haXJlcyBjb2xsw6hnZXM=
 ENTProfilDerMaj: 20160828
@@ -4142,10 +4066,9 @@ member: uid=jguillamet,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=fle-guelennec,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-dec-prive,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-dec-prive
 description:: UHJvZmlsIGRlcyBkaXJlY3RldXJzIGQnw6ljb2xlcyBwcml2w6llcw==
 ENTProfilPeuplement: mixte
@@ -5002,10 +4925,9 @@ member: uid=jpaulme,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=snaurois1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=personnel-direction-2D-prive,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: personnel-direction-2D-prive
 description:: UHJvZmlsIGRlcyBwZXJzb25uZWxzIGRlIGRpcmVjdGlvbiBkdSBzZWNvbmQgZG
  VncsOpIHByaXbDqQ==
@@ -5014,10 +4936,9 @@ ENTProfilTag: Profils vues metiers
 ENTProfilType: macroprofil
 
 dn: cn=0352541x_ges,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352541X_GES
 description:: VG91cyBsZXMgZ2VzdGlvbm5haXJlcyBkZSBsJ8OpdGFibGlzc2VtZW50IDAzNT
  I1NDFY
@@ -5031,10 +4952,9 @@ ENTProfilTag: PU
 member: uid=mmoreau4,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350767u_ges,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350767U_GES
 description:: VG91cyBsZXMgZ2VzdGlvbm5haXJlcyBkZSBsJ8OpdGFibGlzc2VtZW50IDAzNT
  A3NjdV
@@ -5047,10 +4967,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PR
 
 dn: cn=0350011x_ges,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350011X_GES
 description:: VG91cyBsZXMgZ2VzdGlvbm5haXJlcyBkZSBsJ8OpdGFibGlzc2VtZW50IDAzNT
  AwMTFY
@@ -5068,10 +4987,9 @@ member: uid=ytoulan,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=clormeau,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350767U_DIR,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350767U_DIR
 description:: UGVyc29ubmVscyBkZSBkaXJlY3Rpb24gZGUgbCfDqXRhYmxpc3NlbWVudCAwMz
  UwNzY3VQ==
@@ -5085,10 +5003,9 @@ member: uid=vgilois,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=ejouanneau,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0350011X_DIR,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0350011X_DIR
 description:: UGVyc29ubmVscyBkZSBkaXJlY3Rpb24gZGUgbCfDqXRhYmxpc3NlbWVudCAwMz
  UwMDExWA==
@@ -5103,10 +5020,9 @@ member: uid=bcabioch,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=pcantin,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352773z_decpr,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352773Z_DECPR
 description:: RGlyZWN0ZXVyIGRlIGwnRWNvbGUgcHJpbWFpcmUgcHJpdsOpZSBEaXdhbg==
 ENTDisplayName:: RGlyZWN0ZXVyIGRlIGwnRWNvbGUgcHJpbWFpcmUgcHJpdsOpZSBEaXdhbg=
@@ -5118,10 +5034,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PR
 
 dn: cn=0352694n_ens,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352694N_ENS
 description:: RW5zZWlnbmFudHMgZGUgbCdFY29sZSDDqWzDqW1lbnRhaXJlIHB1YmxpcXVlIG
  RlIExhIENoYXBlbGxlIFN0IEF1YmVydA==
@@ -5136,10 +5051,9 @@ member: uid=ecarre2,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=slescarret,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352694n_dec,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352694N_DEC
 description:: RGlyZWN0ZXVyIGRlIGwnRWNvbGUgw6lsw6ltZW50YWlyZSBwdWJsaXF1ZSBkZS
  BMYSBDaGFwZWxsZSBTdCBBdWJlcnQ=
@@ -5152,30 +5066,27 @@ ENTProfilTag: PU
 member: uid=ecarre2,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=035ETEST_DEC,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 035ETEST_DEC
 description: ETABLISSEMENT DE TEST
 ENTDisplayName: ETABLISSEMENT TEST
 ENTExplicitManager: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=035CTEST_DEC,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 035CTEST_DEC
 description: CIRCO DE TEST
 ENTDisplayName: CIRCO TEST
 ENTExplicitManager: uid=nxrupin,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_TOUS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_TOUS
 description: Tous les membres du domaine Rectorat
 member: uid=jfily1,ou=personnes,dc=ent-bretagne,dc=fr
@@ -6509,120 +6420,107 @@ member: uid=vcaron356,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=ftrutt,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_cpeda,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_cpeda
 description:: Um9sZSAiY29uc2VpbGxlciBwb3VyIGxhIHDDqWRhZ29naWUgZHUgcmVjdGV1ci
  I=
 member: uid=pbrasselet,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_IAIPR_doyen,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_IAIPR_doyen
 description: Role "doyen des IA-IPR"
 member: uid=planglois1,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_IENET_doyen,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_IENET_doyen
 description: Role "doyen des IEN-ET"
 member: uid=lvarichon,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DAET_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DAET_resp
 description:: Um9sZSAibGUgZMOpbMOpZ3XDqSBkZSBsYSBEQUVUIg==
 member: uid=cmeriaux,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DAFCO_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DAFCO_resp
 description:: Um9sZSAibGUgZMOpbMOpZ3XDqSBkZSBsYSBEQUZDTyI=
 member: uid=ddavid,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DAFPEN_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DAFPEN_resp
 description: Role "le responsable de la Safor"
 member: uid=mvauleon,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DARIC_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DARIC_resp
 description:: Um9sZSAibGUgZMOpbMOpZ3XDqSBkZSBsYSBEQVJJQyI=
 member: uid=jpasturel,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_CSAIO_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_CSAIO_resp
 description: Role "le chef de service du SAIO"
 member: uid=crichard21,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DEAE_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DEAE_resp
 description: Role "le chef de division de la DEA"
 member: uid=gmoenner,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DIPATE_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DIPATE_resp
 description: Role "le chef de division de la DIPATE"
 member: uid=mhelary1,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_DOS_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_DOS_resp
 description: Role "le chef de division de la DOS"
 member: uid=iamara,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_CA_admin,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_CA_admin
 description: Role "les administrateurs de l'espace de travail CA"
 member: uid=mpetit1,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=jmalenfant1,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_Resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_Resp
 description:: Um9sZSAicmVjdGV1ciwgZGlyZWN0ZXVyIGRlIGNhYmluZXQsIFNHLCBTR0EgZX
  QgRFJIIGRlIGwnYWNhZMOpbWllIg==
@@ -6633,10 +6531,9 @@ member: uid=tterret,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=mcanerot,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_IAIPR_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_IAIPR_Tous
 description: Role "tous les IAIPR"
 member: uid=jfily1,ou=personnes,dc=ent-bretagne,dc=fr
@@ -6720,10 +6617,9 @@ member: uid=nvolant,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=aduhamel999,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_IENET_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_IENET_Tous
 description: Role "tous les IEN-ET"
 member: uid=amahmoudi,ou=personnes,dc=ent-bretagne,dc=fr
@@ -6763,20 +6659,18 @@ member: uid=pcoden1,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=rcortell999,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_SE3P_CA,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_SE3P_CA
 description: Role "deux personnes resp du SE3P"
 member: uid=permenault,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=rgibon,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_marche-public_tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_marche-public_tous
 description: Role "rectorat_marche-public_tous"
 member: uid=jlaille,ou=Personnes,dc=ent-bretagne,dc=fr
@@ -6784,10 +6678,9 @@ member: uid=ehulin,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=aorliac,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_CTICE,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_CTICE
 description: Le CTICE et son adjointe
 ENTExplicitManager: uid=avan-sante,ou=personnes,dc=ent-bretagne,dc=fr
@@ -6795,37 +6688,33 @@ member: uid=avan-sante,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=MMillet,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_RSSI,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_RSSI
 description: Le RSSI
 member: uid=oadam,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_DAFPIC_Resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_DAFPIC_Resp
 description:: Um9sZSAibGUgZMOpbMOpZ3XDqSBkZSBsYSBEQUZQSUMi
 member: uid=lblanes,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SAOS_Resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SAOS_Resp
 description: Les responsables de l'espace SAOS
 member: uid=iamara,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SAOS_MDS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SAOS_MDS
 description:: TGVzIHBlcnNvbm5lcyBnw6lyYW50IGxlcyBwZXJzb25uZWxzIG3DqWRpY28tc2
  9jaWF1eCAoQk9QIDIzMCBNRFMpIMOgIGxhIERPUyAoUmVjdG9yYXQp
@@ -6834,10 +6723,9 @@ member: uid=bfernier,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=fboucard,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SAOS_CPE,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SAOS_CPE
 description:: TGVzIHBlcnNvbm5lcyBnw6lyYW50IGxlcyBDb25zZWlsbGVycyBwcmluY2lwYX
  V4IGQnw6lkdWNhdGlvbiAoQk9QIDIzMCBDUEUpIMOgIGxhIERPUyAoUmVjdG9yYXQp
@@ -6846,10 +6734,9 @@ member: uid=aforveille1,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=gbalay,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SAOS_ASEN,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SAOS_ASEN
 description:: TGVzIHBlcnNvbm5lcyBnw6lyYW50IGxlcyBBc3Npc3RhbnRzIGQnw6lkdWNhdG
  lvbiAoQk9QIDIzMCBBU0VOKSDDoCBsYSBET1MgKFJlY3RvcmF0KQ==
@@ -6858,10 +6745,9 @@ member: uid=aforveille1,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=gbalay,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SAOS_AVS,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SAOS_AVS
 description:: TGVzIHBlcnNvbm5lcyBnw6lyYW50IGxlcyBBc3Npc3RhbnRzIHZpZSBzY29sYW
  lyZSAoQk9QIDIzMCBBVlMpIMOgIGxhIERPUyAoUmVjdG9yYXQp
@@ -6870,10 +6756,9 @@ member: uid=aforveille1,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=gbalay,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=Rectorat_Decideur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_Decideur
 description:: TGVzIGTDqWNpZGV1cnMgZHUgUmVjdG9yYXQ=
 member: uid=permenault,ou=Personnes,dc=ent-bretagne,dc=fr
@@ -6883,10 +6768,9 @@ member: uid=tterret,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=mcanerot,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_Formateurconcours,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_Formateurconcours
 description:: TGVzIGZvcm1hdGV1cnMgZGVzIHByw6lwYXJhdGlvbnMgY29uY291cnMgQVRTUy
  BkZXMgc2VydmljZXMgYWNhZMOpbWlxdWVz
@@ -6913,10 +6797,9 @@ member: uid=ndeguen,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=hle-gall3,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_Formateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_Formateur
 description:: TCdlbnNlbWJsZSBkZXMgZm9ybWF0ZXVycyBkZXMgc2VydmljZXMgYWNhZMOpbW
  lxdWVz
@@ -6941,48 +6824,43 @@ member: uid=ndeguen,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=hle-gall3,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_ISSI,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_ISSI
 description: L'Interlocuteur SSI
 member: uid=ytexier2,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=RECTORAT_SG_RH_Tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: RECTORAT_SG_RH_Tous
 description: Les membres du service Direction des ressources humaines
 member: uid=mvauleon,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=dchiaverina,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_recteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_Recteur
 description:: TGUgcmVjdGV1ciBkZSBsJ2FjYWTDqW1pZSBkZSBSZW5uZXM=
 member: uid=tterret,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_sg,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_SG
 description:: TGUgc2VjcsOpdGFpcmUgZ8OpbsOpcmFsIGR1IHJlY3RvcmF0IGRlIGwnYWNhZM
  OpbWllIGRlIFJlbm5lcw==
 member: uid=mcanerot,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_sga,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_SGA
 description:: TGVzIHNlY3LDqXRhaXJlcyBnw6luw6lyYXV4IGFkam9pbnRzIGR1IHJlY3Rvcm
  F0IGRlIGwnYWNhZMOpbWllIGRlIFJlbm5lcw==
@@ -6990,30 +6868,27 @@ member: uid=sbenyahia,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=asimon13,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_dircab,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_DirCab
 description:: TGUgZGlyZWN0ZXVyIGRlIGNhYmluZXQgZHUgcmVjdGV1ciBkZSBsJ2FjYWTDqW
  1pZSBkZSBSZW5uZXM=
 member: uid=mcaine,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_chefcab,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: Rectorat_ChefCab
 description:: TGUgY2hlZiBkZSBjYWJpbmV0IGR1IHJlY3RldXIgZGUgbCdhY2Fkw6ltaWUgZG
  UgUmVubmVz
 member: uid=cguerrand,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_cardie_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_cardie_animateur
 description: les animateurs de l'Espace de travail CARDIE
 ENTManager: cn=rectorat_cardie_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
@@ -7021,39 +6896,35 @@ member: uid=lle-gouzouguec,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=xmeyrier,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_cardie_contributeur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_cardie_contributeur
 description: les contributeurs de l'Espace de travail CARDIE
 ENTManager: cn=rectorat_cardie_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_cardie_lecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_cardie_lecteur
 description: les lecteurs de l'Espace de travail CARDIE
 ENTDisplayName: les lecteurs de l'Espace de travail CARDIE
 ENTManager: cn=rectorat_cardie_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 
 dn: cn=rectorat_cssi,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: rectorat_cssi
 description: Profil Cellule SSI
 member: uid=oadam,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=ytexier2,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352541x_eraei,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352541X_ERAEI
 description:: RW5zZWlnbmFudHMgUsOpZsOpcmVudHMgcG91ciBsJ0FjdGlvbiBFdXJvcMOpZW
  5uZSBldCBJbnRlcm5hdGlvbmFsZSBkZSBsJ8OpdGFibGlzc2VtZW50ICAwMzUyNTQxWA==
@@ -7065,10 +6936,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=dareic_publidoc-redacteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Publidoc-Redacteur
 description:: UmVkYWN0ZXVycyBkdSBzZXJ2aWNlICJEQVJFSUMgIETDqWzDqWdhdGlvbiBhY2
  Fkw6ltaXF1ZSBhdXggcmVsYXRpb25zICBldXJvcMOpZW5uZXMgZXQgaW50ZXJuYXRpb25hbGVzI
@@ -7089,10 +6959,9 @@ member: uid=dvignais,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=jpasturel,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=dareic_personnels,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Personnels
 description:: R3JvdXBlcyBkZXMgcGVyc29ubmVscyBkdSBzZXJ2aWNlICJEQVJFSUMgIETDqW
  zDqWdhdGlvbiBhY2Fkw6ltaXF1ZSBhdXggcmVsYXRpb25zICBldXJvcMOpZW5uZXMgZXQgaW50Z
@@ -7114,10 +6983,9 @@ member: uid=spiederriere,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=srenaux1,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=dareic_impressionuar-demandeur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_ImpressionUAR-Demandeur
 description:: RGVtYW5kZXVycyBkZXMgaW1wcmVzc2lvbnMgVUFSIGR1IHNlcnZpY2UgIkRBUk
  VJQyAgRMOpbMOpZ2F0aW9uIGFjYWTDqW1pcXVlIGF1eCByZWxhdGlvbnMgIGV1cm9ww6llbm5lc
@@ -7132,19 +7000,17 @@ ENTProfilTag: service-impressionUAR
 ENTProfilTag: explicite
 
 dn: cn=dareic_resp,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Resp
 description: RGVtYW5kZXVycyBkZXMgaW1wcmVzc2lvbnMgVUFSIGR1IHNlcnZpY2UgIkRBUkVJQyAgRMOpbMOpZ2F0aW9uIGFjYWTDqW1pcXVlIGF1eCByZWxhdGlvbnMgIGV1cm9ww6llbm5lcyBldCBpbnRlcm5hdGlvbmFsZXMgZXQgw6AgbGEgY29vcMOpcmF0aW9uIg==
 ENTProfilTag: RECTORAT
 
 dn: cn=dareic_tous,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Tous
 description: RGVtYW5kZXVycyBkZXMgaW1wcmVzc2lvbnMgVUFSIGR1IHNlcnZpY2UgIkRBUkVJQyAgRMOpbMOpZ2F0aW9uIGFjYWTDqW1pcXVlIGF1eCByZWxhdGlvbnMgIGV1cm9ww6llbm5lcyBldCBpbnRlcm5hdGlvbmFsZXMgZXQgw6AgbGEgY29vcMOpcmF0aW9uIg==
 ENTProfilTag: RECTORAT
@@ -7155,10 +7021,9 @@ member: uid=asobandith,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=dvignais,ou=Personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=dareic_responsable,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Responsable
 description:: R3JvdXBlIGRlcyByZXNwb25zYWJsZXMgZHUgc2VydmljZSAiREFSRUlDICBEw6
  lsw6lnYXRpb24gYWNhZMOpbWlxdWUgYXV4IHJlbGF0aW9ucyAgZXVyb3DDqWVubmVzIGV0IGlud
@@ -7174,10 +7039,9 @@ ENTProfilTag: 20151007
 member: uid=mde-lima,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=dareic_secretaire,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DAREIC_Secretaire
 description:: R3JvdXBlIGRlcyBzZWNyZXRhaXJlcyBkdSBzZXJ2aWNlICJEQVJFSUMgIETDqW
  zDqWdhdGlvbiBhY2Fkw6ltaXF1ZSBhdXggcmVsYXRpb25zICBldXJvcMOpZW5uZXMgZXQgaW50Z
@@ -7194,10 +7058,9 @@ member: uid=asobandith,ou=Personnes,dc=ent-bretagne,dc=fr
 member: uid=glaunay,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=0352541x_creationdossiervoyageenetab,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: 0352541X_creationDossierVoyageEnEtab
 description:: cGVyc29ubmVzIGhhYmlsaXTDqWVzIMOgIGNyw6llciBkZXMgZG9zc2llcnMgdm
  95YWdlIGRhbnMgbCfDqXRhYmxpc3NlbWVudCAgZW4gY29tcGzDqW1lbnQgZGVzIGNoZWZzIGQnw
@@ -7211,10 +7074,9 @@ ENTProfilTag: Profil ENT
 ENTProfilTag: PU
 
 dn: cn=DSDEN35_RAAP_EtudeDossiers_ListeReduitePourDirecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: DSDEN35_RAAP_EtudeDossiers_ListeReduitePourDirecteur
 description: Dsden de test
 ENTDisplayName: Dsden test
@@ -7260,10 +7122,9 @@ member: uid=lsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 member: uid=bsimpson,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=workspace_test_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: workspace_test_animateur
 description: Animateurs de l'espace de travail workspace de test
 ENTDisplayName: Animateurs de l'espace de travail workspace de test
@@ -7273,10 +7134,9 @@ ENTProfilType: space-group
 member: uid=Administrator,ou=personnes,dc=ent-bretagne,dc=fr
 
 dn: cn=workspace_test_contributeur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: workspace_test_contributeur
 description: Contributeurs de l'espace de travail workspace de test
 ENTDisplayName: Contributeurs de l'espace de travail workspace de test
@@ -7285,16 +7145,21 @@ ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
 
 dn: cn=workspace_test_lecteur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
-objectClass: ENTProfil
 objectClass: groupOfNames
-objectClass: groupofnames
 objectClass: top
+objectClass: ENTProfil
 cn: workspace_test_lecteur
 description: Lecteurs de l'espace de travail workspace de test
 ENTDisplayName: Lecteurs de l'espace de travail workspace de test
 ENTExplicitManager: cn=workspace_test_animateur,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 ENTProfilPeuplement: EXPLICITE
 ENTProfilType: space-group
+
+dn: cn=members,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
+objectClass: groupOfNames
+objectClass: top
+objectClass: ENTProfil
+cn: members
 
 dn: ou=groupesApplications,ou=groupes,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
@@ -7326,6 +7191,11 @@ objectClass: organizationalUnit
 objectClass: top
 ou: etab-2d
 
+dn: ou=profilsCollaboratifs,ou=groupes,dc=ent-bretagne,dc=fr
+objectClass: organizationalUnit
+objectClass: top
+ou: profilsCollaboratifs
+
 dn: ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalunit
 objectClass: top
@@ -7334,8 +7204,8 @@ ou: structures
 dn: ou=seria,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
-objectClass: ENTStructure
 objectClass: top
+objectClass: ENTStructure
 description: Seria
 ENTOrganisationProfils: cn=SERIA-T_nx,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
 ENTOrganisationProfils: cn=toutatice_admin,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
@@ -7344,25 +7214,25 @@ ou: seria
 dn: ou=0350059Z,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
-objectClass: ENTStructure
 objectClass: top
+objectClass: ENTStructure
 ENTDisplayName:: Q29sbMOoZ2UgU3ByaW5nZmllbGQ=
 ou: 0350059Z
 
 dn: ou=0350032V,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
-objectClass: ENTStructure
 objectClass: top
+objectClass: ENTStructure
 ENTDisplayName: Maternelles Springfield
 ou: 0350032V
 
 dn: ou=0350267a,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: RWNvbGUgcHJpbWFpcmUgcHVibGlxdWUgTm9taW5vw6s=
 ENTDisplayName:: RWNvbGUgcHJpbWFpcmUgcHVibGlxdWUgTm9taW5vw6s=
 ENTEtablissementMinistereTutelle: MEN
@@ -7382,9 +7252,9 @@ telephoneNumber: +33 2 99 66 34 87
 dn: ou=0352762m,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTCirco
 objectClass: ENTStructure
-objectClass: top
 description: CIRCONSCRIPTION 1ER DEGRE IEN LIFFRE
 ENTCircoEcole: 0352536S
 ENTCircoEcole: 0352447V
@@ -7453,9 +7323,9 @@ telephoneNumber: +33 2 99 25 10 89
 dn: ou=0352694n,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: RWNvbGUgw6lsw6ltZW50YWlyZSBwdWJsaXF1ZSBkZSBMYSBDaGFwZWxsZSBTdC
  BBdWJlcnQ=
 ENTDisplayName:: RWNvbGUgw6lsw6ltZW50YWlyZSBwdWJsaXF1ZSBkZSBMYSBDaGFwZWxsZSB
@@ -7477,9 +7347,9 @@ telephoneNumber: +33 2 99 18 79 34
 dn: ou=0350063D,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description: RECT
 ENTDisplayName: RECTORAT ACADEMIE DE RENNES
 ENTEtablissementContrat: PUBLIC
@@ -7501,9 +7371,9 @@ telephoneNumber: +33 2 23 21 77 77
 dn: ou=0352541X,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: Q0xHIENvbGzDqGdlIFRow6lvZG9yZSBNb25vZA==
 ENTDisplayName: COLLEGE THEODORE MONOD
 ENTEtablissementBassin: 035001BK
@@ -7662,9 +7532,9 @@ telephoneNumber: +33 2 23 27 07 50
 dn: ou=0352773z,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: RWNvbGUgcHJpbWFpcmUgcHJpdsOpZSBEaXdhbg==
 ENTDisplayName:: RWNvbGUgcHJpbWFpcmUgcHJpdsOpZSBEaXdhbg==
 ENTEtablissementContrat: PR
@@ -7685,9 +7555,9 @@ telephoneNumber: +33 2 99 69 22 18
 dn: ou=0350011X,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: TFlDIEx5Y8OpZSBnw6luw6lyYWwgZXQgdGVjaG5vbG9naXF1ZSBKZWFuIEd1w6
  loZW5ubw==
 ENTDisplayName: LYCEE GENERAL ET TECHNOLOGIQUE JEAN GUEHENNO
@@ -8140,9 +8010,9 @@ telephoneNumber: +33 2 99 99 22 87
 dn: ou=0352860u,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description: CLG
 ENTDisplayName: COLLEGE COLLEGE DE CREVIN
 ENTManager: cn=0352860U_DIR,ou=profils,ou=groupes,dc=ent-bretagne,dc=fr
@@ -8369,9 +8239,9 @@ street: 2 RUE BERNARD PICOULT
 dn: ou=0350002M,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: Q0xHIENvbGzDqGdlIFBpZXJyZSBCcm9zc29sZXR0ZQ==
 ENTDisplayName: COLLEGE PIERRE BROSSOLETTE
 ENTEtablissementBassin: 035001BK
@@ -8580,9 +8450,9 @@ telephoneNumber: +33 2 99 05 88 88
 dn: ou=0350767U,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: Q0xHIENvbGzDqGdlIHByaXbDqSBTYWludCBNYWdsb2lyZQ==
 ENTDisplayName: COLLEGE PRIVE ST MAGLOIRE
 ENTEtablissementBassin: 022002BA
@@ -8681,9 +8551,9 @@ telephoneNumber: +33 2 99 48 00 04
 dn: ou=0350738m,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTCirco
 objectClass: ENTStructure
-objectClass: top
 description: CIRCONSCRIPTION 1ER DEGRE IEN ST GREGOIRE
 ENTCircoEcole: 0352773Z
 ENTCircoEcole: 0352353T
@@ -8749,9 +8619,9 @@ telephoneNumber: +33 2 99 25 18 64
 dn: ou=0350027P,ou=structures,dc=ent-bretagne,dc=fr
 objectClass: organizationalUnit
 objectClass: ENTOrganisation
+objectClass: top
 objectClass: ENTEtablissement
 objectClass: ENTStructure
-objectClass: top
 description:: Q0xHIENvbGzDqGdlIExlcyBHYXlldWxsZXM=
 ENTDisplayName: COLLEGE LES GAYEULLES
 ENTEtablissementBassin: 035001BK
