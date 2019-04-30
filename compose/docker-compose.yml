@@ -12,9 +12,14 @@ services:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
             - JPDA_TRANSPORT=dt_socket
+            - PUBLIC_HOST=${PUBLIC_HOST}            
         ports:
             - 8080
             - 8789:8000
+        volumes:
+            - httpd-ssl:/export/httpd/ssl
+        depends_on:
+           - httpd    
     postgres:
         image: postgres:9.5
         environment:
@@ -78,7 +83,7 @@ services:
             - MYSQL_ROOT_PASSWORD=osivia
         volumes:
             - mysql-data:/var/lib/mysql
-    portal:
+    portal-1:
         image: osivia/portal:cloud-ens
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
@@ -88,10 +93,12 @@ services:
             - LDAP_HOST=opendj
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}     
-            #- MAIL_HOST=fakesmtp            
+            #- MAIL_HOST=fakesmtp           
         ports:
             - 8080
             - 8787:8787
+        volumes:
+            - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources            
         depends_on:
             - mysql
     httpd:
@@ -100,7 +107,7 @@ services:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - CAS_HOST=tomcat
             - NUXEO_HOST=nuxeo
-            - PORTAL_HOSTS=portal
+            - PORTAL_HOSTS=portal-1
             - OO_HOST=onlyoffice
             - WEBMAIL_HOST=fakesmtp-web
         ports:
@@ -109,6 +116,10 @@ services:
             - 443:443
         volumes:
             - httpd-ssl:/etc/ssl
+        networks:
+            default:
+                aliases:
+                    - ${PUBLIC_HOST}
     onlyoffice:
         image: onlyoffice/documentserver
         volumes:
