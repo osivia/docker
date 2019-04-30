@@ -29,14 +29,10 @@ COPY cloud-viewer.war /usr/local/tomcat/webapps/
 RUN mkdir -p /appli/conf
 
 COPY cas.properties $CAS_CONFIG
-COPY cas-pronote.properties $CAS_CONFIG
 
 COPY ehcache-replicated.xml $CAS_CONFIG
 COPY log4j2.xml $CAS_CONFIG
 COPY server.xml $CATALINA_HOME/conf
-
-# Enable debugging
-#COPY setenv.sh $CATALINA_HOME/bin
 
 # Entrypoint
 COPY entrypoint.sh /
