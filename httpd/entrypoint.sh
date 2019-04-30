@@ -20,9 +20,21 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     echo "# OSIVIA Platform" >> /usr/local/apache2/conf/httpd.conf
     echo "Include conf/extra/reverse-proxy.conf" >> /usr/local/apache2/conf/httpd.conf    
 
-	if [ ! -f /etc/ssl/server.crt ]; then
-    	openssl req -nodes -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=${PUBLIC_HOST}"
-    	openssl x509 -req -in /etc/ssl/server.csr -signkey /etc/ssl/server.key -out /etc/ssl/server.crt -days 999
+	# Certificats fournis
+	if [ -f /var/resources/${PUBLIC_HOST_HTTPS_CRT} ]; then
+		
+		echo "Use provided certs ${PUBLIC_HOST_HTTPS_CRT} ${PUBLIC_HOST_HTTPS_KEY}" 
+		
+		cp /var/resources/${PUBLIC_HOST_HTTPS_CRT} /etc/ssl/server.crt
+		cp /var/resources/${PUBLIC_HOST_HTTPS_KEY} /etc/ssl/server.key
+		
+	elif [ ! -f /etc/ssl/server.crt ]; then
+		
+		echo "Generate certs"
+		
+		# Certificats auto-signés
+		openssl req -nodes -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/server.csr -subj "/C=FR/ST=Loire-Atlantique/L=Nantes/O=OSIVIA/OU=Portal/CN=${PUBLIC_HOST}"
+    	openssl x509 -req -in /etc/ssl/server.csr -signkey /etc/ssl/server.key -out /etc/ssl/server.crt -days 999 
     fi
 
     sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $HTTPD_CONFIG_FILE

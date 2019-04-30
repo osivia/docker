@@ -110,11 +110,14 @@ services:
             - PORTAL_HOSTS=portal-1
             - OO_HOST=onlyoffice
             - WEBMAIL_HOST=fakesmtp-web
+            - PUBLIC_HOST_HTTPS_CRT=${PUBLIC_HOST_HTTPS_CRT}
+            - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}            
         ports:
             - 80:80
             - 81:81            
             - 443:443
         volumes:
+            - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources                    
             - httpd-ssl:/etc/ssl
         networks:
             default:
