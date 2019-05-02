@@ -21,10 +21,12 @@ RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # Distribution
-#RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/org/jasig/cas/cas-server-webapp/4.4.15.4/cas-server-webapp-4.4.15.4.war -O cas.war
-COPY cas.war /usr/local/tomcat/webapps/
-COPY pronote-ws.war /usr/local/tomcat/webapps/
-COPY cloud-viewer.war /usr/local/tomcat/webapps/
+RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/sso/cas-server-webapp/4.9-RC2/cas-server-webapp-4.9-RC2.war -O cas.war
+#COPY cas.war /usr/local/tomcat/webapps/
+RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-ws/1.0-ALPHA-6/index-cloud-ens-ext-ws-1.0-ALPHA-6.war -O pronote-ws.war 
+#COPY pronote-ws.war /usr/local/tomcat/webapps/
+RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-viewer/1.0-ALPHA-6/index-cloud-ens-ext-viewer-1.0-ALPHA-6.war -O cloud-viewer.war 
+#COPY cloud-viewer.war /usr/local/tomcat/webapps/
 
 RUN mkdir -p /appli/conf
 

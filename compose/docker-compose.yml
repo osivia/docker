@@ -92,7 +92,10 @@ services:
             - CAS_HOST=tomcat
             - LDAP_HOST=opendj
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
-            - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}     
+            - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}
+            - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
+            - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
+            - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
             #- MAIL_HOST=fakesmtp           
         ports:
             - 8080

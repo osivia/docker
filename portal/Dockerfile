@@ -21,8 +21,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_ENVIRONMENT=prod
-ENV PORTAL_VERSION=1.0-SNAPSHOT
-ENV PORTAL_DISTRIBUTION_NAME index-cloud-ens-portal-distribution
+ENV PORTAL_VERSION=1.0-ALPHA-6
+ENV PORTAL_DISTRIBUTION_NAME=index-cloud-ens-portal-distribution
 ENV PORTAL_DISTRIBUTION ${PORTAL_DISTRIBUTION_NAME}-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_DISTRIBUTION_ZIP ${PORTAL_DISTRIBUTION_NAME}-${PORTAL_VERSION}.zip
 ENV PORTAL_CONF production
@@ -32,9 +32,9 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-COPY ${PORTAL_DISTRIBUTION}.zip /opt/${PORTAL_DISTRIBUTION_ZIP}
+#COPY ${PORTAL_DISTRIBUTION}.zip /opt/${PORTAL_DISTRIBUTION_ZIP}
 RUN cd /opt \
-#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/portal/${PORTAL_DISTRIBUTION_NAME}/${PORTAL_VERSION}/${PORTAL_DISTRIBUTION_ZIP} \
+    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/portal/${PORTAL_DISTRIBUTION_NAME}/${PORTAL_VERSION}/${PORTAL_DISTRIBUTION_ZIP} \
     && unzip -q ${PORTAL_DISTRIBUTION_ZIP} \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
