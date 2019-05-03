@@ -96,7 +96,7 @@ services:
             - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
             - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
             - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
-            #- MAIL_HOST=fakesmtp           
+#           - MAIL_HOST=fakesmtp           
         ports:
             - 8080
             - 8787:8787
