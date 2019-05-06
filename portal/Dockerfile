@@ -1,4 +1,4 @@
-FROM java:7-jre
+FROM openjdk:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_ENV prod
-ENV PORTAL_VERSION 1.0.2
+ENV PORTAL_VERSION 1.2
 ENV PORTAL_ZIP interactik-distribution-${PORTAL_VERSION}.zip
 ENV PORTAL_DISTRIBUTION interactik-distribution-${PORTAL_ENV}-${PORTAL_VERSION}
 ENV PORTAL_CONF production

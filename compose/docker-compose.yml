@@ -90,6 +90,8 @@ services:
     image: httpd:2.4
     ports:
     - 80
+    volumes:
+    - ./evrigo.ical:/usr/local/apache2/htdocs/evrigo.ical
 volumes:
   postgres-data:
   es-data:
