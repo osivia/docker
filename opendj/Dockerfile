@@ -1,4 +1,4 @@
-FROM java:7-jre
+FROM openjdk:7-jre
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
