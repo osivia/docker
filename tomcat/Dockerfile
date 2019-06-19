@@ -12,7 +12,6 @@ RUN locale >> /etc/default/locale
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV CAS_CONFIG /appli/conf
 ENV TOMCAT_ROOT /usr/local/tomcat/webapps/
 
 ENV CATALINA_HOME /usr/local/tomcat
@@ -21,19 +20,18 @@ RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # Distribution
-RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/sso/cas-server-webapp/4.9-RC2/cas-server-webapp-4.9-RC2.war -O cas.war
-#COPY cas.war /usr/local/tomcat/webapps/
+#RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/sso/cas-server-webapp/4.9-RC2/cas-server-webapp-4.9-RC2.war -O cas.war
+COPY cas.war /usr/local/tomcat/webapps/
 RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-ws/1.0-ALPHA-6/index-cloud-ens-ext-ws-1.0-ALPHA-6.war -O pronote-ws.war 
 #COPY pronote-ws.war /usr/local/tomcat/webapps/
-RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-viewer/1.0-ALPHA-6/index-cloud-ens-ext-viewer-1.0-ALPHA-6.war -O cloud-viewer.war 
-#COPY cloud-viewer.war /usr/local/tomcat/webapps/
+#RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-viewer/1.0-ALPHA-6/index-cloud-ens-ext-viewer-1.0-ALPHA-6.war -O cloud-viewer.war 
 
-RUN mkdir -p /appli/conf
+RUN mkdir -p /etc/cas; mkdir /etc/viewer
 
-COPY cas.properties $CAS_CONFIG
+COPY cas.properties /etc/cas
+COPY ehcache-replicated.xml /etc/cas
+COPY log4j2.xml /etc/cas
 
-COPY ehcache-replicated.xml $CAS_CONFIG
-COPY log4j2.xml $CAS_CONFIG
 COPY server.xml $CATALINA_HOME/conf
 
 # Entrypoint
