@@ -7,12 +7,16 @@ PUBLIC_HOST=${PUBLIC_HOST:-"localhost"}
 LDAP_HOST=${LDAP_HOST:-opendj}
 LDAP_PORT=${LDAP_PORT:-1389}
 
+PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL:-"https://PUBLIC_HOST/pronote-ws/serviceValidate"}
+
 CAS_PROPERTIES=/etc/cas/cas.properties
 
 
 if [ ! -f $CATALINA_HOME/configured ]; then
 	
     echo "Configuration..."
+    
+    sed -i s\\PRONOTE_SERVICEVALIDATE_URL\\$PRONOTE_SERVICEVALIDATE_URL\\g $CAS_PROPERTIES
     
 	sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $CAS_PROPERTIES
     sed -i s\\^[#]*ldap.url=.*$\\#ldap.url\\g $CAS_PROPERTIES
