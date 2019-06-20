@@ -12,7 +12,8 @@ services:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
             - JPDA_TRANSPORT=dt_socket
-            - PUBLIC_HOST=${PUBLIC_HOST}            
+            - PUBLIC_HOST=${PUBLIC_HOST}
+            - PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL}             
         ports:
             - 8080
             - 8789:8000
