@@ -7,7 +7,8 @@ services:
         volumes:
             - opendj-data:/opt/opendj/db
     tomcat:
-        image: osivia/tomcat:cloud-ens
+        image: osiviaadmin/index:cloud-ens-tomcat-trunk
+#       image: osivia/tomcat:cloud-ens
         environment:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
@@ -20,7 +21,7 @@ services:
         volumes:
             - httpd-ssl:/export/httpd/ssl
         depends_on:
-           - httpd    
+           - httpd
     postgres:
         image: postgres:9.5
         environment:
@@ -57,8 +58,8 @@ services:
         depends_on:
            - fakesmtp               
     nuxeo:
-#        image: osiviaadmin/index:cloud-ens-nuxeo-trunk
-        image: osivia/nuxeo:cloud-ens
+        image: osiviaadmin/index:cloud-ens-nuxeo-trunk
+#        image: osivia/nuxeo:cloud-ens
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - LDAP_HOST=opendj
@@ -86,8 +87,8 @@ services:
         volumes:
             - mysql-data:/var/lib/mysql
     portal-1:
-#        image: osiviaadmin/index:cloud-ens-portal-trunk
-        image: osivia/portal:cloud-ens
+        image: osiviaadmin/index:cloud-ens-portal-trunk
+#        image: osivia/portal:cloud-ens
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - NUXEO_HOST=nuxeo
