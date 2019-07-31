@@ -45,7 +45,7 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     
     for element in "${PORTAL_NODES_ARRAY[@]}"
     do
-        echo "BalancerMember http://${element}:8080 route=${element}" ping=10ms >> members.txt
+        echo "BalancerMember http://${element}:8080 route=${element}" >> members.txt
     done
     sed -i '/BalancerMembers/r members.txt' $HTTPD_CONFIG_FILE
 

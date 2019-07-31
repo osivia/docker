@@ -1,4 +1,4 @@
-FROM openjdk:7-jre
+FROM openjdk:8-jdk
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 # Update
