@@ -194,6 +194,28 @@
    </appender>
    
 
+   <!-- A time/date based rolling appender -->
+   <appender name="PORTAL_CONVERSION_APPENDER" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+      <param name="File" value="${jboss.server.log.dir}/portal_conversion.log"/>
+      <param name="Threshold" value="INFO"/>
+
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+      <!-- Rollover at the top of each hour
+      <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+      -->
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%m%n"/>
+
+         <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+         <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+          -->
+      </layout>
+   </appender>
 
  
     <!-- ====================== -->
@@ -482,6 +504,13 @@
       <appender-ref ref="PORTAL_SUPERVISOR_APPENDER"/>
    </category>
 
+   
+   
+   <category name="PORTAL_CONVERSION"  additivity="false">
+      <priority value="INFO"/>
+      <appender-ref ref="PORTAL_CONVERSION_APPENDER"/>
+   </category>
+   
 
    <root>
       <priority value ="INFO"/>
