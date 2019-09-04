@@ -32,7 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=1.0-ALPHA-6
+ENV NUXEO_VERSION=1.0-SNAPSHOT
 ENV NUXEO_DISTRIBUTION_NAME index-cloud-ens-nuxeo-distrib
 ENV NUXEO_DISTRIBUTION ${NUXEO_DISTRIBUTION_NAME}-${NUXEO_VERSION}
 
@@ -40,9 +40,9 @@ ENV NUXEO_DISTRIBUTION ${NUXEO_DISTRIBUTION_NAME}-${NUXEO_VERSION}
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-#COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/nuxeo/${NUXEO_DISTRIBUTION_NAME}/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
+#    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/nuxeo/${NUXEO_DISTRIBUTION_NAME}/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
@@ -57,7 +57,7 @@ RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["nuxeoctl", "console"]
+CMD ["start"]
 
 
 EXPOSE 8080

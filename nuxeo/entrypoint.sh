@@ -47,7 +47,9 @@ MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/nuxeo}
 
 
-if [ "$1" = "nuxeoctl" ]; then
+#if [ "$1" = "nuxeoctl" ]; then
+if [ "$1" = "start" ]; then
+	
     if [ ! -f $NUXEO_HOME/configured ]; then
         echo "Configuration..."
     
@@ -83,6 +85,7 @@ if [ "$1" = "nuxeoctl" ]; then
         # Logs
         mkdir -p $NUXEO_LOGS
         chown -R $NUXEO_USER: $NUXEO_LOGS
+        touch $NUXEO_LOGS/server.log
         sed -i s\\^[#]*nuxeo.log.dir=.*$\\nuxeo.log.dir="${NUXEO_LOGS}"\\g $NUXEO_CONF
         # PID
         mkdir -p $NUXEO_PID
@@ -102,11 +105,13 @@ if [ "$1" = "nuxeoctl" ]; then
     done
     echo "Connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT with $NUXEO_DB_USER@$NUXEO_DB_NAME"
     
-    
-    # Command
-    NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/$@"
-    echo "NUXEO_CMD = $NUXEO_CMD"
-    exec su - $NUXEO_USER -c "$NUXEO_CMD 2>&1"
+
+	# Command
+	NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/nuxeoctl startbg"
+	echo "NUXEO_CMD = $NUXEO_CMD"
+	su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
+	
+	tail -f $NUXEO_LOGS/server.log
 fi
 
 
