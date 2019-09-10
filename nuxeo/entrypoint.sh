@@ -84,8 +84,8 @@ if [ "$1" = "start" ]; then
         sed -i s\\^[#]*nuxeo.data.dir=.*$\\nuxeo.data.dir="${NUXEO_DATA}"\\g $NUXEO_CONF
         # Logs
         mkdir -p $NUXEO_LOGS
+        touch $NUXEO_LOGS/server.log        
         chown -R $NUXEO_USER: $NUXEO_LOGS
-        touch $NUXEO_LOGS/server.log
         sed -i s\\^[#]*nuxeo.log.dir=.*$\\nuxeo.log.dir="${NUXEO_LOGS}"\\g $NUXEO_CONF
         # PID
         mkdir -p $NUXEO_PID
