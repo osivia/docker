@@ -154,6 +154,9 @@ if [ "$1" = "start" ]; then
         touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
 
+		# Data export
+		mkdir -p /data/exports
+        chown -R $PORTAL_USER: /data/exports
 
         touch $PORTAL_HOME/configured
     fi    
