@@ -1,4 +1,4 @@
-FROM httpd:2.4
+FROM httpd:2.4.35
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 RUN apt-get update && apt-get install -y locales openssl && rm -rf /var/lib/apt/lists/* \
