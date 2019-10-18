@@ -39,7 +39,7 @@ RUN cd /opt \
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
-COPY environnement_portail.properties /opt/portal
+COPY environnement_portail.properties /opt/portal/custom/params/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 # Entrypoint
