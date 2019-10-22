@@ -94,6 +94,7 @@ services:
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
             - CAS_HOST=tomcat
+            - TRANSACTION_MODE=${TRANSACTION_MODE}
             - LDAP_HOST=opendj
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}

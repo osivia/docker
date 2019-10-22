@@ -51,6 +51,9 @@ PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH:-}
 PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET:-}
 PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK:-}
 
+#TRANSACTIONS
+TRANSACTION_MODE=${TRANSACTION_MODE:-}
+
 if [ "$1" = "start" ]; then
     if [ ! -f $PORTAL_HOME/configured ]; then
         echo "Configuration..."
@@ -81,7 +84,9 @@ if [ "$1" = "start" ]; then
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $PORTAL_PROPERTIES
-        sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $PORTAL_PROPERTIES       
+        sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $PORTAL_PROPERTIES      
+        
+        sed -i s\\TRANSACTION_MODE\\$TRANSACTION_MODE\\g $PORTAL_PROPERTIES   
         
         # Clustering web
         sed -i s\\^[#]*portal.web.cluster.tcpAddr=.*$\\portal.web.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
