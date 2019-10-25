@@ -48,6 +48,7 @@ COPY jboss-log4j.xml /opt/${PORTAL_DISTRIBUTION}/jboss-as/server/production/conf
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
+COPY cloud_fr.properties /home/$PORTAL_USER/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 # Entrypoint
