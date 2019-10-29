@@ -46,6 +46,11 @@ MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 # SSL
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/nuxeo}
 
+#ANTIVIRUS
+ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST:-}
+ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT:-}
+
+
 
 #if [ "$1" = "nuxeoctl" ]; then
 if [ "$1" = "start" ]; then
@@ -91,6 +96,10 @@ if [ "$1" = "start" ]; then
         mkdir -p $NUXEO_PID
         chown -R $NUXEO_USER: $NUXEO_PID
         sed -i s\\^[#]*nuxeo.pid.dir=.*$\\nuxeo.pid.dir=${NUXEO_PID}\\g $NUXEO_CONF
+        
+        #CUSTOM
+        sed -i s\\ANTIVIRUS_ICAP_HOST\\$ANTIVIRUS_ICAP_HOST\\g $NUXEO_CONF
+        sed -i s\\ANTIVIRUS_ICAP_PORT\\$ANTIVIRUS_ICAP_PORT\\g $NUXEO_CONF
         
         # Wizard
         sed -i s\\^[#]*nuxeo.wizard.done=.*$\\nuxeo.wizard.done=true\\g $NUXEO_CONF
