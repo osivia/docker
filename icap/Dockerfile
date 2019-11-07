@@ -17,10 +17,10 @@ RUN apt-get update && \
     sed -i 's/^Group c-icap/Group nogroup/' /etc/c-icap/c-icap.conf && \ 
     echo "Include clamav_mod.conf" >> /etc/c-icap/virus_scan.conf
 
-
 # Entrypoint
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
