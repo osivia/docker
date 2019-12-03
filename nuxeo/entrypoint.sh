@@ -50,7 +50,6 @@ if [ "$1" = "start" ]; then
         sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
-        
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF
@@ -69,7 +68,7 @@ if [ "$1" = "start" ]; then
         sed -i s\\^[#]*nuxeo.data.dir=.*$\\nuxeo.data.dir="${NUXEO_DATA}"\\g $NUXEO_CONF
         # Logs
         mkdir -p $NUXEO_LOGS
-        touch $NUXEO_LOGS/server.log
+        touch $NUXEO_LOGS/server.log        
         chown -R $NUXEO_USER: $NUXEO_LOGS
         sed -i s\\^[#]*nuxeo.log.dir=.*$\\nuxeo.log.dir="${NUXEO_LOGS}"\\g $NUXEO_CONF
         # PID

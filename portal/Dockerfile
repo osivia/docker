@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:7
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
@@ -17,7 +17,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_ENVIRONMENT=dev
+ENV PORTAL_ENVIRONMENT=prod
 ENV PORTAL_VERSION=5.4-SNAPSHOT
 ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
