@@ -57,7 +57,6 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
-    sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\WEBMAIL_HOST\\$WEBMAIL_HOST\\g $HTTPD_CONFIG_FILE
        
     
