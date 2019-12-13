@@ -28,7 +28,7 @@ services:
     volumes:
       - es-data:/usr/share/elasticsearch/data
   nuxeo:
-    image: osivia/nuxeo:toutatice
+    image: osivia/nuxeo:toutatice-syndication
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
