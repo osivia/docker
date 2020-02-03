@@ -16,5 +16,5 @@ if [ ! -f $CAS_CONFIG/configured ]; then
     touch $CAS_CONFIG/configured
 fi    
 
-catalina.sh run
+catalina.sh jpda run
 

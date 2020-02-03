@@ -37,7 +37,7 @@ NUXEO_PID=${NUXEO_PID:-/var/run/nuxeo}
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/nuxeo}
 
 
-#if [ "$1" = "nuxeoctl" ]; then
+if [ "$1" = "start" ]; then
     if [ ! -f $NUXEO_HOME/configured ]; then
         echo "Configuration..."
     
@@ -87,13 +87,13 @@ NUXEO_PID=${NUXEO_PID:-/var/run/nuxeo}
     done
     echo "Connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT with $NUXEO_DB_USER@$NUXEO_DB_NAME"
 
-#fi
+	# Command
+	NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/nuxeoctl startbg"
+	echo "NUXEO_CMD = $NUXEO_CMD"
+	su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
+	
+	tail -f $NUXEO_LOGS/server.log
 
-# Command
-NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/nuxeoctl startbg"
-echo "NUXEO_CMD = $NUXEO_CMD"
-su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
-
-exec "$@"
-
-
+else
+    exec "$@"
+fi
