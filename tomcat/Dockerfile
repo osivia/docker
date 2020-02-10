@@ -22,9 +22,8 @@ WORKDIR $CATALINA_HOME
 # Distribution
 COPY cas.war /usr/local/tomcat/webapps/
 #RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/sso/cas-server-webapp/4.9.1/cas-server-webapp-4.9.1.war -O cas.war
-RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-ws/1.0/index-cloud-ens-ext-ws-1.0.war -O pronote-ws.war 
-#COPY pronote-ws.war /usr/local/tomcat/webapps/
-#RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-viewer/1.0-ALPHA-6/index-cloud-ens-ext-viewer-1.0-ALPHA-6.war -O cloud-viewer.war 
+COPY pronote-ws.war /usr/local/tomcat/webapps/
+#RUN cd /usr/local/tomcat/webapps/ && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/ext/index-cloud-ens-ext-ws/1.2/index-cloud-ens-ext-ws-1.2.war -O pronote-ws.war 
 
 RUN mkdir -p /etc/cas; mkdir /etc/viewer
 
