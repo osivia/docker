@@ -13,14 +13,14 @@ services:
             - JPDA_ADDRESS=8000
             - JPDA_TRANSPORT=dt_socket
             - PUBLIC_HOST=${PUBLIC_HOST}
-            - PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL}             
+            - PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL}
         ports:
             - 8080
             - 8789:8000
         volumes:
             - httpd-ssl:/export/httpd/ssl
         depends_on:
-           - httpd    
+           - httpd
     postgres:
         image: postgres:9.5
         environment:
@@ -66,6 +66,8 @@ services:
             - NUXEO_ES_CLUSTER=cloud-ens-cluster
             - NUXEO_ES_NODES=es:9300
             - OO_HOST=onlyoffice
+            - ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST}
+            - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}            
         ports:
             - 8080
             - 8788:8788
@@ -91,6 +93,8 @@ services:
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
             - CAS_HOST=tomcat
+            - TRANSACTION_MODE=${TRANSACTION_MODE}
+            - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-2
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
@@ -98,7 +102,7 @@ services:
             - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
             - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
             - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
-            #- MAIL_HOST=fakesmtp           
+#           - MAIL_HOST=fakesmtp           
         ports:
             - 8080
             - 8787:8787
@@ -113,6 +117,8 @@ services:
             - NUXEO_HOST=nuxeo
             - PORTAL_DB_HOST=mysql
             - CAS_HOST=tomcat
+            - TRANSACTION_MODE=${TRANSACTION_MODE}
+            - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-1
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
@@ -120,13 +126,14 @@ services:
             - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
             - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
             - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
-            #- MAIL_HOST=fakesmtp                   
+#           - MAIL_HOST=fakesmtp           
         ports:
             - 8080
+            - 8790:8787
         volumes:
             - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources            
         depends_on:
-            - mysql            
+            - mysql         
     httpd:
         image: osivia/httpd:cloud-ens
         environment:
@@ -153,6 +160,11 @@ services:
         image: onlyoffice/documentserver
         volumes:
             - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+    icap:
+        image: osivia/icap:cloud-ens
+        ports:
+            - 1344:1344         
+            
 volumes:
     opendj-data:
     postgres-data:
