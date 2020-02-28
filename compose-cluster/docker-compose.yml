@@ -106,6 +106,7 @@ services:
         ports:
             - 8080
             - 8787:8787
+            - 9999:9999
         volumes:
             - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources            
         depends_on:
@@ -130,6 +131,7 @@ services:
         ports:
             - 8080
             - 8790:8787
+            - 9998:9998
         volumes:
             - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources            
         depends_on:
