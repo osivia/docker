@@ -1,5 +1,6 @@
 *.war
 *.zip
+.env
 
 
 # Created by https://www.gitignore.io/api/eclipse,intellij+all
