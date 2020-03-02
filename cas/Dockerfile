@@ -1,4 +1,4 @@
-FROM tomcat:7
+FROM tomcat:7-jre7
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 RUN apt-get update && apt-get install -y locales vim \
