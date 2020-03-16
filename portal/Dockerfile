@@ -3,7 +3,10 @@ MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
 RUN apt-get update \
-    && apt-get install -y netcat locales vim \
+    && apt-get install -y --no-install-recommends \
+        netcat \
+        locales \
+        vim \
     && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +20,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_VERSION=6.0-SNAPSHOT
+ENV PORTAL_VERSION=1.0-SNAPSHOT
 ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0

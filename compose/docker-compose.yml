@@ -29,6 +29,7 @@ services:
       - es-data:/usr/share/elasticsearch/data
   nuxeo:
     image: osivia/nuxeo:toutatice-syndication
+    build: ../nuxeo/
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
@@ -44,6 +45,11 @@ services:
     depends_on:
       - postgres
       - es
+  content-store:
+    image: toutatice/content-store:toutatice
+    build: ../content-store
+    ports:
+      - 8080
   mysql:
     image: mysql:5.7
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -56,6 +62,7 @@ services:
       - mysql-data:/var/lib/mysql
   portal:
     image: osivia/portal:toutatice-syndication
+    build: ../portal/
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
@@ -69,12 +76,17 @@ services:
       - mysql
   httpd:
     image: osivia/httpd:toutatice-syndication
+    build: ../httpd/
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - HTTPS_PROVIDED=${HTTPS_PROVIDED}
       - CAS_HOST=cas
       - NUXEO_HOST=nuxeo
       - PORTAL_HOSTS=portal
+    networks:
+      default:
+        aliases:
+          - ${PUBLIC_HOST}
     ports:
       - 80:${PUBLIC_HTTP_PORT}
       - 443:${PUBLIC_HTTPS_PORT}
@@ -86,6 +98,8 @@ services:
       - ELASTICSEARCH_URL=http://es:9200
     ports:
       - 5601:${PUBLIC_KIBANA_PORT}
+networks:
+  default:
 volumes:
   opendj-data:
   postgres-data:
