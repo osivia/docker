@@ -19,8 +19,8 @@ services:
             - 8789:8000
         volumes:
             - httpd-ssl:/export/httpd/ssl
-        depends_on:
-           - httpd
+#        depends_on:
+#           - httpd
     postgres:
         image: postgres:9.5
         environment:
@@ -97,6 +97,7 @@ services:
             - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-2
+            - PORTAL_ROUTEID=portal-1
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}
             - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
@@ -122,6 +123,7 @@ services:
             - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
             - LDAP_HOST=opendj
             - PORTAL_MEMBERS=portal-1
+            - PORTAL_ROUTEID=portal-2
             - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
             - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}
             - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
