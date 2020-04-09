@@ -25,7 +25,7 @@ LDAP_PORT=${LDAP_PORT:-1389}
 # Mails
 MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
 MAIL_PORT=${MAIL_PORT:-587}
-MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.org}
+MAIL_USERNAME=${MAIL_USERNAME:-demo@osivia.com}
 MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 
 # CAS
