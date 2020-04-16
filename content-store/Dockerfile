@@ -12,7 +12,7 @@ RUN locale >> /etc/default/locale
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV TOMCAT_ROOT /usr/local/tomcat/webapps/
+ENV TOMCAT_ROOT /usr/local/tomcat/webapps
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -20,7 +20,7 @@ RUN mkdir -p "$CATALINA_HOME" && mkdir -p /home/tomcat
 WORKDIR $CATALINA_HOME
 
 # War
-COPY ws-toutatice-content-store.war ${TOMCAT_ROOT}
+COPY ws-toutatice-content-store-1.0.0-SNAPSHOT.war ${TOMCAT_ROOT}/ws-toutatice-content-store.war
 COPY content-store.properties /home/tomcat/content-store.properties
 COPY ws-toutatice-content-store.xml /usr/local/tomcat/conf/Catalina/localhost/ws-toutatice-content-store.xml
 
