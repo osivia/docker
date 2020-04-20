@@ -32,8 +32,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.9-SNAPSHOT
-ENV NUXEO_DISTRIBUTION toutatice-nuxeo-distribution-${NUXEO_VERSION}
+ENV NUXEO_VERSION=1.1-SNAPSHOT
+ENV NUXEO_DISTRIBUTION toutatice-nuxeo-syndication-distribution-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
