@@ -69,7 +69,8 @@ services:
             - NUXEO_ES_NODES=es:9300
             - OO_HOST=onlyoffice
             - ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST}
-            - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}            
+            - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}
+            - ANTIVIRUS_ICAP_SERVICE=${ANTIVIRUS_ICAP_SERVICE}
         ports:
             - 8080
             - 8788:8788

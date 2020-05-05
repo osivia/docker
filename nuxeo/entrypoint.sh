@@ -49,7 +49,7 @@ MAIL_PASSWORD=${MAIL_PASSWORD:-demo-osivia}
 #ANTIVIRUS
 ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST:-}
 ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT:-}
-
+ANTIVIRUS_ICAP_SERVICE=${ANTIVIRUS_ICAP_SERVICE:-}
 
 
 #if [ "$1" = "nuxeoctl" ]; then
@@ -100,6 +100,7 @@ if [ "$1" = "start" ]; then
         #CUSTOM
         sed -i s\\ANTIVIRUS_ICAP_HOST\\$ANTIVIRUS_ICAP_HOST\\g $NUXEO_CONF
         sed -i s\\ANTIVIRUS_ICAP_PORT\\$ANTIVIRUS_ICAP_PORT\\g $NUXEO_CONF
+        sed -i s\\ANTIVIRUS_ICAP_SERVICE\\$ANTIVIRUS_ICAP_SERVICE\\g $NUXEO_CONF
         
         # Wizard
         sed -i s\\^[#]*nuxeo.wizard.done=.*$\\nuxeo.wizard.done=true\\g $NUXEO_CONF
