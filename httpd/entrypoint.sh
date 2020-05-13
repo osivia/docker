@@ -6,6 +6,9 @@ PORTAL_HOSTS=${PORTAL_HOSTS:-"portal1, portal2"}
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
 CAS_HOST=${CAS_HOST:-cas}
 WEBMAIL_HOST=${WEBMAIL_HOST:-fakesmtp-web}
+LDAP_HOST=${LDAP_HOST:-opendj}
+
+
 
 IFS=', ' read -r -a PORTAL_NODES_ARRAY <<< $PORTAL_HOSTS
 
@@ -42,6 +45,7 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\WEBMAIL_HOST\\$WEBMAIL_HOST\\g $HTTPD_CONFIG_FILE
+    sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $HTTPD_CONFIG_FILE
     
     for element in "${PORTAL_NODES_ARRAY[@]}"
     do

@@ -125,7 +125,8 @@ services:
             - OO_HOST=onlyoffice
             - WEBMAIL_HOST=fakesmtp-web
             - PUBLIC_HOST_HTTPS_CRT=${PUBLIC_HOST_HTTPS_CRT}
-            - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}            
+            - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}
+            - LDAP_HOST=opendj
         ports:
             - 80:80
             - 81:81            
