@@ -39,6 +39,22 @@ services:
       - ELASTICSEARCH_URL=http://es:9200    
     ports:
       - 5601:5601
+  fakesmtp:
+    image: munkyboy/fakesmtp
+    ports:
+      - 25
+    volumes:
+      - ./mails:/var/mail
+  fakesmtp-web:
+    image: mjstewart/fakesmtp-web:1.2
+    ports:
+      - 60500:8080
+    volumes:
+      - ./mails:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - fakesmtp      
   nuxeo:
     image: osivia/nuxeo:tribu
     environment:
@@ -49,6 +65,7 @@ services:
       - NUXEO_ES_CLUSTER=es-cluster
       - NUXEO_ES_NODES=es:9300
       - OO_HOST=onlyoffice
+      - MAIL_HOST=fakesmtp      
     ports:
       - 8080
       - 8788:8788
@@ -75,6 +92,7 @@ services:
       - PORTAL_DB_HOST=mysql
       - CAS_HOST=cas
       - LDAP_HOST=opendj
+      - MAIL_HOST=fakesmtp
     ports:
       - 8080
       - 8787:8787
