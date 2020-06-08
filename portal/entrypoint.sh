@@ -17,6 +17,7 @@ PORTAL_DB_PASSWORD=${PORTAL_DB_PASSWORD:-osivia}
 
 # Nuxeo
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
+NUXEO_PORT=${NUXEO_PORT:-8080}
 
 # LDAP
 LDAP_HOST=${LDAP_HOST:-opendj}
@@ -51,13 +52,14 @@ if [ "$1" = "start" ]; then
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\NUXEO_PORT\\$NUXEO_PORT\\g $PORTAL_PROPERTIES
+
 
         sed -i s\\^[#]*db.host=.*$\\db.host=$PORTAL_DB_HOST:$PORTAL_DB_PORT\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*db.base-name=.*$\\db.base-name=$PORTAL_DB_NAME\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*db.manager.name=.*$\\db.manager.name=$PORTAL_DB_USER\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*db.manager.pswd=.*$\\db.manager.pswd=$PORTAL_DB_PASSWORD\\g $PORTAL_PROPERTIES
-
-        sed -i s\\^[#]*nuxeo.privateHost=.*$\\nuxeo.privateHost=$NUXEO_HOST\\g $PORTAL_PROPERTIES
         
         sed -i s\\^[#]*ldap.host=.*$\\ldap.host=$LDAP_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\^[#]*ldap.port=.*$\\ldap.port=$LDAP_PORT\\g $PORTAL_PROPERTIES

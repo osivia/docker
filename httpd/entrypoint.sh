@@ -3,6 +3,7 @@ set -e
 
 PORTAL_HOSTS=${PORTAL_HOSTS:-"portal1, portal2"}
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
+NUXEO_PORT=${NUXEO_PORT:-8080}
 CAS_HOST=${CAS_HOST:-cas}
 
 IFS=', ' read -r -a PORTAL_NODES_ARRAY <<< $PORTAL_HOSTS
@@ -26,6 +27,8 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     fi
 
     sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $HTTPD_CONFIG_FILE
+    sed -i s\\NUXEO_PORT\\$NUXEO_PORT\\g $HTTPD_CONFIG_FILE
+
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
     sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
     

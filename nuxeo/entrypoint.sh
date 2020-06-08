@@ -60,10 +60,34 @@ if [ "$1" = "start" ]; then
         sed -i s\\^[#]*elasticsearch.addressList=.*$\\#elasticsearch.addressList=\\g $NUXEO_CONF
         echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
 
-        # Data
+        # Data & cluster
         mkdir -p $NUXEO_DATA
         chown -R $NUXEO_USER: $NUXEO_DATA
-        sed -i s\\^[#]*nuxeo.data.dir=.*$\\nuxeo.data.dir="${NUXEO_DATA}"\\g $NUXEO_CONF
+
+        if [ -z "$CLUSTERID" ]
+        then
+            # Single node, use nuxeo data dir var
+            sed -i s\\^[#]*nuxeo.data.dir=.*$\\nuxeo.data.dir="${NUXEO_DATA}"\\g $NUXEO_CONF
+        else
+            # cluster mode
+            NUXEO_DATA=/data/nuxeo/binaries # only binaries shared in /data, local data will be in /opt
+            sed -i s\\^[#]*repository.binary.store=.*$\\repository.binary.store="${NUXEO_DATA}"\\g $NUXEO_CONF
+
+            sed -i s\\^[#]*repository.clustering.enabled=.*$\\repository.clustering.enabled=true\\g $NUXEO_CONF
+
+            sed -i s\\^[#]*repository.clustering.id=.*$\\repository.clustering.id=$CLUSTERID\\g $NUXEO_CONF
+
+            sed -i s\\^[#]*nuxeo.server.jvmRoute=.*$\\nuxeo.server.jvmRoute=nuxeo$CLUSTERID\\g $NUXEO_CONF
+
+            # Append template for activation of cluster quartz tables
+            TPL=`cat $NUXEO_CONF | grep nuxeo.templates`
+            TPL="$TPL,postgresql-quartz-cluster"
+            echo $TPL
+            sed -i s\\^nuxeo.templates=.*$\\$TPL\\g $NUXEO_CONF
+        echo "6"
+        fi
+
+
         # Logs
         mkdir -p $NUXEO_LOGS
         touch $NUXEO_LOGS/server.log
