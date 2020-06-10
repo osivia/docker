@@ -71,6 +71,7 @@ services:
       - OO_HOST=onlyoffice
       - MAIL_HOST=fakesmtp
       - CLUSTERID=1
+      - CACHE_PEER=nuxeo2
     ports:
       - 8080
       - 8788:8788
@@ -91,6 +92,7 @@ services:
       - OO_HOST=onlyoffice
       - MAIL_HOST=fakesmtp
       - CLUSTERID=2
+      - CACHE_PEER=nuxeo1      
     ports:
       - 8080
       - 8789:8788

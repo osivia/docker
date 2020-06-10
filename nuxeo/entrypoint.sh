@@ -11,6 +11,7 @@ OO_HOST=${OO_HOST:-onlyoffice}
 
 # Nuxeo conf
 NUXEO_CONF=/home/$NUXEO_USER/nuxeo.conf
+EHCACHE_CONF=/home/$NUXEO_USER/ehcache-replicated.xml
 
 # Database
 NUXEO_DB_HOST=${NUXEO_DB_HOST:-postgres}
@@ -48,6 +49,7 @@ if [ "$1" = "start" ]; then
         sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
         
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
+        sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF
@@ -84,6 +86,10 @@ if [ "$1" = "start" ]; then
             TPL="$TPL,postgresql-quartz-cluster"
             echo $TPL
             sed -i s\\^nuxeo.templates=.*$\\$TPL\\g $NUXEO_CONF
+
+            # Ehcache replication
+            sed -i s\\PEER\\$CACHE_PEER\\g $EHCACHE_CONF
+
         echo "6"
         fi
 

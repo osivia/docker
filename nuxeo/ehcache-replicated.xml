@@ -1,0 +1,53 @@
+<ehcache name="ottc-cache" updateCheck="false"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+	maxBytesLocalHeap="20%" >
+
+	<diskStore path="java.io.tmpdir/ehcache" />
+<!-- 
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="true"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+             -->
+
+	<cache name="currently-edited-cache" diskPersistent="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" />
+	</cache>
+
+	<cache name="recently-edited-cache" diskPersistent="true" timeToLiveSeconds="300">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" />
+	</cache>
+
+	<cache name="temporary-locked-cache" diskPersistent="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" />
+	</cache>
+
+	<!-- | Automatic peer discovery | See http://ehcache.org/documentation/user-guide/rmi-replicated-caching#automatic-peer-discovery 
+		| for more information.
+ 	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" 
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4446, 
+		timeToLive=32" propertySeparator="," />  -->
+
+	<!-- | Manual peer discovery | See http://ehcache.org/documentation/user-guide/rmi-replicated-caching#manual-peer-discovery-manual-peer-discovery 
+		| for more information -->
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" 
+		properties="peerDiscovery=manual,rmiUrls=//PEER:41001/currently-edited-cache|//PEER:41001/recently-edited-cache|//PEER:41001/temporary-locked-cache" 
+		/> 
+		
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="port=41001,remoteObjectPort=41002" />
+		
+</ehcache>
+

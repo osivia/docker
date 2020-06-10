@@ -50,6 +50,7 @@ RUN cd /opt \
 
 # Properties
 COPY nuxeo.conf /home/$NUXEO_USER/
+COPY ehcache-replicated.xml /home/$NUXEO_USER/
 RUN chown $NUXEO_USER: /home/$NUXEO_USER/*
 
 # Entrypoint
