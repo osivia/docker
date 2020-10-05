@@ -143,7 +143,15 @@ services:
   onlyoffice:
     image: onlyoffice/documentserver
     volumes:
-      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
+      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+  api:
+    image: osivia/tribu-api:tribu
+    ports:
+      - 8080:8080
+      - 8790:8000
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket      
 volumes:
   opendj-data:
   opendj-backup:

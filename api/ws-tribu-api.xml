@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Parameter name="nuxeo.privateHost" value="nuxeo-proxy" />
+	<Parameter name="nuxeo.privatePort" value="80" />
+	<Parameter name="nuxeo.secretKey" value="secretKey" />
+	
+	<Parameter name="portal.url" value="https://tribu.local/portal" />
+	<Parameter name="api.url" value="http://tribu.local:8080/ws-tribu-api" />
+	
+	<Parameter name="tribu.api.key" value="123456" />
+		
+</Context>
