@@ -5,6 +5,9 @@ set -e
 # Public host
 PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 
+# JBoss Port
+PORTAL_JBOSS_PORT=${PORTAL_JBOSS_PORT:-8080}
+
 # Portal properties
 PORTAL_PROPERTIES=${PORTAL_PROPERTIES:-/home/$PORTAL_USER/portal.properties}
 
@@ -31,6 +34,7 @@ MAIL_HOST=${MAIL_HOST:-localhost}
 
 # CAS
 CAS_HOST=${CAS_HOST:-cas}
+CAS_PORT=${CAS_PORT:-8080}
 
 # Cluster
 PORTAL_MEMBERS=${PORTAL_MEMBERS:-""}
@@ -43,14 +47,21 @@ PORTAL_LOGS=${PORTAL_LOGS:-/var/log/portal}
 # SSL
 #SSL_DIRECTORY=${SSL_DIRECTORY:-/etc/ssl/portal}
 
+SERVER_XML=/opt/portal/jboss-as/server/production/deploy/jboss-web.deployer/server.xml
+
 
 if [ "$1" = "start" ]; then
     if [ ! -f $PORTAL_HOME/configured ]; then
         echo "Configuration..."
-    
+
+        # Configure JBoss port
+        sed -i s\\PORTAL_JBOSS_PORT\\$PORTAL_JBOSS_PORT\\g $SERVER_XML
+
+
         # Properties
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $PORTAL_PROPERTIES
+        sed -i s\\CAS_PORT\\$CAS_PORT\\g $PORTAL_PROPERTIES
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\NUXEO_HOST\\$NUXEO_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\NUXEO_PORT\\$NUXEO_PORT\\g $PORTAL_PROPERTIES

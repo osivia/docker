@@ -41,6 +41,7 @@ RUN cd /opt \
 # Properties
 COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
+COPY server.xml /opt/${PORTAL_DISTRIBUTION}/jboss-as/server/production/deploy/jboss-web.deployer/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
 
 # Entrypoint

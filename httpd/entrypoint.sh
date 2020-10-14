@@ -1,10 +1,13 @@
 #!/bin/bash
 set -e
 
-PORTAL_HOSTS=${PORTAL_HOSTS:-"portal1, portal2"}
+PORTAL_HOSTS=${PORTAL_HOSTS:-"portal1:8080, portal2:8080"}
+PORTAL_PORT=${PORTAL_PORT:-8080}
+
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
 NUXEO_PORT=${NUXEO_PORT:-8080}
 CAS_HOST=${CAS_HOST:-cas}
+CAS_PORT=${CAS_PORT:-8080}
 
 IFS=', ' read -r -a PORTAL_NODES_ARRAY <<< $PORTAL_HOSTS
 
@@ -30,6 +33,8 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     sed -i s\\NUXEO_PORT\\$NUXEO_PORT\\g $HTTPD_CONFIG_FILE
 
     sed -i s\\CAS_HOST\\$CAS_HOST\\g $HTTPD_CONFIG_FILE
+    sed -i s\\CAS_PORT\\$CAS_PORT\\g $HTTPD_CONFIG_FILE
+
     sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
     
     sed -i s\\CERTS_FILES\\$CERTS_FILES\\g $HTTPD_CONFIG_FILE
@@ -37,9 +42,11 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     
     for element in "${PORTAL_NODES_ARRAY[@]}"
     do
-        echo "BalancerMember http://${element}:8080 route=${element}" >> members.txt
+        echo "BalancerMember http://${element}:PORTAL_PORT route=${element}" >> members.txt
     done
     sed -i '/BalancerMembers/r members.txt' $HTTPD_CONFIG_FILE
+
+    sed -i s\\PORTAL_PORT\\$PORTAL_PORT\\g $HTTPD_CONFIG_FILE
 
     touch $HTTPD_HOME/configured
 fi    

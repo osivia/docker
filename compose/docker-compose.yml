@@ -8,11 +8,14 @@ services:
       - opendj-data:/opt/opendj/db
       - opendj-backup:/backup      
   cas:
-    image: osivia/cas:tribu
+    image: osivia/cas:tribu-az
     environment:
+      - CAS_TOMCAT_PORT=${CAS_PORT}
+      - CAS_TOMCAT_ADMIN_PORT=8011
+      - CAS_TOMCAT_AJP_PORT=0
       - LDAP_HOST=opendj
       - JPDA_ADDRESS=8000
-      - JPDA_TRANSPORT=dt_socket      
+      - JPDA_TRANSPORT=dt_socket
     ports:
       - 8080
       - 8000:8000
@@ -56,11 +59,15 @@ services:
     depends_on:
       - fakesmtp      
   nuxeo:
-    image: osivia/nuxeo:tribu
+    image: osivia/nuxeo:tribu-az
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
+      - NUXEO_TOMCAT_PORT=${NUXEO_PORT}
+      - NUXEO_TOMCAT_ADMIN_PORT=8010
+      - NUXEO_TOMCAT_AJP_PORT=0
       - LDAP_HOST=opendj
-      - CAS_HOST=cas:8080
+      - CAS_HOST=cas
+      - CAS_PORT=${CAS_PORT}
       - NUXEO_DB_HOST=postgres
       - NUXEO_ES_CLUSTER=es-cluster
       - NUXEO_ES_NODES=es:9300
@@ -85,12 +92,15 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   portal:
-    image: osivia/portal:tribu
+    image: osivia/portal:tribu-az
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
+      - PORTAL_JBOSS_PORT=${PORTAL_PORT}
       - NUXEO_HOST=nuxeo
+      - NUXEO_PORT=${NUXEO_PORT}
       - PORTAL_DB_HOST=mysql
       - CAS_HOST=cas
+      - CAS_PORT=${CAS_PORT}
       - LDAP_HOST=opendj
       - MAIL_HOST=fakesmtp
     ports:
@@ -99,12 +109,15 @@ services:
     depends_on:
       - mysql
   httpd:
-    image: osivia/httpd:tribu
+    image: osivia/httpd:tribu-az
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
+      - CAS_PORT=${CAS_PORT}
       - NUXEO_HOST=nuxeo
+      - NUXEO_PORT=${NUXEO_PORT}
       - PORTAL_HOSTS=portal
+      - PORTAL_PORT=${PORTAL_PORT}
       - OO_HOST=onlyoffice
     ports:
     - 80:80
@@ -112,9 +125,7 @@ services:
     volumes:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
-    image: onlyoffice/documentserver
-    volumes:
-      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json      
+    image: osivia/onlyoffice:tribu-az
 volumes:
   opendj-data:
   opendj-backup:

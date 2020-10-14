@@ -6,6 +6,7 @@ set -e
 PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 
 CAS_HOST=${CAS_HOST:-cas}
+CAS_PORT=${CAS_PORT:-8080}
 
 OO_HOST=${OO_HOST:-onlyoffice}
 
@@ -19,6 +20,12 @@ NUXEO_DB_PORT=${NUXEO_DB_PORT:-5432}
 NUXEO_DB_NAME=${NUXEO_DB_NAME:-nuxeodb}
 NUXEO_DB_USER=${NUXEO_DB_USER:-nuxeo}
 NUXEO_DB_PASSWORD=${NUXEO_DB_PASSWORD:-osivia}
+
+# Nuxeo tomcat ports
+NUXEO_TOMCAT_PORT=${NUXEO_TOMCAT_PORT:-8080}
+NUXEO_TOMCAT_ADMIN_PORT=${NUXEO_TOMCAT_ADMIN_PORT:-8011}
+NUXEO_TOMCAT_AJP_PORT=${NUXEO_TOMCAT_AJP_PORT:-0}
+
 
 # LDAP
 LDAP_HOST=${LDAP_HOST:-opendj}
@@ -44,12 +51,17 @@ if [ "$1" = "start" ]; then
     
         # Properties
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
+        sed -i s\\CAS_PORT\\$CAS_PORT\\g $NUXEO_CONF
         sed -i s\\CAS_PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
         
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
+
+        sed -i s\\NUXEO_TOMCAT_PORT\\$NUXEO_TOMCAT_PORT\\g $NUXEO_CONF
+        sed -i s\\^[#]*nuxeo.server.tomcat_admin.port=.*$\\nuxeo.server.tomcat_admin.port=$NUXEO_TOMCAT_ADMIN_PORT\\g $NUXEO_CONF
+        sed -i s\\^[#]*nuxeo.server.ajp.port=.*$\\nuxeo.server.ajp.port=$NUXEO_TOMCAT_AJP_PORT\\g $NUXEO_CONF
 
         sed -i s\\^[#]*nuxeo.db.host=.*$\\nuxeo.db.host=$NUXEO_DB_HOST\\g $NUXEO_CONF
         sed -i s\\^[#]*nuxeo.db.port=.*$\\nuxeo.db.port=$NUXEO_DB_PORT\\g $NUXEO_CONF
