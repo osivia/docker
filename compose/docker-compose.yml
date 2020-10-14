@@ -40,23 +40,7 @@ services:
         environment:
             - ELASTICSEARCH_URL=http://es:9200
         ports:
-            - 5601:5601
-    fakesmtp:
-        image: munkyboy/fakesmtp
-        ports:
-            - 25
-        volumes:
-            - ./mails:/var/mail
-    fakesmtp-web:
-        image: mjstewart/fakesmtp-web:1.2
-        ports:
-            - 60500:8080
-        volumes:
-            - ./mails:/var/mail
-        environment:
-            - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
-        depends_on:
-           - fakesmtp               
+            - 5601:5601       
     nuxeo:
 #        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
         image: osivia/nuxeo:cloud-ens
@@ -67,7 +51,6 @@ services:
             - NUXEO_DB_HOST=postgres
             - NUXEO_ES_CLUSTER=cloud-ens-cluster
             - NUXEO_ES_NODES=es:9300
-            - OO_HOST=onlyoffice
             - ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST}
             - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}
             - ANTIVIRUS_ICAP_SERVICE=${ANTIVIRUS_ICAP_SERVICE}
@@ -123,7 +106,6 @@ services:
             - NUXEO_HOST=nuxeo
             - PORTAL_HOSTS=portal-1
             - OO_HOST=onlyoffice
-            - WEBMAIL_HOST=fakesmtp-web
             - PUBLIC_HOST_HTTPS_CRT=${PUBLIC_HOST_HTTPS_CRT}
             - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}
             - LDAP_HOST=opendj
@@ -138,14 +120,10 @@ services:
             default:
                 aliases:
                     - ${PUBLIC_HOST}
-    onlyoffice:
-        image: onlyoffice/documentserver
-        volumes:
-            - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
     icap:
         image: osivia/icap:cloud-ens
         ports:
-            - 1344:1344         
+            - 1344:1344     
             
 volumes:
     opendj-data:
