@@ -35,12 +35,6 @@ services:
         command: elasticsearch -Des.cluster.name=cloud-ens-cluster
         volumes:
             - es-data:/usr/share/elasticsearch/data
-    kibana:
-        image: kibana:4.1
-        environment:
-            - ELASTICSEARCH_URL=http://es:9200
-        ports:
-            - 5601:5601       
     nuxeo:
 #        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
         image: osivia/nuxeo:cloud-ens
@@ -62,7 +56,6 @@ services:
         depends_on:
             - postgres
             - es
-            - icap
     mysql:
         image: mysql:5.7
         command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
