@@ -16,30 +16,12 @@ ENV ADMIN_CONNECTOR_PORT 5555
 # Distribution
 WORKDIR /opt
 RUN wget -q https://github.com/ForgeRock/opendj-community-edition/releases/download/ce%2F2.6.4/OpenDJ-2.6.4.zip && unzip -q OpenDJ-2.6.4.zip && rm -f OpenDJ-2.6.4.zip
-RUN chmod -R 755 opendj
 
+ENV OPENDJ_HOME /opt/opendj
 
-# Configuration
-RUN /opt/opendj/setup \
-          --cli \
-          --baseDN dc=osivia,dc=org \
-          --ldapPort ${LDAP_PORT} \
-          --adminConnectorPort ${ADMIN_CONNECTOR_PORT} \
-          --rootUserDN cn=Directory\ Manager \
-          --rootUserPassword osivia \
-          --no-prompt \
-          --noPropertiesFile \
-          --acceptLicense
-
-COPY 90-portal.ldif /opt/opendj/config/schema/
-
-# Config spécifique passwords
-RUN sed -i s\\^[#]*ds-cfg-allow-pre-encoded-passwords:.*$\\ds-cfg-allow-pre-encoded-passwords:true\\g /opt/opendj/config/config.ldif
-#RUN sed -i s\\^[#]*ds-cfg-single-structural-objectclass-behavior:.*$\\ds-cfg-single-structural-objectclass-behavior:accept\\g /opt/opendj/config/config.ldif
-
+COPY 90-portal.ldif $OPENDJ_HOME
 # Import
-COPY import.ldif /opt/
-RUN /opt/opendj/bin/import-ldif --ldifFile /opt/import.ldif --backendID userRoot --rejectFile /opt/rejected-entries.log --skipFile /opt/skipped-entries.log --overwrite
+COPY import.ldif $OPENDJ_HOME
 
 
 # Entrypoint
@@ -50,7 +32,7 @@ CMD ["start"]
 
 
 EXPOSE ${LDAP_PORT}
-EXPOSE ${ADMIN_CONNECTOR_PORT}
+#EXPOSE ${ADMIN_CONNECTOR_PORT}
 
 WORKDIR /opt/opendj
 

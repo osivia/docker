@@ -1,0 +1,27 @@
+<ehcache name="ehache" updateCheck="false"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+	<diskStore path="java.io.tmpdir/tokenCache" />
+
+    <cache name="tokenCache"
+            maxElementsInMemory="2000"
+            eternal="false"
+            overflowToDisk="false"
+            timeToLiveSeconds="120" />
+
+	<!-- | Automatic peer discovery | See http://ehcache.org/documentation/user-guide/rmi-replicated-caching#automatic-peer-discovery 
+		| for more information. -->
+	<!-- <cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" 
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4446, 
+		timeToLive=32" propertySeparator="," /> -->
+
+	<!-- | Manual peer discovery | See http://ehcache.org/documentation/user-guide/rmi-replicated-caching#manual-peer-discovery-manual-peer-discovery 
+		| for more information -->
+	<cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=manual,rmiUrls=//peer-2:41001/cas_st|//peer-3:41001/cas_st|//peer-2:41001/cas_tgt|//peer-3:41001/cas_tgt" />
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="port=41001,remoteObjectPort=41002" />
+</ehcache>

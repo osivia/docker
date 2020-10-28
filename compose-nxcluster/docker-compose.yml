@@ -141,9 +141,7 @@ services:
     volumes:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
-    image: onlyoffice/documentserver
-    volumes:
-      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+    image: osivia/onlyoffice:tribu-az
   api:
     image: osivia/tribu-api:tribu
     ports:

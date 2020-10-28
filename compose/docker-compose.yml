@@ -1,7 +1,7 @@
 version: "3"
 services:
   opendj:
-    image: osivia/opendj:tribu
+    image: osivia/opendj:tribu-az
     ports:
       - 1389:1389
     volumes:

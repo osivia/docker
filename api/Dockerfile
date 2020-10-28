@@ -21,8 +21,9 @@ WORKDIR $CATALINA_HOME
 
 # War
 COPY ws-tribu-api.war ${TOMCAT_ROOT}/webapps
-COPY ws-tribu-api.xml ${TOMCAT_ROOT}
-COPY api-users.xml ${TOMCAT_ROOT}
+COPY application.properties ${TOMCAT_ROOT}/conf
+COPY api-users.xml ${TOMCAT_ROOT}/conf
+COPY ehcache-replicated.xml ${TOMCAT_ROOT}/conf
 
 # Entrypoint
 COPY entrypoint.sh /

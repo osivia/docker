@@ -34,6 +34,9 @@ LDAP_HOST=${LDAP_HOST:-opendj}
 NUXEO_ES_CLUSTER=${NUXEO_ES_CLUSTER:-demo}
 NUXEO_ES_NODES=${NUXEO_ES_NODES:-localhost:9300}
 
+NUXEO_ES_HOST=${NUXEO_ES_HOST:-es}
+NUXEO_ES_PORT=${NUXEO_ES_PORT:-9300}
+
 # Data
 NUXEO_DATA=${NUXEO_DATA:-/data/nuxeo}
 # Logs
@@ -128,6 +131,17 @@ if [ "$1" = "start" ]; then
         sleep 1
     done
     echo "Connection to $NUXEO_DB_HOST:$NUXEO_DB_PORT with $NUXEO_DB_USER@$NUXEO_DB_NAME"
+
+    # Wait elastic index
+    echo "Waiting for TCP connection to $NUXEO_ES_HOST..."
+    while ! nc -w 1 $NUXEO_ES_HOST $NUXEO_ES_PORT 2>/dev/null; do
+        sleep 1
+    done
+    echo "Connection to $NUXEO_ES_HOST"
+
+
+
+
 
 	# Command
 	NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF $NUXEO_HOME/bin/nuxeoctl startbg"
