@@ -8,7 +8,11 @@
             maxElementsInMemory="2000"
             eternal="false"
             overflowToDisk="false"
-            timeToLiveSeconds="120" />
+            timeToLiveSeconds="120" >
+	    <cacheEventListenerFactory
+		    class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" />
+    </cache>
+
 
 	<!-- | Automatic peer discovery | See http://ehcache.org/documentation/user-guide/rmi-replicated-caching#automatic-peer-discovery 
 		| for more information. -->

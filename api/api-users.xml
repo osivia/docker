@@ -17,8 +17,8 @@
 	</util:map>
 	
 	<bean class="fr.gouv.education.tribu.api.model.ApiUser" id="mf2User">
-		<property name="nuxeoUser" value="user1@example.com"></property>
-		<property name="workspacePath" value="/default-domain/workspaces/migrer-des-salles"></property>
+		<property name="nuxeoUser" value="demo"></property>
+		<property name="workspacePath" value="/default-domain/workspaces/dispositif-ecole-et-cinema-marne-2018-2019"></property>
 	</bean>
 
 
