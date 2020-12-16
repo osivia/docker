@@ -1,14 +1,14 @@
 version: "3"
 services:
   opendj:
-    image: osivia/opendj:tribu-az
+    image: osivia/opendj:tribu
     ports:
       - 1389:1389
     volumes:
       - opendj-data:/opt/opendj/db
       - opendj-backup:/backup      
   cas:
-    image: osivia/cas:tribu-az
+    image: osivia/cas:tribu
     environment:
       - CAS_TOMCAT_PORT=${CAS_PORT}
       - CAS_TOMCAT_ADMIN_PORT=8011
@@ -59,7 +59,7 @@ services:
     depends_on:
       - fakesmtp      
   nuxeo:
-    image: osivia/nuxeo:tribu-az
+    image: osivia/nuxeo:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_TOMCAT_PORT=${NUXEO_PORT}
@@ -92,7 +92,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
   portal:
-    image: osivia/portal:tribu-az
+    image: osivia/portal:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - PORTAL_JBOSS_PORT=${PORTAL_PORT}
@@ -109,7 +109,7 @@ services:
     depends_on:
       - mysql
   httpd:
-    image: osivia/httpd:tribu-az
+    image: osivia/httpd:tribu
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
@@ -125,7 +125,17 @@ services:
     volumes:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
-    image: osivia/onlyoffice:tribu-az
+    image: osivia/onlyoffice:tribu
+#  onlyoffice:
+#    image: onlyoffice/documentserver:5.5.3.39
+  api:
+    image: osivia/tribu-api:tribu
+    ports:
+      - 8080:8080
+      - 8790:8000
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket          
 volumes:
   opendj-data:
   opendj-backup:
