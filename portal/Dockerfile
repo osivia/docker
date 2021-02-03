@@ -59,5 +59,6 @@ CMD ["start"]
 
 
 EXPOSE 8080
+EXPOSE 8787
 
 WORKDIR /opt/portal
