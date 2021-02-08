@@ -15,7 +15,25 @@ attributeTypes: ( portalPersonExternal-oid NAME 'portalPersonExternal' DESC 'Ext
 attributeTypes: ( portalPersonValidity-oid NAME 'portalPersonValidity' DESC 'Account validity date' ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 USAGE userApplications )
 attributeTypes: ( portalPersonLastConnection-oid NAME 'portalPersonLastConnection' DESC 'Last connection date' ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 USAGE userApplications )
 attributeTypes: ( portalPersonCreationDate-oid NAME 'portalPersonCreationDate' DESC 'User creation date (first login validation)' ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 USAGE userApplications )
+# FIM : employeeNumber
+attributeTypes: ( portalPersonHashNumen-oid NAME 'portalPersonHashNumen' DESC 'NumEN hash' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : title
+attributeTypes: ( portalPersonFonct-oid NAME 'portalPersonFonct' DESC 'Fonction' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : FrEduFonctAdm
+attributeTypes: ( portalPersonFonctAdm-oid NAME 'portalPersonFonctAdm' DESC 'Fonction administratve' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : rne
+attributeTypes: ( portalPersonRne-oid NAME 'portalPersonRne' DESC 'RNE principal' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : FrEduRne
+attributeTypes: ( portalPersonRneExerc-oid NAME 'portalPersonRneExerc' DESC 'RNEs exercice' SUP distinguishedName EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : FrEduRneResp
+attributeTypes: ( portalPersonRneResp-oid NAME 'portalPersonRneResp' DESC 'Responsables' SUP distinguishedName EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : FrEduAca
+attributeTypes: ( portalPersonNomAca-oid NAME 'portalPersonNomAca' DESC 'Nom domaine academique' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : codaca
+attributeTypes: ( portalPersonCodeAca-oid NAME 'portalPersonCodeAca' DESC 'Code academique' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
+# FIM : mailaca
+attributeTypes: ( portalPersonMailAca-oid NAME 'portalPersonMailAca' DESC 'Mail academique' EQUALITY caseIgnoreMatch ORDERING caseIgnoreOrderingMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications )
 objectClasses: ( portalProfile-oid NAME 'portalProfile' DESC 'Profile' SUP groupOfUniqueNames STRUCTURAL MUST ( objectClass $ cn ) MAY ( portalProfileType $ portalDisplayName $ description $ uniqueMember $ portalExplicitMember $ owner $ businessCategory $ portalProfilePopulating $ portalExplicitManager $ seeAlso $ ou $ o ) )
 objectClasses: ( portalCollabProfile-oid NAME 'portalCollabProfile' DESC 'Profile Collab' SUP portalProfile STRUCTURAL MAY ( portalCollabWorkspaceId $ portalCollabWorkspaceRole) )
-objectClasses: ( portalPerson-oid NAME 'portalPerson' DESC 'Person' SUP inetOrgPerson STRUCTURAL MUST ( objectClass $ uid ) MAY ( portalPersonProfile $ portalPersonExternal $ portalPersonValidity $ portalPersonLastConnection $ portalPersonCreationDate) )
+objectClasses: ( portalPerson-oid NAME 'portalPerson' DESC 'Person' SUP inetOrgPerson STRUCTURAL MUST ( objectClass $ uid ) MAY ( portalPersonProfile $ portalPersonExternal $ portalPersonValidity $ portalPersonLastConnection $ portalPersonCreationDate $ portalPersonHashNumen $ portalPersonFonct $ portalPersonFonctAdm $ portalPersonRne $ portalPersonRneExerc $ portalPersonRneResp $ portalPersonNomAca $ portalPersonCodeAca $ portalPersonMailAca) )
 

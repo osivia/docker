@@ -4,6 +4,9 @@ set -e
 PORTAL_HOSTS=${PORTAL_HOSTS:-"portal1:8080, portal2:8080"}
 PORTAL_PORT=${PORTAL_PORT:-8080}
 
+PORTALV2_HOST=${PORTALV2_HOST:-portalv2}
+
+
 NUXEO_HOST=${NUXEO_HOST:-nuxeo}
 NUXEO_PORT=${NUXEO_PORT:-8080}
 CAS_HOST=${CAS_HOST:-cas}
@@ -36,6 +39,8 @@ if [ ! -f $HTTPD_HOME/configured ]; then
     sed -i s\\CAS_PORT\\$CAS_PORT\\g $HTTPD_CONFIG_FILE
 
     sed -i s\\OO_HOST\\$OO_HOST\\g $HTTPD_CONFIG_FILE
+
+    sed -i s\\PORTALV2_HOST\\$PORTALV2_HOST\\g $HTTPD_CONFIG_FILE
     
     sed -i s\\CERTS_FILES\\$CERTS_FILES\\g $HTTPD_CONFIG_FILE
     

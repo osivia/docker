@@ -74,7 +74,7 @@ services:
       - OO_HOST=onlyoffice
       - MAIL_HOST=fakesmtp      
     ports:
-      - 8080
+      - 8383:8080
       - 8788:8788
     volumes:
       - nuxeo-data:/data
@@ -119,6 +119,7 @@ services:
       - PORTAL_HOSTS=portal
       - PORTAL_PORT=${PORTAL_PORT}
       - OO_HOST=onlyoffice
+      - PORTALV2_HOST=portalv2
     ports:
     - 80:80
     - 443:443
@@ -131,11 +132,19 @@ services:
   api:
     image: osivia/tribu-api:tribu
     ports:
-      - 8080:8080
+      - 8181:8080
       - 8790:8000
     environment:
       - JPDA_ADDRESS=8000
-      - JPDA_TRANSPORT=dt_socket          
+      - JPDA_TRANSPORT=dt_socket        
+  portalv2:
+    image: belharra/portalv2:tribu
+    ports:
+      - 8282:8080
+      - 8791:8000
+    environment:
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket            
 volumes:
   opendj-data:
   opendj-backup:
