@@ -60,6 +60,9 @@ TRANSACTION_MODE=${TRANSACTION_MODE:-}
 #ANTIVIRUS_CRON
 ANTIVIRUS_CRON=${ANTIVIRUS_CRON:-"0 0/120 * * * ?"}
 
+#MAINTENANCE_CRON
+MAINTENANCE_CRON=${MAINTENANCE_CRON:-"0 0/120 * * * ?"}
+
 if [ "$1" = "start" ]; then
     if [ ! -f $PORTAL_HOME/configured ]; then
         echo "Configuration..."
@@ -97,7 +100,9 @@ if [ "$1" = "start" ]; then
         
         sed -i s\\TRANSACTION_MODE\\$TRANSACTION_MODE\\g $PORTAL_PROPERTIES   
         
-        sed -i "s\\ANTIVIRUS_CRON\\$ANTIVIRUS_CRON\\g" $PORTAL_PROPERTIES   
+        sed -i "s\\ANTIVIRUS_CRON\\$ANTIVIRUS_CRON\\g" $PORTAL_PROPERTIES 
+        
+        sed -i "s\\MAINTENANCE_CRON\\$MAINTENANCE_CRON\\g" $PORTAL_PROPERTIES    
         
         # Clustering web
         sed -i s\\^[#]*portal.web.cluster.tcpAddr=.*$\\portal.web.cluster.tcpAddr=$HOSTNAME\\g $PORTAL_PROPERTIES
