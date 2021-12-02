@@ -21,7 +21,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_ENVIRONMENT=prod
-#ENV PORTAL_VERSION=1.0.1
+#ENV PORTAL_VERSION=1.4-RC12
 ENV PORTAL_VERSION=1.4-SNAPSHOT
 ENV PORTAL_DISTRIBUTION_NAME=index-cloud-ens-portal-distribution
 ENV PORTAL_DISTRIBUTION ${PORTAL_DISTRIBUTION_NAME}-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
@@ -50,6 +50,9 @@ COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
 COPY cloud_fr.properties /home/$PORTAL_USER/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
+
+#send mail (remove tlsv1)
+COPY java.security /usr/local/openjdk-8/jre/lib/security
 
 # Entrypoint
 COPY entrypoint.sh /
