@@ -10,7 +10,7 @@ RUN apt-get update \
 	    pwgen \
 	    imagemagick \
 	    ffmpeg2theora \
-	    ufraw \
+#	    ufraw \
 	    poppler-utils \
 	    libwpd-tools \
 	    exiftool \
