@@ -45,6 +45,7 @@ services:
 #      - fakesmtp
   nuxeo:
     image: osivia/nuxeo:toutatice
+    build: ../nuxeo
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - LDAP_HOST=opendj
@@ -74,6 +75,7 @@ services:
       - mysql-data:/var/lib/mysql
   portal:
     image: osivia/portal:toutatice
+    build: ../portal
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
@@ -88,6 +90,7 @@ services:
       - mysql
   httpd:
     image: osivia/httpd:toutatice
+    build: ../httpd
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - HTTPS_PROVIDED=${HTTPS_PROVIDED}
@@ -96,11 +99,15 @@ services:
       - PORTAL_HOSTS=portal
       - OO_HOST=onlyoffice
       - WEBMAIL_HOST=fakesmtp-web
+      - MATOMO_HOST=matomo
     ports:
       - 80:${PUBLIC_HTTP_PORT}
       - 443:${PUBLIC_HTTPS_PORT}
     volumes:
       - httpd-ssl:/etc/ssl
+    depends_on:
+      - nuxeo
+      - portal
   onlyoffice:
     image: onlyoffice/documentserver
     volumes:
@@ -113,6 +120,7 @@ services:
       - 5601:${PUBLIC_KIBANA_PORT}
   contentstore:
     image: osivia/contentstore:toutatice
+    build: ../contentstore
     ports:
       - 8080:8080
       - 8789:8000
