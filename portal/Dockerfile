@@ -1,4 +1,4 @@
-FROM openjdk:7
+FROM openjdk:8-jdk
 MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
@@ -18,13 +18,14 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
 ENV PORTAL_ENVIRONMENT=prod
-ENV PORTAL_VERSION=5.4-SNAPSHOT
-ENV PORTAL_DISTRIBUTION toutatice-portail-acrennes-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
+ENV PORTAL_VERSION=7.0.8-RC01-SNAPSHOT
+ENV PORTAL_DISTRIBUTION toutatice-portail-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
 
 # User
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
+
 
 # Distribution
 COPY toutatice-portail-acrennes-distribution.zip /opt/
@@ -41,6 +42,7 @@ COPY portal.properties /home/$PORTAL_USER/
 COPY run.conf /home/$PORTAL_USER/
 COPY environnement_portail.properties /opt/portal/custom/params/
 RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
+
 
 # Entrypoint
 COPY entrypoint.sh /

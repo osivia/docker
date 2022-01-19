@@ -118,20 +118,40 @@ services:
       - ELASTICSEARCH_URL=http://es:9200
     ports:
       - 5601:${PUBLIC_KIBANA_PORT}
-  contentstore:
-    image: osivia/contentstore:toutatice
-    build: ../contentstore
-    ports:
-      - 8080:8080
-      - 8789:8000
-    environment:
-      - JPDA_ADDRESS=8000
-      - JPDA_TRANSPORT=dt_socket
+#  contentstore:
+#    image: osivia/contentstore:toutatice
+#    build: ../contentstore
+#    ports:
+#      - 8080:8080
+#      - 8789:8000
+#   environment:
+#      - JPDA_ADDRESS=8000
+#      - JPDA_TRANSPORT=dt_socket
 volumes:
   opendj-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: .\..\..\docker-toutatice-data\toutatice_opendj-data\_data  
   postgres-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: .\..\..\docker-toutatice-data\toutatice_postgres-data\_data
   es-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: .\..\..\docker-toutatice-data\toutatice_es-data\_data  
   nuxeo-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: .\..\..\docker-toutatice-data\toutatice_nuxeo-data\_data  
   mysql-data:
   mail-data:
   httpd-ssl:

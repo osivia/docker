@@ -126,8 +126,7 @@ if [ "$1" = "start" ]; then
         mkdir -p $PORTAL_LOGS
         touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
-
-
+		
         touch $PORTAL_HOME/configured
     fi    
 
@@ -145,10 +144,10 @@ if [ "$1" = "start" ]; then
 #        sleep 1
 #    done
 #    echo "Connection to $NUXEO_HOST:8080 OK."
-    
-    
-    # Start
-    PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
+   
+  	#TODO : /usr/local/openjdk-8/bin is added by the hand
+	PORTAL_CMD="export PATH=/usr/local/openjdk-8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin && $PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS";
+	
     echo "PORTAL_CMD = $PORTAL_CMD"
 
     # Redirect server.log to console
