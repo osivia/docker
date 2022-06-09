@@ -2,6 +2,7 @@ version: "3"
 services:
     opendj:
         image: osivia/opendj:cloud-ens
+        build: ../opendj
         ports:
             - 1389:1389
         volumes:
@@ -9,6 +10,7 @@ services:
     tomcat:
 #        image: osiviaadmin/index:cloud-ens-tomcat-sprint6
         image: osivia/tomcat:cloud-ens
+        build: ../tomcat
         environment:
             - LDAP_HOST=opendj
             - JPDA_ADDRESS=8000
@@ -42,8 +44,9 @@ services:
         ports:
             - 5601:5601            
     nuxeo:
-
-        image: osivia/nuxeo:cloud-ens-maintenance
+#        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
+        image: osivia/nuxeo:cloud-ens
+        build: ../nuxeo
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - LDAP_HOST=opendj
@@ -73,7 +76,9 @@ services:
         volumes:
             - mysql-data:/var/lib/mysql
     portal-1:
-        image: osivia/portal:cloud-ens-maintenance
+#        image: osiviaadmin/index:cloud-ens-portal-sprint6
+        image: osivia/portal:cloud-ens
+        build: ../portal
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - NUXEO_HOST=nuxeo
@@ -100,6 +105,7 @@ services:
     httpd:
 #        image: osiviaadmin/index:cloud-ens-httpd-sprint6    
         image: osivia/httpd:cloud-ens
+        build: ../httpd
         environment:
             - PUBLIC_HOST=${PUBLIC_HOST}
             - CAS_HOST=tomcat
@@ -122,6 +128,7 @@ services:
                     - ${PUBLIC_HOST}
     icap:
         image: osivia/icap:cloud-ens
+        build: ../icap
         ports:
             - 1344:1344     
             
