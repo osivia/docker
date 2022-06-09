@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk
-MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
+MAINTAINER Loïc Billon
 
 # Update
 RUN apt-get update \
@@ -10,14 +10,12 @@ RUN apt-get update \
 	    pwgen \
 	    imagemagick \
 	    ffmpeg2theora \
-#	    ufraw \
 	    poppler-utils \
 	    libwpd-tools \
 	    exiftool \
 	    ghostscript \
 	    libreoffice \
-	    #ffmpeg \
-        #x264 \
+        x264 \
     && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -32,7 +30,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=1.4-SNAPSHOT
+ENV NUXEO_VERSION=3.0-SNAPSHOT
 ENV NUXEO_DISTRIBUTION_NAME index-cloud-ens-nuxeo-distrib
 ENV NUXEO_DISTRIBUTION ${NUXEO_DISTRIBUTION_NAME}-${NUXEO_VERSION}
 
@@ -42,7 +40,7 @@ RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-
 # Distribution
 COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-#    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/nuxeo/${NUXEO_DISTRIBUTION_NAME}/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
+#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/opentoutatice-ecm/distribtion/ottc-collab-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
@@ -61,6 +59,6 @@ CMD ["start"]
 
 
 EXPOSE 8080
-EXPOSE 8000
+EXPOSE 8788
 
 WORKDIR $NUXEO_HOME
