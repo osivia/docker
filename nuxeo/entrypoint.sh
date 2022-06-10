@@ -33,7 +33,7 @@ if [ "$1" = "start" ]; then
     fi
 
 	# Command
-	NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF JAVA_HOME=/usr/local/openjdk-8 $NUXEO_HOME/bin/nuxeoctl startbg"
+	NUXEO_CMD="NUXEO_CONF=$NUXEO_CONF JAVA_HOME=/usr/local/openjdk-11 $NUXEO_HOME/bin/nuxeoctl startbg"
 	echo "NUXEO_CMD = $NUXEO_CMD"
 	su - $NUXEO_USER -c "$NUXEO_CMD 2>&1" &
 	
