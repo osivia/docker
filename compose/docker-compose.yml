@@ -1,135 +1,156 @@
 version: "3"
 services:
-    opendj:
-        image: osivia/opendj:cloud-ens
-        ports:
-            - 1389:1389
-        volumes:
-            - opendj-data:/opt/opendj/db
-    tomcat:
-#        image: osiviaadmin/index:cloud-ens-tomcat-sprint6
-        image: osivia/tomcat:cloud-ens
-        environment:
-            - LDAP_HOST=opendj
-            - JPDA_ADDRESS=8000
-            - JPDA_TRANSPORT=dt_socket
-            - PUBLIC_HOST=${PUBLIC_HOST}
-            - PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL}
-        ports:
-            - 8080
-            - 8789:8000
-        volumes:
-            - httpd-ssl:/export/httpd/ssl
-        depends_on:
-           - httpd
-    postgres:
-        image: postgres:9.5
-        environment:
-            - POSTGRES_PASSWORD=osivia
-            - POSTGRES_USER=nuxeo
-            - POSTGRES_DB=nuxeodb
-        volumes:
-            - postgres-data:/var/lib/postgresql/data
-    es:
-        image: elasticsearch:1.7.6
-        command: elasticsearch -Des.cluster.name=cloud-ens-cluster
-        volumes:
-            - es-data:/usr/share/elasticsearch/data
-    kibana:
-        image: kibana:4.1
-        environment:
-            - ELASTICSEARCH_URL=http://es:9200
-        ports:
-            - 5601:5601            
-    nuxeo:
-#        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
-        image: osivia/nuxeo:cloud-ens
-        environment:
-            - PUBLIC_HOST=${PUBLIC_HOST}
-            - LDAP_HOST=opendj
-            - CAS_HOST=tomcat:8080
-            - NUXEO_DB_HOST=postgres
-            - NUXEO_ES_CLUSTER=cloud-ens-cluster
-            - NUXEO_ES_NODES=es:9300
-            - ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST}
-            - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}
-            - ANTIVIRUS_ICAP_SERVICE=${ANTIVIRUS_ICAP_SERVICE}
-        ports:
-            - 8080
-            - 8788:8000
-        volumes:
-            - nuxeo-data:/data
-        depends_on:
-            - postgres
-            - es
-    mysql:
-        image: mysql:5.7
-        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-        environment:
-            - MYSQL_DATABASE=portaldb
-            - MYSQL_USER=portal
-            - MYSQL_PASSWORD=osivia
-            - MYSQL_ROOT_PASSWORD=osivia
-        volumes:
-            - mysql-data:/var/lib/mysql
-    portal-1:
-#        image: osiviaadmin/index:cloud-ens-portal-sprint6
-        image: osivia/portal:cloud-ens
-        environment:
-            - PUBLIC_HOST=${PUBLIC_HOST}
-            - NUXEO_HOST=nuxeo
-            - PORTAL_DB_HOST=mysql
-            - CAS_HOST=tomcat
-            - TRANSACTION_MODE=${TRANSACTION_MODE}
-            - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
-            - MAINTENANCE_CRON=${MAINTENANCE_CRON}
-            - LDAP_HOST=opendj
-            - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
-            - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}
-            - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
-            - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
-            - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
-#           - MAIL_HOST=fakesmtp           
-        ports:
-            - 8080
-            - 8787:8000
-            - 9999:9999
-        volumes:
-            - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources            
-        depends_on:
-            - mysql
-    httpd:
-#        image: osiviaadmin/index:cloud-ens-httpd-sprint6    
-        image: osivia/httpd:cloud-ens
-        environment:
-            - PUBLIC_HOST=${PUBLIC_HOST}
-            - CAS_HOST=tomcat
-            - NUXEO_HOST=nuxeo
-            - PORTAL_HOSTS=portal-1
-            - OO_HOST=onlyoffice
-            - PUBLIC_HOST_HTTPS_CRT=${PUBLIC_HOST_HTTPS_CRT}
-            - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}
-            - LDAP_HOST=opendj
-        ports:
-            - 80:80
-            - 81:81            
-            - 443:443
-        volumes:
-            - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources                    
-            - httpd-ssl:/etc/ssl
-        networks:
-            default:
-                aliases:
-                    - ${PUBLIC_HOST}
-    icap:
-        image: osivia/icap:cloud-ens
-        ports:
-            - 1344:1344     
-            
+  opendj:
+    image: osivia/opendj:cloud-ens
+    build: ../opendj
+    ports:
+      - 1389:1389
+    volumes:
+      - opendj-data:/opt/opendj/db
+  tomcat:
+    #        image: osiviaadmin/index:cloud-ens-tomcat-sprint6
+    image: osivia/tomcat:cloud-ens
+    build: ../tomcat
+    environment:
+      - LDAP_HOST=opendj
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - PRONOTE_SERVICEVALIDATE_URL=${PRONOTE_SERVICEVALIDATE_URL}
+    ports:
+      - 8080
+      - 8789:8000
+    volumes:
+      - httpd-ssl:/export/httpd/ssl
+    depends_on:
+      - httpd
+  postgres:
+    image: postgres:11
+    environment:
+      - POSTGRES_PASSWORD=osivia
+      - POSTGRES_USER=nuxeo
+      - POSTGRES_DB=nuxeodb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  es:
+    image: elasticsearch:6.8.23
+    environment:
+      - discovery.type=single-node
+      - cluster.name=cloud-ens-cluster
+      - node.name=es
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9200" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:6.8.23
+    profiles:
+      - dev
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es:9200
+    ports:
+      - 5601:5601
+  nuxeo:
+    #        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
+    image: osivia/nuxeo:cloud-ens
+    build: ../nuxeo
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - LDAP_HOST=opendj
+      - CAS_HOST=tomcat:8080
+      - NUXEO_DB_HOST=postgres
+      - NUXEO_ES_CLUSTER=cloud-ens-cluster
+      - NUXEO_ES_NODES=es:9300
+      - ANTIVIRUS_ICAP_HOST=${ANTIVIRUS_ICAP_HOST}
+      - ANTIVIRUS_ICAP_PORT=${ANTIVIRUS_ICAP_PORT}
+      - ANTIVIRUS_ICAP_SERVICE=${ANTIVIRUS_ICAP_SERVICE}
+    ports:
+      - 8080
+      - 8788:8000
+    volumes:
+      - nuxeo-data:/data
+    depends_on:
+      postgres:
+        condition: service_started
+      es:
+        condition: service_healthy
+  mysql:
+    image: mysql:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_DATABASE=portaldb
+      - MYSQL_USER=portal
+      - MYSQL_PASSWORD=osivia
+      - MYSQL_ROOT_PASSWORD=osivia
+    volumes:
+      - mysql-data:/var/lib/mysql
+  portal:
+    #        image: osiviaadmin/index:cloud-ens-portal-sprint6
+    image: osivia/portal:cloud-ens
+    build: ../portal
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - NUXEO_HOST=nuxeo
+      - PORTAL_DB_HOST=mysql
+      - CAS_HOST=tomcat
+      - TRANSACTION_MODE=${TRANSACTION_MODE}
+      - ANTIVIRUS_CRON=${ANTIVIRUS_CRON}
+      - MAINTENANCE_CRON=${MAINTENANCE_CRON}
+      - LDAP_HOST=opendj
+      - PRONOTE_OAUTH2_CLIENT_SECRET=${PRONOTE_OAUTH2_CLIENT_SECRET}
+      - PRONOTE_JWT_SECRET=${PRONOTE_JWT_SECRET}
+      - PRONOTE_JWT_PUBLIC_KEY_PATH=${PRONOTE_JWT_PUBLIC_KEY_PATH}
+      - PRONOTE_ETB_SERVICE_URL_GET=${PRONOTE_ETB_SERVICE_URL_GET}
+      - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
+    #           - MAIL_HOST=fakesmtp
+    ports:
+      - 8080
+      - 8787:8000
+      - 9999:9999
+    volumes:
+      - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources
+    depends_on:
+      - mysql
+  httpd:
+    #        image: osiviaadmin/index:cloud-ens-httpd-sprint6
+    image: osivia/httpd:cloud-ens
+    build: ../httpd
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      - CAS_HOST=tomcat
+      - NUXEO_HOST=nuxeo
+      - PORTAL_HOSTS=portal
+      - OO_HOST=onlyoffice
+      - PUBLIC_HOST_HTTPS_CRT=${PUBLIC_HOST_HTTPS_CRT}
+      - PUBLIC_HOST_HTTPS_KEY=${PUBLIC_HOST_HTTPS_KEY}
+      - LDAP_HOST=opendj
+    ports:
+      - 80:80
+      - 81:81
+      - 443:443
+    volumes:
+      - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources
+      - httpd-ssl:/etc/ssl
+    networks:
+      default:
+        aliases:
+          - ${PUBLIC_HOST}
+  icap:
+    image: osivia/icap:cloud-ens
+    build: ../icap
+    profiles:
+      - dev
+    ports:
+      - 1344:1344
+
 volumes:
-    opendj-data:
-    postgres-data:
-    es-data:
-    nuxeo-data:
-    mysql-data:
-    httpd-ssl:
+  opendj-data:
+  postgres-data:
+  es-data:
+  nuxeo-data:
+  mysql-data:
+  httpd-ssl:
