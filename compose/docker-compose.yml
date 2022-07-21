@@ -44,13 +44,6 @@ services:
       timeout: 10s
       retries: 10
       start_period: 20s
-    - node.name=es
-        healthcheck:
-          test: ["CMD", "curl", "-f", "http://localhost:9200"]
-          interval: 10s
-          timeout: 10s
-          retries: 10
-          start_period: 20s
   kibana:
     image: kibana:6.8.23
     profiles:
