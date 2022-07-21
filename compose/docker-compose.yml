@@ -44,8 +44,13 @@ services:
       timeout: 10s
       retries: 10
       start_period: 20s
-    volumes:
-      - es-data:/usr/share/elasticsearch/data
+    - node.name=es
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:9200"]
+          interval: 10s
+          timeout: 10s
+          retries: 10
+          start_period: 20s
   kibana:
     image: kibana:6.8.23
     profiles:
@@ -55,7 +60,6 @@ services:
     ports:
       - 5601:5601
   nuxeo:
-    #        image: osiviaadmin/index:cloud-ens-nuxeo-sprint6
     image: osivia/nuxeo:cloud-ens
     build: ../nuxeo
     environment:
@@ -108,13 +112,13 @@ services:
       - PRONOTE_ETB_SERVICE_URL_CHECK=${PRONOTE_ETB_SERVICE_URL_CHECK}
     #           - MAIL_HOST=fakesmtp
     ports:
-      - 8080
-      - 8787:8000
-      - 9999:9999
+        - 8080
+        - 8787:8000
+        - 9999:9999
     volumes:
-      - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources
+        - ${PRONOTE_HOST_RESOURCES_PATH}:/var/resources
     depends_on:
-      - mysql
+        - mysql
   httpd:
     #        image: osiviaadmin/index:cloud-ens-httpd-sprint6
     image: osivia/httpd:cloud-ens

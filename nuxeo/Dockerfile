@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk
-MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
+FROM openjdk:11-jdk
+MAINTAINER Loïc Billon
 
 # Update
 RUN apt-get update \
@@ -15,8 +15,7 @@ RUN apt-get update \
 	    exiftool \
 	    ghostscript \
 	    libreoffice \
-	    #ffmpeg \
-        #x264 \
+        x264 \
     && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -41,7 +40,7 @@ RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-
 # Distribution
 COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-#    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/index/cloud/ens/nuxeo/${NUXEO_DISTRIBUTION_NAME}/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
+#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/opentoutatice-ecm/distribtion/ottc-collab-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
@@ -60,6 +59,6 @@ CMD ["start"]
 
 
 EXPOSE 8080
-EXPOSE 8000
+EXPOSE 8788
 
 WORKDIR $NUXEO_HOME
