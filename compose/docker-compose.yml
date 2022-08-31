@@ -38,6 +38,7 @@ services:
       - discovery.type=single-node
       - cluster.name=cloud-ens-cluster
       - node.name=es
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9200" ]
       interval: 10s
