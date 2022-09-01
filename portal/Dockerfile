@@ -61,7 +61,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["start"]
 
 
+EXPOSE 8000
 EXPOSE 8080
-EXPOSE 8787
 
 WORKDIR /opt/portal
