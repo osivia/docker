@@ -32,7 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION 4.4.21
+ENV NUXEO_VERSION 4.4.30.2
 ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-${NUXEO_VERSION}
 
 # User

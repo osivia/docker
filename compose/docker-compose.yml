@@ -2,6 +2,7 @@ version: "3"
 services:
   opendj:
     image: osivia/opendj:tribu
+    build: ../opendj
     ports:
       - 1389:1389
     volumes:
@@ -9,6 +10,7 @@ services:
       - opendj-backup:/backup      
   cas:
     image: osivia/cas:tribu
+    build: ../cas
     environment:
       - CAS_TOMCAT_PORT=${CAS_PORT}
       - CAS_TOMCAT_ADMIN_PORT=8011
@@ -38,28 +40,23 @@ services:
       - es-data:/usr/share/elasticsearch/data
   kibana:
     image: kibana:4.1
+    profiles:
+      - kibana
     environment:
       - ELASTICSEARCH_URL=http://es:9200    
     ports:
       - 5601:5601
   fakesmtp:
     image: munkyboy/fakesmtp
+    profiles:
+      - fakesmtp
     ports:
       - 25
     volumes:
       - ./mails:/var/mail
-  fakesmtp-web:
-    image: mjstewart/fakesmtp-web:1.2
-    ports:
-      - 60500:8080
-    volumes:
-      - ./mails:/var/mail
-    environment:
-      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
-    depends_on:
-      - fakesmtp      
   nuxeo:
     image: osivia/nuxeo:tribu
+    build: ../nuxeo
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_TOMCAT_PORT=${NUXEO_PORT}
@@ -93,6 +90,7 @@ services:
       - mysql-data:/var/lib/mysql
   portal:
     image: osivia/portal:tribu
+    build: ../portal
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - PORTAL_JBOSS_PORT=${PORTAL_PORT}
@@ -110,6 +108,7 @@ services:
       - mysql
   httpd:
     image: osivia/httpd:tribu
+    build: ../httpd
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - CAS_HOST=cas
@@ -127,10 +126,14 @@ services:
       - ./certs:/etc/ssl/certs       
   onlyoffice:
     image: osivia/onlyoffice:tribu
-#  onlyoffice:
-#    image: onlyoffice/documentserver:5.5.3.39
+    build: ../onlyoffice
+    profiles:
+      - onlyoffice
   api:
     image: osivia/tribu-api:tribu
+    build: ../api
+    profiles:
+      - api
     ports:
       - 8181:8080
       - 8790:8000
@@ -139,6 +142,9 @@ services:
       - JPDA_TRANSPORT=dt_socket        
   portalv2:
     image: belharra/portalv2:tribu
+    build: ../portalv2
+    profiles:
+      - portalv2
     ports:
       - 8282:8080
       - 8791:8000

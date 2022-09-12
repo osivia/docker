@@ -24,11 +24,19 @@
 <!-- Specify the refresh internal in seconds. -->
 <Configuration monitorInterval="60">
     <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %p [%c] - &lt;%m&gt;%n"/>
-        </Console>
-        <RollingFile name="file" fileName="cas.log" append="true"
+        <RollingFile name="file" fileName="logs/cas.log" append="true"
                      filePattern="cas-%d{yyyy-MM-dd-HH}-%i.log">
+            <PatternLayout pattern="%d %p [%c] - %m%n"/>
+            <Policies>
+                <!--<OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>  -->
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        
+        
+        <RollingFile name="fim_access" fileName="logs/fim.log" append="true"
+                     filePattern="fim_access-%d{yyyy-MM-dd-HH}-%i.log">
             <PatternLayout pattern="%d %p [%c] - %m%n"/>
             <Policies>
                 <!--<OnStartupTriggeringPolicy />
@@ -49,8 +57,12 @@
          -->
     </Appenders>
     <Loggers>
+    
+        <Logger name="org.osivia.cas" level="debug" additivity="false">
+            <AppenderRef ref="file"/>
+        </Logger>
+    
         <Logger name="org.jasig" level="info" additivity="false">
-            <AppenderRef ref="console"/>
             <AppenderRef ref="file"/>
         </Logger>
         <Logger name="org.springframework" level="warn" />
@@ -60,6 +72,10 @@
 		
         <Logger name="org.springframework.web" level="warn" />
         <Logger name="org.springframework.security" level="warn" />
+        
+        <Logger name="fim" level="info" additivity="false" >
+        	<AppenderRef ref="fim_access"/>
+        </Logger>
 <!-- 
         <Logger name="perfStatsLogger" level="info" additivity="false">
             <AppenderRef ref="perfFileAppender"/>
@@ -71,8 +87,8 @@
         <Logger name="org.jasig.inspektr.audit.support.Slf4jLoggingAuditTrailManager" level="info">
             <AppenderRef ref="file"/>
         </Logger>
-        <Root level="error">
-            <AppenderRef ref="console"/>
+        <Root level="info">
+            <AppenderRef ref="file"/>
         </Root>
     </Loggers>
 </Configuration>
