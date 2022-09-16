@@ -19,7 +19,7 @@ services:
       - JPDA_ADDRESS=8000
       - JPDA_TRANSPORT=dt_socket
     ports:
-      - 8080
+      - 8083:8080
       - 8000:8000
   postgres:
     image: postgres:9.5
