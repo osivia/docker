@@ -64,7 +64,7 @@ if [ "$1" = "start" ]; then
         
 		sed -i s\\^[#]*mail.smtp.host=.*$\\mail.smtp.host=$MAIL_HOST\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_PORT\\$MAIL_PORT\\g $PORTAL_PROPERTIES
-        sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $PORTAL_PROPERTIES
+       sed -i s\\MAIL_USERNAME\\$MAIL_USERNAME\\g $PORTAL_PROPERTIES
         sed -i s\\MAIL_PASSWORD\\$MAIL_PASSWORD\\g $PORTAL_PROPERTIES       
         
         # Clustering web
@@ -126,7 +126,10 @@ if [ "$1" = "start" ]; then
         mkdir -p $PORTAL_LOGS
         touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
-		
+
+        # h5p
+        chown $PORTAL_USER: /opt/h5p
+
         touch $PORTAL_HOME/configured
     fi    
 
@@ -144,10 +147,10 @@ if [ "$1" = "start" ]; then
 #        sleep 1
 #    done
 #    echo "Connection to $NUXEO_HOST:8080 OK."
-   
-  	#TODO : /usr/local/openjdk-8/bin is added by the hand
-	PORTAL_CMD="export PATH=/usr/local/openjdk-8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin && $PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS";
-	
+    
+    
+    # Start
+    PORTAL_CMD="$PORTAL_HOME/jboss-as/bin/run.sh -c $PORTAL_CONF -b $PORTAL_HOST -P $PORTAL_PROPERTIES -DPORTAL_PROP_FILE=$PORTAL_PROPERTIES -Djboss.server.log.dir=$PORTAL_LOGS"
     echo "PORTAL_CMD = $PORTAL_CMD"
 
     # Redirect server.log to console

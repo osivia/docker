@@ -10,7 +10,7 @@ RUN apt-get update \
 	    pwgen \
 	    imagemagick \
 	    ffmpeg2theora \
-#	    ufraw \
+	    ufraw \
 	    poppler-utils \
 	    libwpd-tools \
 	    exiftool \
@@ -41,8 +41,8 @@ RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-
 # Distribution
 COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-#    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/toutatice-ecm/acrennes/acrennes-nx-distrib/${NUXEO_VERSION}/acrennes-nx-distrib-${NUXEO_VERSION}.zip 
-    && unzip -o ${NUXEO_DISTRIBUTION}.zip \
+#    && wget -q  http://www.osivia.org/nexus/content/repositories/osivia-releases/toutatice-ecm/acrennes/acrennes-nx-distrib/${NUXEO_VERSION}/acrennes-nx-distrib-${NUXEO_VERSION}.zip \ 
+    && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
     && ln -s ${NUXEO_DISTRIBUTION} nuxeo \

@@ -2,12 +2,14 @@ version: "3"
 services:
   opendj:
     image: osivia/opendj:toutatice
+    build: ../opendj
     ports:
       - 1389:${PUBLIC_LDAP_PORT}
     volumes:
       - opendj-data:/opt/opendj/db
   cas:
     image: osivia/cas:toutatice
+    build: ../cas
     environment:
       - LDAP_HOST=opendj
     ports:
@@ -20,6 +22,14 @@ services:
       - POSTGRES_DB=nuxeodb
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  postgres-notif:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_PASSWORD=osivia
+      - POSTGRES_USER=notif
+      - POSTGRES_DB=notifdb
+    volumes:
+      - postgres-notif-data:/var/lib/postgresql/data
   es:
     image: elasticsearch:1.7.6
     command: elasticsearch -Des.cluster.name=es-cluster
@@ -27,12 +37,14 @@ services:
       - 9200
     volumes:
       - es-data:/usr/share/elasticsearch/data
-#  fakesmtp:
-#    image: munkyboy/fakesmtp
-#    ports:
-#      - 25
-#    volumes:
-#      - ./mails:/var/mail
+  fakesmtp:
+    image: munkyboy/fakesmtp
+    profiles:
+      - fakesmtp
+    ports:
+      - 25
+    volumes:
+      - ./mails:/var/mail
 #  fakesmtp-web:
 #    image: mjstewart/fakesmtp-web:1.2
 #    ports:
@@ -62,6 +74,7 @@ services:
       - nuxeo-data:/data
     depends_on:
       - postgres
+      - postgres-notif
       - es
   mysql:
     image: mysql:5.7
@@ -88,6 +101,8 @@ services:
       - 8787:${PUBLIC_PORTAL_DEBUG_PORT}
     depends_on:
       - mysql
+    volumes:
+      - portal-data-h5p:/opt/h5p      
   httpd:
     image: osivia/httpd:toutatice
     build: ../httpd
@@ -99,39 +114,43 @@ services:
       - PORTAL_HOSTS=portal
       - OO_HOST=onlyoffice
       - WEBMAIL_HOST=fakesmtp-web
-      - MATOMO_HOST=matomo
     ports:
       - 80:${PUBLIC_HTTP_PORT}
       - 443:${PUBLIC_HTTPS_PORT}
     volumes:
       - httpd-ssl:/etc/ssl
-    depends_on:
-      - nuxeo
-      - portal
   onlyoffice:
-    image: onlyoffice/documentserver
-    volumes:
-      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
+    profiles:
+      - onlyoffice
+    image: osivia/onlyoffice:toutatice
+    build: ../onlyoffice
+#  onlyoffice:
+#    image: onlyoffice/documentserver:5.5
+#    volumes:
+#      - ./onlyoffice_local.json:/etc/onlyoffice/documentserver/local.json
   kibana:
     image: kibana:4.1
+    profiles:
+      - kibana
     environment:
       - ELASTICSEARCH_URL=http://es:9200
     ports:
       - 5601:${PUBLIC_KIBANA_PORT}
-  contentstore:
-    image: osivia/contentstore:toutatice
-    build: ../contentstore
-    ports:
-      - 8080:8080
-      - 8789:8000
-    environment:
-      - JPDA_ADDRESS=8000
-      - JPDA_TRANSPORT=dt_socket
+#  contentstore:
+#    image: osivia/contentstore:toutatice
+#    ports:
+#      - 8080:8080
+#      - 8789:8000
+#    environment:
+#      - JPDA_ADDRESS=8000
+#      - JPDA_TRANSPORT=dt_socket
 volumes:
   opendj-data:
   postgres-data:
+  postgres-notif-data:
   es-data:
   nuxeo-data:
   mysql-data:
   mail-data:
   httpd-ssl:
+  portal-data-h5p:
