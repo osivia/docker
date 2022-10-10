@@ -127,9 +127,6 @@ if [ "$1" = "start" ]; then
         touch ${PORTAL_LOGS}/server.log
         chown -R $PORTAL_USER: $PORTAL_LOGS
 
-        # h5p
-        chown $PORTAL_USER: /opt/h5p
-
         touch $PORTAL_HOME/configured
     fi    
 
@@ -141,12 +138,6 @@ if [ "$1" = "start" ]; then
     done
     echo "Connection to $PORTAL_DB_HOST:$PORTAL_DB_PORT OK."
 
-    # Wait nuxeo
-#    echo "Waiting for TCP connection to $NUXEO_HOST:8080..."
-#    while ! nc -w 1 $NUXEO_HOST 8080 1>/dev/null 2>/dev/null; do
-#        sleep 1
-#    done
-#    echo "Connection to $NUXEO_HOST:8080 OK."
     
     
     # Start

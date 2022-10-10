@@ -7,8 +7,6 @@ PUBLIC_HOST=${PUBLIC_HOST:-localhost}
 
 CAS_HOST=${CAS_HOST:-cas}
 
-OO_HOST=${OO_HOST:-onlyoffice}
-
 # Nuxeo conf
 NUXEO_CONF=/home/$NUXEO_USER/nuxeo.conf
 
@@ -47,7 +45,6 @@ if [ "$1" = "start" ]; then
         sed -i s\\CAS_HOST\\$CAS_HOST\\g $NUXEO_CONF
         sed -i s\\CAS_PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
         sed -i s\\PUBLIC_HOST\\$PUBLIC_HOST\\g $NUXEO_CONF
-        sed -i s\\OO_HOST\\$OO_HOST\\g $NUXEO_CONF
         sed -i s\\LDAP_HOST\\$LDAP_HOST\\g $NUXEO_CONF
         sed -i s\\MAIL_HOST\\$MAIL_HOST\\g $NUXEO_CONF
 
@@ -63,9 +60,12 @@ if [ "$1" = "start" ]; then
         echo "elasticsearch.addressList=$NUXEO_ES_NODES" >> $NUXEO_CONF
 
         # Data
-        mkdir -p $NUXEO_DATA
+        mkdir -p $NUXEO_DATA/binaries
+        cd $NUXEO_DATA/binaries
+        tar xzf /opt/nxdata.tgz
         chown -R $NUXEO_USER: $NUXEO_DATA
         sed -i s\\^[#]*nuxeo.data.dir=.*$\\nuxeo.data.dir="${NUXEO_DATA}"\\g $NUXEO_CONF
+
         # Logs
         mkdir -p $NUXEO_LOGS
         touch $NUXEO_LOGS/server.log        
