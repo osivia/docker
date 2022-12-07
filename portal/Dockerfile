@@ -15,33 +15,35 @@ RUN locale >> /etc/default/locale
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ENV TOMCAT_ROOT /opt/portal/webapps/
+
+ENV CATALINA_HOME /opt/portal
+ENV PATH $CATALINA_HOME/bin:$PATH
+
 ENV PORTAL_USER portal
-ENV PORTAL_HOME /opt/portal
-ENV PORTAL_ENVIRONMENT=prod
-ENV PORTAL_VERSION=7.0.14-RC01-SNAPSHOT
-#ENV PORTAL_VERSION=6.0.9
-ENV PORTAL_DISTRIBUTION toutatice-portail-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
-ENV PORTAL_CONF production
-ENV PORTAL_HOST 0.0.0.0
+ENV PORTAL_VERSION=8.0-SNAPSHOT
+ENV PORTAL_ENVIRONMENT=dev
+ENV PORTAL_DISTRIBUTION_NAME=toutatice-portail-mutualized-distribution
+ENV PORTAL_DISTRIBUTION ${PORTAL_DISTRIBUTION_NAME}-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
+ENV PORTAL_DISTRIBUTION_ZIP ${PORTAL_DISTRIBUTION_NAME}-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}.zip
 
 # User
-RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
+RUN useradd --create-home --home-dir /home/${PORTAL_USER} --shell /bin/bash --user-group ${PORTAL_USER}
 
 # Distribution
-COPY toutatice-portail-distribution.zip /opt/
+COPY ${PORTAL_DISTRIBUTION_ZIP} /opt/
 RUN cd /opt \
-#	&& wget -q  https://projet.toutatice.fr/nexus3/repository/toutatice-releases/toutatice-portail/acrennes/distribution/toutatice-portail-acrennes-distribution/${PORTAL_VERSION}/toutatice-portail-acrennes-distribution-${PORTAL_VERSION}.zip -O toutatice-portail-acrennes-distribution.zip \
-    && unzip -q toutatice-portail-distribution.zip \
+    && unzip -oq ${PORTAL_DISTRIBUTION_ZIP} \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
-    && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
-    && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
-    && rm -f toutatice-portail-distribution.zip
+    && chown -R ${PORTAL_USER}: /opt/${PORTAL_DISTRIBUTION} \
+    && ln -s /opt/${PORTAL_DISTRIBUTION} portal \
+    && rm -f ${PORTAL_DISTRIBUTION_ZIP}
 
 # Properties
-COPY portal.properties /home/$PORTAL_USER/
-COPY run.conf /home/$PORTAL_USER/
-#COPY environnement_portail.properties /opt/portal/custom/params/
-RUN chown $PORTAL_USER: /home/$PORTAL_USER/*
+COPY portal.properties /home/${PORTAL_USER}/
+COPY configuration-ac-rennes.json /home/${PORTAL_USER}
+COPY configuration-ac-nantes.json /home/${PORTAL_USER}
+RUN chown ${PORTAL_USER}: /home/${PORTAL_USER}/*
 
 # Entrypoint
 COPY entrypoint.sh /
@@ -51,5 +53,4 @@ CMD ["start"]
 
 
 EXPOSE 8080
-
-WORKDIR /opt/portal
+EXPOSE 8787

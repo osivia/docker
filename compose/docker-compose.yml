@@ -1,14 +1,14 @@
 version: "3"
 services:
   opendj:
-    image: osivia/opendj:toutatice
+    image: osivia/opendj:toutatice-mutualisation
     build: ../opendj
     ports:
       - 1389:${PUBLIC_LDAP_PORT}
     volumes:
       - opendj-data:/opt/opendj/db
   cas:
-    image: osivia/cas:toutatice
+    image: osivia/cas:toutatice-mutualisation
     build: ../cas
     environment:
       - LDAP_HOST=opendj
@@ -24,6 +24,8 @@ services:
       - postgres-data:/var/lib/postgresql/data
   postgres-notif:
     image: postgres:9.5
+    profiles:
+      - notifications
     environment:
       - POSTGRES_PASSWORD=osivia
       - POSTGRES_USER=notif
@@ -56,7 +58,7 @@ services:
 #    depends_on:
 #      - fakesmtp
   nuxeo:
-    image: osivia/nuxeo:toutatice
+    image: osivia/nuxeo:toutatice-mutualisation
     build: ../nuxeo
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
@@ -74,37 +76,24 @@ services:
       - nuxeo-data:/data
     depends_on:
       - postgres
-      - postgres-notif
+#      - postgres-notif
       - es
-  mysql:
-    image: mysql:5.7
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    environment:
-      - MYSQL_DATABASE=portaldb
-      - MYSQL_USER=portal
-      - MYSQL_PASSWORD=osivia
-      - MYSQL_ROOT_PASSWORD=osivia
-    volumes:
-      - mysql-data:/var/lib/mysql
   portal:
-    image: osivia/portal:toutatice
+    image: osivia/portal:toutatice-mutualisation
     build: ../portal
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - NUXEO_HOST=nuxeo
-      - PORTAL_DB_HOST=mysql
       - CAS_HOST=cas
       - LDAP_HOST=opendj
       - MAIL_HOST=fakesmtp
     ports:
       - 8080
       - 8787:${PUBLIC_PORTAL_DEBUG_PORT}
-    depends_on:
-      - mysql
     volumes:
       - portal-data-h5p:/opt/h5p      
   httpd:
-    image: osivia/httpd:toutatice
+    image: osivia/httpd:toutatice-mutualisation
     build: ../httpd
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
@@ -122,7 +111,7 @@ services:
   onlyoffice:
     profiles:
       - onlyoffice
-    image: osivia/onlyoffice:toutatice
+    image: osivia/onlyoffice:toutatice-mutualisation
     build: ../onlyoffice
 #  onlyoffice:
 #    image: onlyoffice/documentserver:5.5
@@ -150,7 +139,6 @@ volumes:
   postgres-notif-data:
   es-data:
   nuxeo-data:
-  mysql-data:
   mail-data:
   httpd-ssl:
   portal-data-h5p:
