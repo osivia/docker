@@ -1,4 +1,4 @@
-FROM openjdk:7-jdk
+FROM openjdk:8-jdk
 MAINTAINER Loïc Billon <loic.billon@roqu.io>
 
 RUN apt-get update \

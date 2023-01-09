@@ -32,16 +32,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.2.7
-ENV NUXEO_DISTRIBUTION greta-nx-distrib-${NUXEO_VERSION}
+ENV NUXEO_VERSION=4.2.8-RC01-SNAPSHOT
+ENV NUXEO_DISTRIBUTION toutatice-ecm-acrennes-greta-distribution-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-#COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/acrennes/greta/greta-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip  \
+#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/acrennes/greta/greta-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip  \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
