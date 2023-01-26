@@ -55,8 +55,7 @@
           "type": "page",
           "properties": {
             "layout.id": "toutatice-accueil",
-            "dc:title": "Accueil (2015)",
-            "order": "1",
+            "dc:title": "Accueil",
             "osivia.pageCategory": "Aucune"
           },
           "acls": [
@@ -73,15 +72,13 @@
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/alerte",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.hideEmptyPortlet": "1",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1430313347138",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-jaune,panneau-sans-bordure",
@@ -89,13 +86,12 @@
                 "osivia.fragmentTypeId": "toutatice-zoom",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/tout-sur-toutatice-fr",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "true",
-                "osivia.mobileCollapse": "false"
+                "osivia.bootstrapPanelStyle": "true"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewListPortletInstance_1430748896248",
-              "region": "col2",
+              "region": "col-2",
               "moduleId": "toutatice-portail-cms-nuxeo-viewListPortletInstance",
               "properties": {
                 "osivia.style": "teinte-verte,panneau-sans-bordure",
@@ -105,13 +101,12 @@
                 "osivia.useES": "on",
                 "osivia.bootstrapPanelStyle": "true",
                 "osivia.title": "Ressources",
-                "osivia.mobileCollapse": "false",
                 "osivia.nuxeoRequest": "ecm:primaryType = 'Zoom' and ecm:path STARTSWITH '/toutatice/ressources/accueil/ressources' order by ecm:pos"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1430383229754",
-              "region": "col3",
+              "region": "col-3",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-rouge,panneau-sans-bordure",
@@ -119,27 +114,12 @@
                 "osivia.fragmentTypeId": "toutatice-zoom",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/je-me-connecte",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "true",
-                "osivia.mobileCollapse": "false"
-              }
-            },
-            {
-              "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1430398892216",
-              "region": "col4",
-              "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
-              "properties": {
-                "osivia.style": "teinte-rouge,panneau-sans-bordure",
-                "osivia.hideDecorators": "1",
-                "osivia.fragmentTypeId": "toutatice-zoom",
-                "osivia.cms.uri": "/toutatice/ressources/accueil/je-me-connecte",
-                "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "true",
-                "osivia.mobileCollapse": "false"
+                "osivia.bootstrapPanelStyle": "true"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1429780929787",
-              "region": "content",
+              "region": "header-col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.hideTitle": "1",
@@ -147,14 +127,12 @@
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/bienvenue",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1429781120280",
-              "region": "image",
+              "region": "header-col-2",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.hideTitle": "1",
@@ -162,8 +140,6 @@
                 "osivia.fragmentTypeId": "document_picture",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/accueil",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "file:content"
               }
             },
@@ -178,9 +154,7 @@
                 "osivia.cms.style": "zone-alertes",
                 "portal.windowContentType": "portlet",
                 "osivia.useES": "on",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.beanShell": "on",
-                "osivia.mobileCollapse": "false",
                 "osivia.nuxeoRequest": "java.text.DateFormat dateFormat = new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\");\r\nString timestamp = dateFormat.format(new Date());\r\n\r\nStringBuilder builder = new StringBuilder();\r\nbuilder.append(\"ecm:primaryType = 'Alerte' \");\r\nbuilder.append(\"AND  ecm:path STARTSWITH '/communication-de-crise/communication-crise/crise-accueil' \");\r\nbuilder.append(\"AND alert:dateDebut < TIMESTAMP '\").append(timestamp).append(\"' \");\r\nbuilder.append(\"AND alert:dateFin > TIMESTAMP '\").append(timestamp).append(\"' \");\r\nreturn builder.toString();"
               }
             },
@@ -189,13 +163,10 @@
               "region": "zone-alertes",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
-                "osivia.style": "marge-haute-nulle,marge-basse-nulle",
                 "osivia.hideDecorators": "1",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/elections-pro2022",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.layout.item.id": "",
                 "osivia.hideTitle": "1",
                 "osivia.fragmentTypeId": "html_property",
@@ -212,9 +183,7 @@
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/ressources/accueil/infos",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
@@ -228,9 +197,7 @@
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/ressources/continuite-pedagogique",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             }
@@ -257,10 +224,9 @@
                 "osivia.hideDecorators": "1",
                 "osivia.conditionalScopes": "DSII_Pole-Celluleprojtrans_Personnels|DSII_Pole-DINAMO_Personnels|DSII_Pole-SoNum_Personnels|DSII_Responsable",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
-                "osivia.title": "SAFRAN (en test DSII Sonum, Dinamo, Direction)",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false"
+                "osivia.bootstrapPanelStyle": "true",
+                "osivia.style": "bureau-ressources",
+                "osivia.title": "SAFRAN (en test DSII Sonum, Dinamo, Direction)"
               }
             },
             {
@@ -268,11 +234,11 @@
               "region": "top",
               "moduleId": "toutatice-portail-cms-nuxeo-viewListPortletInstance",
               "properties": {
+                "osivia.hideTitle": "1",
+                "osivia.hideDecorators": "1",
                 "osivia.nuxeoRequest": "ecm:primaryType = 'Annonce' AND ( ecm:path STARTSWITH '/toutatice/vmens/bureau-ens'  or ecm:path STARTSWITH '/toutatice/vmdir/bureau-dir' or ecm:path STARTSWITH '/toutatice/vm-ori/bureau-ori' or ecm:path STARTSWITH 'toutatice/vm-vs/bureau-vs' or ecm:path STARTSWITH '/toutatice/vm-admeple/bureau-admeple' or ecm:path STARTSWITH '/toutatice/vmdir/slider-dir-college-29' or ecm:path startswith '/region-bretagne/publication-profilee') order by dc:modified DESC",
-                "osivia.cms.style": "detailed",
-                "osivia.cms.pageSize": "1",
-                "osivia.bootstrapPanelStyle": "true",
-                "osivia.style": "bg-info",
+                "osivia.cms.style": "slider-bureau-2020",
+                "osivia.cms.pageSize": "5",
                 "osivia.title": "Actualités",
                 "osivia.hideEmptyPortlet": "1"
               }
@@ -290,7 +256,7 @@
           "moduleRefs": [
             {
               "windowName": "toutatice-identite-moncompte-portailPortletInstance_1568105939517",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-identite-moncompte-portailPortletInstance",
               "properties": {
                 "portal.windowContentType": "portlet"
@@ -319,7 +285,7 @@
           "moduleRefs": [
             {
               "windowName": "winD-1669291443927",
-              "region": "col21",
+              "region": "col-1",
               "moduleId": "toutatice-acrennes-mutualized-initializer-instance",
               "properties": {
                 "osivia.hideTitle": "1"
@@ -343,7 +309,7 @@
           "moduleRefs": [
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1510156575816",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-jaune",
@@ -353,14 +319,12 @@
                 "portal.windowContentType": "portlet",
                 "osivia.bootstrapPanelStyle": "true",
                 "osivia.title": "Vous êtes personnel de l'académie de Rennes",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1510157058548",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-bleue",
@@ -370,14 +334,12 @@
                 "portal.windowContentType": "portlet",
                 "osivia.bootstrapPanelStyle": "true",
                 "osivia.title": "Vous êtes parent",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1581084018735",
-              "region": "col2",
+              "region": "col-2",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-rose",
@@ -387,14 +349,12 @@
                 "portal.windowContentType": "portlet",
                 "osivia.bootstrapPanelStyle": "true",
                 "osivia.title": "Vous êtes personnel Education Nationale HORS académie de Rennes",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1510157882404",
-              "region": "col2",
+              "region": "col-2",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-verte",
@@ -404,14 +364,12 @@
                 "portal.windowContentType": "portlet",
                 "osivia.bootstrapPanelStyle": "true",
                 "osivia.title": "Vous êtes élèves",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1515684641859",
-              "region": "col21",
+              "region": "col-3",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.style": "teinte-bleue",
@@ -421,8 +379,6 @@
                 "osivia.cms.uri": "/toutatice/accueil-v2/contact/avis-com-adm-contact2",
                 "portal.windowContentType": "portlet",
                 "osivia.bootstrapPanelStyle": "true",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             }
@@ -441,32 +397,27 @@
           "moduleRefs": [
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1483461147635",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.hideDecorators": "1",
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/accueil-v2/mentions-legales",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.title": "Mentions légales",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             },
             {
               "windowName": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance_1520345869332",
-              "region": "col1",
+              "region": "col-1",
               "moduleId": "toutatice-portail-cms-nuxeo-viewFragmentPortletInstance",
               "properties": {
                 "osivia.hideDecorators": "1",
                 "osivia.fragmentTypeId": "html_property",
                 "osivia.cms.uri": "/toutatice/accueil-v2/toutatice-gar",
                 "portal.windowContentType": "portlet",
-                "osivia.bootstrapPanelStyle": "false",
                 "osivia.title": "L'ENT Toutatice est compatible avec le GAR (Gestionnaire d'Accès aux Ressources)",
-                "osivia.maximized.cms.url": "false",
-                "osivia.mobileCollapse": "false",
                 "osivia.propertyName": "webp:content"
               }
             }

@@ -1,1 +1,59 @@
-{"documents":[{"id":"DEFAULT","type":"space","properties":{"portal.defaultPageId":"DEFAULT_ACCUEIL-ANONYME","coordination.parameter.implicit_mode":"true","osivia.import.enableAutomaticChecking":"true","theme.renderSetId":"OsiviaDefaultRenderer","portal.unprofiledPageId":"DEFAULT_BUREAU-GENERIQUE-2020","layout.id":"acrennes-2-3cols-20|60|20","coordination.event.implicit_mode":"true","osivia.portal.portalType":"static","toutatice.logo":"NORMAL","theme.dyna.partial_refresh_enabled":"true","dc:title":"default","theme.id":"acrennes-2","osivia.hidden":true,"own.avatar.disabled":"true","portal.template.generic.id":"PUBLISH","portal.template.generic.region":"col-1"},"acls":["_anonymous_"],"moduleRefs":[],"profiles":[{"name":"Administrateur","role":"Administrators","url":"","virtualUser":"vu-administrators"}],"styles":["bg-info"],"children":[{"id":"DEFAULT_ACCUEIL-ANONYME","type":"page","properties":{"theme.id":"acrennes-2","layout.id":"acrennes-2-accueil","dc:title":"Accueil","order":"1","osivia.pageCategory":"Aucune"},"acls":["_anonymous_"],"moduleRefs":[]},{"id":"DEFAULT_BUREAU-GENERIQUE-2020","type":"page","properties":{"osivia.layout.groups":"{\"groups\":[{\"id\":\"38a80cf3-3dea-4d9d-b5b1-15ddd0f40b0e\",\"label\":\"Mes ressources\",\"items\":[{\"id\":\"applications\",\"label\":\"Mes applications\",\"icon\":\"glyphicons glyphicons-show-thumbnails\"},{\"id\":\"infos\",\"label\":\"Mes infos\",\"icon\":\"glyphicons glyphicons-info-sign\"},{\"id\":\"espaces\",\"label\":\"Mes espaces\",\"icon\":\"glyphicons glyphicons-folder-open\"},{\"id\":\"documents-partages\",\"label\":\"Mes documents partagés\",\"icon\":\"glyphicons glyphicons-file\"},{\"id\":\"liens\",\"label\":\"Mes liens\",\"icon\":\"glyphicons glyphicons-link\"}]}]}","layout.id":"acrennes-2-bureau-2020","dc:title":"Mon bureau"},"acls":["group:members"],"moduleRefs":[{"windowName":"toutatice-safran-client-instance_1652094195235","region":"resources","moduleId":"toutatice-safran-client-instance","properties":{"osivia.layout.item.id":"applications","osivia.hideDecorators":"1","osivia.conditionalScopes":"DSII_Pole-Celluleprojtrans_Personnels|DSII_Pole-DINAMO_Personnels|DSII_Pole-SoNum_Personnels|DSII_Responsable","portal.windowContentType":"portlet","osivia.bootstrapPanelStyle":"false","osivia.title":"SAFRAN (en test DSII Sonum, Dinamo, Direction)","osivia.maximized.cms.url":"false","osivia.mobileCollapse":"false"}},{"windowName":"winD-1669280097693","region":"top","moduleId":"toutatice-portail-cms-nuxeo-viewListPortletInstance","properties":{"osivia.nuxeoRequest":"ecm:primaryType = 'Annonce' AND ( ecm:path STARTSWITH '/toutatice/vmens/bureau-ens'  or ecm:path STARTSWITH '/toutatice/vmdir/bureau-dir' or ecm:path STARTSWITH '/toutatice/vm-ori/bureau-ori' or ecm:path STARTSWITH 'toutatice/vm-vs/bureau-vs' or ecm:path STARTSWITH '/toutatice/vm-admeple/bureau-admeple' or ecm:path STARTSWITH '/toutatice/vmdir/slider-dir-college-29' or ecm:path startswith '/region-bretagne/publication-profilee') order by dc:modified DESC","osivia.cms.style":"detailed","osivia.cms.pageSize":"1","osivia.bootstrapPanelStyle":"true","osivia.style":"bg-info","osivia.title":"Actualités","osivia.hideEmptyPortlet":"1"}}]},{"id":"MONCOMPTE","type":"page","properties":{"layout.id":"acrennes-2-1col-100","dc:title":"Mon compte","osivia.pageCategory":"defaut"},"moduleRefs":[{"windowName":"toutatice-identite-moncompte-portailPortletInstance_1568105939517","region":"col1","moduleId":"toutatice-identite-moncompte-portailPortletInstance","properties":{"portal.windowContentType":"portlet"}}]},{"id":"PUBLISH","type":"page","properties":{"layout.id":"acrennes-2-1col-100","dc:title":"publish"},"acls":["_anonymous_"],"moduleRefs":[]},{"id":"ADMIN","type":"page","properties":{"dc:title":"Administration"},"moduleRefs":[{"windowName":"winD-1669291443927","region":"col21","moduleId":"toutatice-acrennes-mutualized-initializer-instance","properties":{"osivia.hideTitle":"1"}}]}]}]}
+{
+  "documents": [
+    {
+      "id": "DEFAULT",
+      "type": "space",
+      "properties": {
+        "portal.defaultPageId": "DEFAULT_HOME",
+        "theme.renderSetId": "OsiviaDefaultRenderer",
+        "portal.unprofiledPageId": "DEFAULT_DESKTOP",
+        "layout.id": "portal-default-1-col",
+        "theme.dyna.partial_refresh_enabled": "true",
+        "dc:title": "default",
+        "theme.id": "portal-default",
+        "osivia.hidden": true,
+        "portal.template.generic.id": "PUBLISH",
+        "portal.template.generic.region": "col-1"
+      },
+      "acls": [
+        "_anonymous_"
+      ],
+      "moduleRefs": [],
+      "profiles": [
+        {
+          "name": "Administrateur",
+          "role": "Administrators",
+          "url": "",
+          "virtualUser": "vu-administrators"
+        }
+      ],
+      "styles": [],
+      "children": [
+        {
+          "id": "DEFAULT_HOME",
+          "type": "page",
+          "properties": {
+            "dc:title": "Accueil"
+          },
+          "moduleRefs": []
+        },
+        {
+          "id": "DEFAULT_DESKTOP",
+          "type": "page",
+          "properties": {
+            "dc:title": "Bureau"
+          },
+          "moduleRefs": []
+        },
+        {
+          "id": "PUBLISH",
+          "type": "page",
+          "properties": {
+            "dc:title": "publish"
+          },
+          "moduleRefs": []
+        }
+      ]
+    }
+  ]
+}
