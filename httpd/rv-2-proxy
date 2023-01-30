@@ -11,7 +11,8 @@
     ProxyPassMatch ^/(portal(-[a-z])+.*)$           balancer://clusterportal/$1 stickysession=ROUTEID nofailover=On
     ProxyPassMatch ^/(osivia(-[a-z])+.*)$           balancer://clusterportal/$1 stickysession=ROUTEID nofailover=On
     ProxyPassMatch ^/(toutatice(-[a-z])+.*)$        balancer://clusterportal/$1 stickysession=ROUTEID nofailover=On    
-        
+    ProxyPassMatch ^/(elen(-[a-z])+.*)$             balancer://clusterportal/$1 stickysession=ROUTEID nofailover=On
+
     ProxyPass /nuxeo http://NUXEO_HOST:8080/nuxeo
     ProxyPassReverse /nuxeo  http://NUXEO_HOST:8080/nuxeo
     
