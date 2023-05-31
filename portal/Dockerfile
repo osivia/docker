@@ -3,7 +3,7 @@ MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 
 RUN apt-get update \
-    && apt-get install -y netcat locales vim \
+    && apt-get install -y  --force-yes netcat locales vim \
     && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,9 +17,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PORTAL_USER portal
 ENV PORTAL_HOME /opt/portal
-ENV PORTAL_ENVIRONMENT=prod
-ENV PORTAL_VERSION=7.0.14-RC01-SNAPSHOT
+ENV PORTAL_ENVIRONMENT=dev
+ENV PORTAL_VERSION=7.0-SNAPSHOT
 #ENV PORTAL_VERSION=6.0.9
+ENV PORTAL_ZIP toutatice-portail-distribution-${PORTAL_VERSION}-${PORTAL_ENVIRONMENT}.zip
 ENV PORTAL_DISTRIBUTION toutatice-portail-distribution-${PORTAL_ENVIRONMENT}-${PORTAL_VERSION}
 ENV PORTAL_CONF production
 ENV PORTAL_HOST 0.0.0.0
@@ -28,14 +29,14 @@ ENV PORTAL_HOST 0.0.0.0
 RUN useradd --create-home --home-dir /home/$PORTAL_USER --shell /bin/bash --user-group $PORTAL_USER
 
 # Distribution
-COPY toutatice-portail-distribution.zip /opt/
+COPY ${PORTAL_ZIP} /opt/
 RUN cd /opt \
 #	&& wget -q  https://projet.toutatice.fr/nexus3/repository/toutatice-releases/toutatice-portail/acrennes/distribution/toutatice-portail-acrennes-distribution/${PORTAL_VERSION}/toutatice-portail-acrennes-distribution-${PORTAL_VERSION}.zip -O toutatice-portail-acrennes-distribution.zip \
-    && unzip -q toutatice-portail-distribution.zip \
+    && unzip -q ${PORTAL_ZIP} \
     && chmod -R 755 /opt/${PORTAL_DISTRIBUTION} \
     && chown -R $PORTAL_USER: /opt/${PORTAL_DISTRIBUTION} \
     && ln -s /opt/${PORTAL_DISTRIBUTION} $PORTAL_HOME \
-    && rm -f toutatice-portail-distribution.zip
+    && rm -f ${PORTAL_ZIP} 
 
 # Properties
 COPY portal.properties /home/$PORTAL_USER/

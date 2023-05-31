@@ -3,14 +3,13 @@ MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 # Update
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --force-yes --no-install-recommends \
         netcat \
 	    perl \
 	    locales \
 	    pwgen \
 	    imagemagick \
 	    ffmpeg2theora \
-	    ufraw \
 	    poppler-utils \
 	    libwpd-tools \
 	    exiftool \
@@ -32,8 +31,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=4.7-SNAPSHOT
-ENV NUXEO_DISTRIBUTION acrennes-nx-distrib-${NUXEO_VERSION}
+ENV NUXEO_VERSION=5.0.1-SNAPSHOT
+ENV NUXEO_DISTRIBUTION toutatice-ecm-acrennes-distribution-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
@@ -47,7 +46,7 @@ RUN cd /opt \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
     && ln -s ${NUXEO_DISTRIBUTION} nuxeo \
     && rm -f ${NUXEO_DISTRIBUTION}.zip
-COPY usermanager-config.xml /opt/nuxeo/templates/opentoutatice/nxserver/config/
+#COPY usermanager-config.xml /opt/nuxeo/templates/opentoutatice/nxserver/config/
 
 # Properties
 COPY nuxeo.conf /home/$NUXEO_USER/

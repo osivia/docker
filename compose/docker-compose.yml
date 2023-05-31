@@ -39,8 +39,6 @@ services:
       - es-data:/usr/share/elasticsearch/data
   fakesmtp:
     image: munkyboy/fakesmtp
-    profiles:
-      - fakesmtp
     ports:
       - 25
     volumes:
@@ -68,7 +66,7 @@ services:
       - OO_HOST=onlyoffice
       - MAIL_HOST=fakesmtp
     ports:
-      - 8080
+      - 8181:8080
       - 8788:${PUBLIC_NUXEO_DEBUG_PORT}
     volumes:
       - nuxeo-data:/data
@@ -144,6 +142,16 @@ services:
 #    environment:
 #      - JPDA_ADDRESS=8000
 #      - JPDA_TRANSPORT=dt_socket
+  apis:
+    image: roquio/apis:toutatice
+    build: ../apis
+    ports:
+      - 8282:8080
+      - 8790:8000
+    environment:
+      - LDAP_HOST=opendj
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
 volumes:
   opendj-data:
   postgres-data:
