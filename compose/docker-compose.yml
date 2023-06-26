@@ -12,8 +12,13 @@ services:
     build: ../cas
     environment:
       - LDAP_HOST=opendj
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     ports:
+      - "8789:5005"
       - 8080
+      - 8443
+    links:
+      - opendj
   postgres:
     image: postgres:9.5
     environment:
@@ -40,7 +45,7 @@ services:
       - NUXEO_ES_CLUSTER=es-cluster
       - NUXEO_ES_NODES=es:9300
     ports:
-      - 8080
+      - 8181:8080
       - 8788:${PUBLIC_NUXEO_DEBUG_PORT}
     volumes:
       - nuxeo-data:/data
@@ -58,6 +63,10 @@ services:
     ports:
       - 8080
       - 8787:${PUBLIC_PORTAL_DEBUG_PORT}
+    extra_hosts:
+      - "api-binaires:host-gateway"
+      - "api-actualites:host-gateway"
+      - "safran-hub:host-gateway"
   httpd:
     image: osivia/httpd:elen
     build: ../httpd
@@ -80,7 +89,16 @@ services:
       - ELASTICSEARCH_URL=http://es:9200
     ports:
       - 5601:${PUBLIC_KIBANA_PORT}
-
+  apis:
+    image: roquio/apis:elen
+    build: ../apis
+    ports:
+      - 8282:8080
+      - 8790:8000
+    environment:
+      - LDAP_HOST=opendj
+      - JPDA_ADDRESS=8000
+      - JPDA_TRANSPORT=dt_socket
 volumes:
   opendj-data:
   postgres-data:

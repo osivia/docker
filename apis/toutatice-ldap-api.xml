@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+    <Parameter name="ldap.base" value="dc=ent-bretagne,dc=fr"/>
+
+    <Parameter name="ldap.lecture.user.dn" value="cn=directory manager"/>
+    <Parameter name="ldap.lecture.user.pwd" value="osivia"/>
+    <Parameter name="ldap.lecture.url" value="ldap://opendj:1389"/>
+
+    <Parameter name="ldap.ecriture.user.dn" value="cn=directory manager"/>
+    <Parameter name="ldap.ecriture.user.pwd" value="osivia"/>
+    <Parameter name="ldap.ecriture.url" value="ldap://opendj:1389"/>
+
+    <Parameter name="toutatice.ldap.jwt.secret.contentstore" value="contentstore"/>
+
+</Context>
+

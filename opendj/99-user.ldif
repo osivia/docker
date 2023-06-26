@@ -87,6 +87,8 @@ attributeTypes: ( ENTApplicationDbUri-oid NAME 'ENTApplicationDbUri'  SYNTAX 1
 attributeTypes: ( ENTPersonSourceSI-oid NAME 'ENTPersonSourceSI' DESC 'SI de p
  rovenance de la personne' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE 
  X-ORIGIN 'user defined' )
+attributeTypes: ( ENTPersonUid-oid NAME 'ENTPersonUid' DESC 'Identifiant opaque' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE
+ X-ORIGIN 'user defined' )
 attributeTypes: ( ENTEleveBoursier-oid NAME 'ENTEleveBoursier'  SYNTAX 1.3.6.1
  .4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
 attributeTypes: ( ENTStructureNomCourant-oid NAME 'ENTStructureNomCourant'  SY
@@ -310,7 +312,7 @@ objectClasses: ( 1.3.6.1.4.20326.1.14.999.1.91 NAME 'ENTPerson' SUP top STRUCT
   ENTExplicitManager $ typensi $ MembreDe $ ENTPersonStructRattach $ ENTPerso
  nNomPatro $ ENTPersonFonctions $ ENTPersonProfils $ ENTPersonSourceSI $ ENTP
  ersonSmdp $ ENTPersonListeRouge $ ENTPersonAlias $ ENTPersonDateNaissance $ 
- ENTPersonDerMaj $ ENTPersonEtab $ ENTPersonLogin ) X-ORIGIN 'user defined' )
+ ENTPersonDerMaj $ ENTPersonEtab $ ENTPersonLogin $ ENTPersonUid) X-ORIGIN 'user defined' )
 objectClasses: ( ENTGroupe-oid NAME 'ENTGroupe' SUP groupOfNames STRUCTURAL MA
  Y ENTEleveGroupes X-ORIGIN 'user defined' )
 objectClasses: ( ENTEleve-oid NAME 'ENTEleve' SUP top STRUCTURAL MAY ( ENTElev
