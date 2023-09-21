@@ -31,7 +31,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION=5.0.1-SNAPSHOT
+ENV NUXEO_VERSION=5.0.6
 ENV NUXEO_DISTRIBUTION toutatice-ecm-acrennes-distribution-${NUXEO_VERSION}
 
 # User

@@ -159,5 +159,8 @@ if [ "$1" = "start" ]; then
     exec su - $PORTAL_USER -c "$PORTAL_CMD"
 fi
 
+    # Avatars storage
+    chown -R ${PORTAL_USER}: /tmp/avatars
+
 
 exec "$@"

@@ -270,6 +270,8 @@ attributeTypes: ( ENTEleveStructRattachId-oid NAME 'ENTEleveStructRattachId'
 attributeTypes: ( ENTEleveNivFormation-oid NAME 'ENTEleveNivFormation' DESC 'r
  elation niveau eleve' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'user de
  fined' )
+attributeTypes: ( ENTPersonUrlAvatar-oid NAME 'ENTPersonUrlAvatar' DESC 'URL a
+ vatar' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'user defined' )
 objectClasses: ( ENTEnsClasse-oid NAME 'ENTEnsClasse' SUP groupofuniquenames S
  TRUCTURAL X-ORIGIN 'user defined' )
 objectClasses: ( 1.3.6.1.4.20326.1.14.999.1.93 NAME 'Personnel' DESC 'Objet de
@@ -312,7 +314,7 @@ objectClasses: ( 1.3.6.1.4.20326.1.14.999.1.91 NAME 'ENTPerson' SUP top STRUCT
   ENTExplicitManager $ typensi $ MembreDe $ ENTPersonStructRattach $ ENTPerso
  nNomPatro $ ENTPersonFonctions $ ENTPersonProfils $ ENTPersonSourceSI $ ENTP
  ersonSmdp $ ENTPersonListeRouge $ ENTPersonAlias $ ENTPersonDateNaissance $ 
- ENTPersonDerMaj $ ENTPersonEtab $ ENTPersonLogin $ ENTPersonUid) X-ORIGIN 'user defined' )
+ ENTPersonDerMaj $ ENTPersonEtab $ ENTPersonLogin $ ENTPersonUid $ ENTPersonUrlAvatar) X-ORIGIN 'user defined' )
 objectClasses: ( ENTGroupe-oid NAME 'ENTGroupe' SUP groupOfNames STRUCTURAL MA
  Y ENTEleveGroupes X-ORIGIN 'user defined' )
 objectClasses: ( ENTEleve-oid NAME 'ENTEleve' SUP top STRUCTURAL MAY ( ENTElev
