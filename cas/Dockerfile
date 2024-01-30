@@ -21,8 +21,8 @@ RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # Distribution
-#RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/cas-server-webapp/4.4.30.1/cas-server-webapp-4.4.30.1.war -O cas.war
-COPY cas.war ${TOMCAT_ROOT}
+RUN cd ${TOMCAT_ROOT} && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/fr/gouv/education/foad/cas-server-webapp/4.4.31.1/cas-server-webapp-4.4.31.1.war -O cas.war
+#COPY cas.war ${TOMCAT_ROOT}
 
 RUN mkdir -p /appli/conf
 
@@ -30,6 +30,10 @@ COPY cas.properties $CAS_CONFIG
 COPY ehcache-replicated.xml $CAS_CONFIG
 COPY log4j2.xml $CAS_CONFIG
 COPY server.xml $CATALINA_HOME/conf
+
+ENV SERVICES_PATH /appli/conf/services/
+COPY http.json $SERVICES_PATH
+COPY https.json $SERVICES_PATH
 
 # Entrypoint
 COPY entrypoint.sh /

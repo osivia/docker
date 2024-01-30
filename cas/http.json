@@ -1,0 +1,10 @@
+{
+  "@class" : "org.jasig.cas.services.RegexRegisteredService",
+  "serviceId" : "http.*",
+  "name" : "http",
+  "id" : 2,
+  "description" : "HTTP",
+  "attributeReleasePolicy" : {
+    "@class" : "org.jasig.cas.services.ReturnAllAttributeReleasePolicy"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@class" : "org.jasig.cas.services.RegexRegisteredService",
+  "serviceId" : "https.*",
+  "name" : "https",
+  "id" : 1,
+  "description" : "HTTPS",
+  "attributeReleasePolicy" : {
+    "@class" : "org.jasig.cas.services.ReturnAllAttributeReleasePolicy"
+  }
+}
