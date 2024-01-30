@@ -150,7 +150,23 @@ services:
       - 8791:8000
     environment:
       - JPDA_ADDRESS=8000
-      - JPDA_TRANSPORT=dt_socket            
+      - JPDA_TRANSPORT=dt_socket
+  collabora:
+    image: collabora/code
+    cap_add:
+      - MKNOD
+    privileged: true
+    environment:
+      - aliasgroup1=http://tribu.local:8080
+      - "extra_params=--o:ssl.enable=false --o:per_document.always_save_on_exit=true"
+    ports:
+      - "9980:9980"
+    extra_hosts:
+      - tribu.local:host-gateway
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
 volumes:
   opendj-data:
   opendj-backup:
