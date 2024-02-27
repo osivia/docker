@@ -32,8 +32,9 @@ services:
       - postgres-backup:/backup
       - ../tools/postgres:/root/bin
   es:
-    image: elasticsearch:1.7.6
-    command: elasticsearch -Des.cluster.name=es-cluster
+#    image: elasticsearch:1.7.6
+    build: ../es
+    command: elasticsearch -Des.cluster.name=es-cluster -Des.path.repo=//usr/share/elasticsearch/
     ports:
       - 9200
     volumes:
@@ -48,8 +49,6 @@ services:
       - 5601:5601
   fakesmtp:
     image: munkyboy/fakesmtp
-    profiles:
-      - fakesmtp
     ports:
       - 25
     volumes:
@@ -91,6 +90,8 @@ services:
   portal:
     image: osivia/portal:tribu
     build: ../portal
+    profiles:
+      - portal
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
       - PORTAL_JBOSS_PORT=${PORTAL_PORT}
@@ -115,7 +116,7 @@ services:
       - CAS_PORT=${CAS_PORT}
       - NUXEO_HOST=nuxeo
       - NUXEO_PORT=${NUXEO_PORT}
-      - PORTAL_HOSTS=portal
+      - PORTAL_HOSTS=portal,portal2
       - PORTAL_PORT=${PORTAL_PORT}
       - OO_HOST=onlyoffice
       - PORTALV2_HOST=portalv2
@@ -123,7 +124,9 @@ services:
     - 80:80
     - 443:443
     volumes:
-      - ./certs:/etc/ssl/certs       
+      - ./certs:/etc/ssl/certs
+    extra_hosts:
+      - dev.local:host-gateway
   onlyoffice:
     image: osivia/onlyoffice:tribu
     build: ../onlyoffice
@@ -152,13 +155,14 @@ services:
       - JPDA_ADDRESS=8000
       - JPDA_TRANSPORT=dt_socket
   collabora:
-    image: collabora/code
+    #image: collabora/code
+    build: ../collabora
     cap_add:
       - MKNOD
     privileged: true
     environment:
-      - aliasgroup1=http://tribu.local:8080
-      - "extra_params=--o:ssl.enable=false --o:per_document.always_save_on_exit=true"
+      - aliasgroup1=https://tribu.local:443
+      #- "extra_params=--o:ssl.enable=false --o:per_document.always_save_on_exit=true"
     ports:
       - "9980:9980"
     extra_hosts:

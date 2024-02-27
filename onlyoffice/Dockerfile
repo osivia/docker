@@ -1,4 +1,4 @@
-FROM onlyoffice/documentserver:5.5.3.39
+FROM onlyoffice/documentserver:7.2.1
 LABEL maintainer="Loïc Billon <lbillon@osivia.com>"
 
 RUN apt-get update && apt-get install -y locales vim \
@@ -13,7 +13,7 @@ ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV OO_CONF /etc/onlyoffice/documentserver/
-COPY local.json ${OO_CONF}
+COPY local.json ${OO_CONF}/local-production-linux.json
 
 ENTRYPOINT /app/ds/run-document-server.sh
 

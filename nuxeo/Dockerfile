@@ -3,14 +3,13 @@ MAINTAINER Cédric Krommenhoek <ckrommenhoek@osivia.com>
 
 # Update
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y --force-yes --no-install-recommends \
         netcat \
 	    perl \
 	    locales \
 	    pwgen \
 	    imagemagick \
 	    ffmpeg2theora \
-	    ufraw \
 	    poppler-utils \
 	    libwpd-tools \
 	    exiftool \
@@ -32,16 +31,17 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Vars
 ENV NUXEO_USER nuxeo
 ENV NUXEO_HOME /opt/nuxeo
-ENV NUXEO_VERSION 4.4.30.2
+#ENV NUXEO_VERSION 4.4.31.2
+ENV NUXEO_VERSION 4.4-SNAPSHOT
 ENV NUXEO_DISTRIBUTION ottc-collab-nx-distrib-${NUXEO_VERSION}
 
 # User
 RUN useradd --create-home --home-dir /home/$NUXEO_USER --shell /bin/bash --user-group $NUXEO_USER
 
 # Distribution
-#COPY ${NUXEO_DISTRIBUTION}.zip /opt/
+COPY ${NUXEO_DISTRIBUTION}.zip /opt/
 RUN cd /opt \
-    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/opentoutatice-ecm/distribtion/ottc-collab-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
+#    && wget -q http://www.osivia.org/nexus/content/repositories/osivia-releases/opentoutatice-ecm/distribtion/ottc-collab-nx-distrib/${NUXEO_VERSION}/${NUXEO_DISTRIBUTION}.zip \
     && unzip -q ${NUXEO_DISTRIBUTION}.zip \
     && chmod -R 755 /opt/${NUXEO_DISTRIBUTION} \
     && chown -R $NUXEO_USER: /opt/${NUXEO_DISTRIBUTION} \
